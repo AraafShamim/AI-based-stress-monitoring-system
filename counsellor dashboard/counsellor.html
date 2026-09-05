@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MannSetu | Counsellor Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Counsellor Dashboard CSS -->
+    <link rel="stylesheet" href="counsellor.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <!-- Logo -->
+       
+        <div class="logo">
+
+                <h1 class="logo">
+                <span class="mann">मन</span><span class="setu">Setu</span>
+                </h1>
+
+            </div>
+
+        
+
+        <!-- Counsellor Profile -->
+        <div class="counsellor-profile">
+
+            <div class="profile-avatar">
+                RK
+            </div>
+
+            <div class="profile-info">
+                <h4>Dr. Riya Khanna</h4>
+                <p>Counsellor</p>
+            </div>
+
+            <i class="fa-solid fa-chevron-down profile-arrow"></i>
+
+        </div>
+
+
+        <!-- Navigation -->
+        <nav class="sidebar-nav">
+
+            <p class="nav-title">WORKSPACE</p>
+
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-table-columns"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-users"></i>
+                <span>My Clients</span>
+                <span class="nav-badge">24</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-calendar-check"></i>
+                <span>Appointments</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-clipboard"></i>
+                <span>Assessments</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span>Alerts</span>
+                <span class="nav-badge alert-badge">3</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-message"></i>
+                <span>Messages</span>
+                <span class="nav-badge">5</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-chart-column"></i>
+                <span>Reports</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Resources</span>
+            </a>
+
+        </nav>
+
+
+        <!-- Bottom Navigation -->
+
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-circle-question"></i>
+                <span>Help & Support</span>
+            </a>
+
+            <a href="#" class="nav-item logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log out</span>
+            </a>
+
+        </div>
+
+
+        <!-- Privacy Text -->
+        <div class="privacy-note">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Your workspace is private and secure.</span>
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <span>Workspace</span>
+                <i class="fa-solid fa-chevron-right"></i>
+                <strong>Overview</strong>
+            </div>
+
+
+            <div class="topbar-right">
+
+                <!-- Search -->
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input
+                        type="text"
+                        placeholder="Search clients, appointments..."
+                    >
+
+                </div>
+
+
+                <!-- Notification -->
+                <button class="top-icon notification-btn">
+
+                    <i class="fa-regular fa-bell"></i>
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <!-- Profile -->
+                <div class="top-profile">
+
+                    <div class="top-avatar">
+                        RK
+                    </div>
+
+                    <span>Dr. Riya Khanna</span>
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="content">
+
+
+            <!-- =================================================
+                 WELCOME SECTION
+            ================================================== -->
+
+            <div class="welcome-section">
+
+                <div class="welcome-text">
+
+                    <p class="date">
+                        TUESDAY, SEPTEMBER 4, 2026
+                    </p>
+
+                    <h1>
+                        Good morning, Dr. Riya
+                        <span>👋</span>
+                    </h1>
+
+                    <p class="welcome-subtitle">
+                        Here's what's happening in your practice today.
+                    </p>
+
+                </div>
+
+
+                <button class="schedule-btn">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    View Schedule
+
+                </button>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 STAT CARDS
+            ================================================== -->
+
+            <div class="stats-grid">
+
+
+                <!-- Active Clients -->
+
+                <div class="stat-card clients-stat">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon green-icon">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+
+                        <span class="stat-change positive">
+                            +12%
+                        </span>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Active Clients
+                    </p>
+
+                    <h2>
+                        24
+                    </h2>
+
+                    <p class="stat-comparison">
+                        vs. 21 last month
+                    </p>
+
+                    <div class="mini-chart green-chart">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                </div>
+
+
+
+                <!-- Sessions -->
+
+                <div class="stat-card sessions-stat">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon blue-icon">
+                            <i class="fa-regular fa-calendar"></i>
+                        </div>
+
+                        <span class="stat-change positive">
+                            +8%
+                        </span>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Sessions This Month
+                    </p>
+
+                    <h2>
+                        68
+                    </h2>
+
+                    <p class="stat-comparison">
+                        vs. 63 last month
+                    </p>
+
+                    <div class="mini-chart blue-chart">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                </div>
+
+
+
+                <!-- Distress -->
+
+                <div class="stat-card distress-stat">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon yellow-icon">
+                            <i class="fa-solid fa-wave-square"></i>
+                        </div>
+
+                        <span class="stat-change negative">
+                            -14%
+                        </span>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Avg. Distress Score
+                    </p>
+
+                    <h2>
+                        42<span class="score-total">/100</span>
+                    </h2>
+
+                    <p class="stat-comparison">
+                        12 points lower than May
+                    </p>
+
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
+
+                </div>
+
+
+
+                <!-- Attention -->
+
+                <div class="stat-card attention-stat">
+
+                    <div class="stat-top">
+
+                        <div class="stat-icon red-icon">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+
+                        <span class="action-needed">
+                            Action needed
+                        </span>
+
+                    </div>
+
+                    <p class="stat-label">
+                        Clients Needing Attention
+                    </p>
+
+                    <h2>
+                        3
+                    </h2>
+
+                    <p class="stat-comparison">
+                        Review recommended today
+                    </p>
+
+                    <div class="alert-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CLIENT OVERVIEW + PRIORITY ALERTS
+            ================================================== -->
+
+            <div class="middle-grid">
+
+
+                <!-- CLIENT OVERVIEW -->
+
+                <div class="dashboard-card client-overview-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <p class="section-label">
+                                YOUR CASELOAD
+                            </p>
+
+                            <h2>
+                                Client Overview
+                            </h2>
+
+                        </div>
+
+                        <a href="#" class="view-link">
+                            View all
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+
+                    <!-- Table Header -->
+
+                    <div class="client-table">
+
+                        <div class="table-header">
+
+                            <span>CLIENT</span>
+                            <span>STATUS</span>
+                            <span>DISTRESS SCORE</span>
+                            <span>TREND</span>
+                            <span>NEXT CHECK-IN</span>
+                            <span>ACTION</span>
+
+                        </div>
+
+
+
+                        <!-- Client 1 -->
+
+                        <div class="client-row">
+
+                            <div class="client-name">
+
+                                <div class="client-avatar avatar-green">
+                                    AS
+                                </div>
+
+                                <div>
+                                    <strong>Aarav Sharma</strong>
+                                    <small>Anxiety & stress</small>
+                                </div>
+
+                            </div>
+
+
+                            <span class="status stable">
+                                <i class="fa-solid fa-circle"></i>
+                                Stable
+                            </span>
+
+
+                            <div class="distress-score">
+
+                                <span>32%</span>
+
+                                <div class="score-bar">
+                                    <div style="width:32%;"></div>
+                                </div>
+
+                            </div>
+
+
+                            <span class="trend improving">
+                                <i class="fa-solid fa-arrow-trend-down"></i>
+                            </span>
+
+
+                            <span class="checkin-time">
+                                Today, 10:30 AM
+                            </span>
+
+
+                            <button class="more-btn">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- Client 2 -->
+
+                        <div class="client-row">
+
+                            <div class="client-name">
+
+                                <div class="client-avatar avatar-pink">
+                                    MK
+                                </div>
+
+                                <div>
+                                    <strong>Meera Kapoor</strong>
+                                    <small>Academic pressure</small>
+                                </div>
+
+                            </div>
+
+
+                            <span class="status attention">
+                                <i class="fa-solid fa-circle"></i>
+                                Needs Attention
+                            </span>
+
+
+                            <div class="distress-score">
+
+                                <span>68%</span>
+
+                                <div class="score-bar">
+                                    <div style="width:68%;"></div>
+                                </div>
+
+                            </div>
+
+
+                            <span class="trend worsening">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </span>
+
+
+                            <span class="checkin-time">
+                                Yesterday
+                            </span>
+
+
+                            <button class="more-btn">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- Client 3 -->
+
+                        <div class="client-row">
+
+                            <div class="client-name">
+
+                                <div class="client-avatar avatar-blue">
+                                    RV
+                                </div>
+
+                                <div>
+                                    <strong>Rohan Verma</strong>
+                                    <small>Sleep & wellbeing</small>
+                                </div>
+
+                            </div>
+
+
+                            <span class="status improving-status">
+                                <i class="fa-solid fa-circle"></i>
+                                Improving
+                            </span>
+
+
+                            <div class="distress-score">
+
+                                <span>45%</span>
+
+                                <div class="score-bar">
+                                    <div style="width:45%;"></div>
+                                </div>
+
+                            </div>
+
+
+                            <span class="trend improving">
+                                <i class="fa-solid fa-arrow-trend-down"></i>
+                            </span>
+
+
+                            <span class="checkin-time">
+                                Mon, 4:00 PM
+                            </span>
+
+
+                            <button class="more-btn">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+
+                        </div>
+
+
+
+                        <!-- Client 4 -->
+
+                        <div class="client-row">
+
+                            <div class="client-name">
+
+                                <div class="client-avatar avatar-green">
+                                    NS
+                                </div>
+
+                                <div>
+                                    <strong>Nisha Shah</strong>
+                                    <small>Self-esteem</small>
+                                </div>
+
+                            </div>
+
+
+                            <span class="status stable">
+                                <i class="fa-solid fa-circle"></i>
+                                Stable
+                            </span>
+
+
+                            <div class="distress-score">
+
+                                <span>28%</span>
+
+                                <div class="score-bar">
+                                    <div style="width:28%;"></div>
+                                </div>
+
+                            </div>
+
+
+                            <span class="trend improving">
+                                <i class="fa-solid fa-arrow-trend-down"></i>
+                            </span>
+
+
+                            <span class="checkin-time">
+                                Mon, 11:15 AM
+                            </span>
+
+
+                            <button class="more-btn">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRIORITY ALERTS
+                ================================================== -->
+
+                <div class="dashboard-card alerts-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <p class="section-label">
+                                REVIEW TODAY
+                            </p>
+
+                            <h2>
+                                Priority Alerts
+                                <span class="alert-count">
+                                    3
+                                </span>
+                            </h2>
+
+                        </div>
+
+                        <a href="#" class="view-link">
+                            View all
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+
+
+                    <!-- Alert 1 -->
+
+                    <div class="priority-alert high-alert">
+
+                        <div class="alert-icon">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                        </div>
+
+                        <div class="alert-content">
+
+                            <strong>
+                                Meera Kapoor
+                            </strong>
+
+                            <p>
+                                Distress score increased by 18 points
+                            </p>
+
+                            <small>
+                                2 hours ago
+                            </small>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+
+
+                    <!-- Alert 2 -->
+
+                    <div class="priority-alert warning-alert">
+
+                        <div class="alert-icon">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+
+                        <div class="alert-content">
+
+                            <strong>
+                                Arjun Mehta
+                            </strong>
+
+                            <p>
+                                Missed scheduled check-in
+                            </p>
+
+                            <small>
+                                Yesterday
+                            </small>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+
+
+                    <!-- Alert 3 -->
+
+                    <div class="priority-alert info-alert">
+
+                        <div class="alert-icon">
+                            <i class="fa-solid fa-circle-info"></i>
+                        </div>
+
+                        <div class="alert-content">
+
+                            <strong>
+                                Sana Iyer
+                            </strong>
+
+                            <p>
+                                Assessment is ready for review
+                            </p>
+
+                            <small>
+                                Yesterday
+                            </small>
+
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right"></i>
+
+                    </div>
+
+
+
+                    <button class="review-alerts-btn">
+                        Review all alerts
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 ANALYTICS SECTION
+            ================================================== -->
+
+            <div class="analytics-grid">
+
+
+                <!-- DISTRESS TREND -->
+
+                <div class="dashboard-card trend-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <p class="section-label">
+                                PRACTICE HEALTH
+                            </p>
+
+                            <h2>
+                                Client Distress Trend
+                            </h2>
+
+                            <p class="card-subtitle">
+                                Average distress score across your active clients
+                            </p>
+
+                        </div>
+
+
+                        <select class="period-select">
+
+                            <option>
+                                Last 6 Months
+                            </option>
+
+                            <option>
+                                Last 30 Days
+                            </option>
+
+                            <option>
+                                This Year
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- Chart -->
+
+                    <div class="large-chart">
+
+                        <div class="chart-y-axis">
+
+                            <span>100</span>
+                            <span>75</span>
+                            <span>50</span>
+                            <span>25</span>
+                            <span>0</span>
+
+                        </div>
+
+
+                        <div class="chart-area">
+
+                            <div class="grid-line line-100"></div>
+                            <div class="grid-line line-75"></div>
+                            <div class="grid-line line-50"></div>
+                            <div class="grid-line line-25"></div>
+                            <div class="grid-line line-0"></div>
+
+
+                            <svg
+                                class="distress-svg"
+                                viewBox="0 0 800 250"
+                                preserveAspectRatio="none"
+                            >
+
+                                <defs>
+
+                                    <linearGradient
+                                        id="chartGradient"
+                                        x1="0"
+                                        y1="0"
+                                        x2="0"
+                                        y2="1"
+                                    >
+
+                                        <stop
+                                            offset="0%"
+                                            stop-opacity="0.25"
+                                        />
+
+                                        <stop
+                                            offset="100%"
+                                            stop-opacity="0"
+                                        />
+
+                                    </linearGradient>
+
+                                </defs>
+
+
+                                <path
+                                    class="chart-area-fill"
+                                    d="
+                                    M0,100
+                                    C70,80 100,70 150,90
+                                    C210,110 230,65 300,100
+                                    C360,125 400,110 450,125
+                                    C520,145 540,120 600,160
+                                    C660,190 700,150 800,175
+                                    L800,250
+                                    L0,250
+                                    Z
+                                    "
+                                ></path>
+
+
+                                <path
+                                    class="chart-line-path"
+                                    d="
+                                    M0,100
+                                    C70,80 100,70 150,90
+                                    C210,110 230,65 300,100
+                                    C360,125 400,110 450,125
+                                    C520,145 540,120 600,160
+                                    C660,190 700,150 800,175
+                                    "
+                                ></path>
+
+
+                                <circle cx="0" cy="100" r="6"></circle>
+                                <circle cx="150" cy="90" r="6"></circle>
+                                <circle cx="300" cy="100" r="6"></circle>
+                                <circle cx="450" cy="125" r="6"></circle>
+                                <circle cx="600" cy="160" r="6"></circle>
+                                <circle cx="800" cy="175" r="6"></circle>
+
+                            </svg>
+
+
+                            <div class="chart-months">
+
+                                <span>Mar</span>
+                                <span>Apr</span>
+                                <span>May</span>
+                                <span>Jun</span>
+                                <span>Jul</span>
+                                <span>Aug</span>
+                                <span>Sep</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="chart-footer">
+
+                        <div class="chart-stat">
+
+                            <span class="chart-dot"></span>
+
+                            <span>
+                                Average Distress Score
+                            </span>
+
+                            <strong>
+                                42
+                            </strong>
+
+                            <small>
+                                current average
+                            </small>
+
+                        </div>
+
+
+                        <div class="healthy-trend">
+
+                            <i class="fa-solid fa-wave-square"></i>
+
+                            Trending in a healthy direction
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CLIENT DISTRIBUTION -->
+
+                <div class="dashboard-card distribution-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <p class="section-label">
+                                CLIENT HEALTH
+                            </p>
+
+                            <h2>
+                                Client Status
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="distribution-content">
+
+
+                        <!-- Donut -->
+
+                        <div class="donut-chart">
+
+                            <div class="donut-hole">
+
+                                <strong>
+                                    24
+                                </strong>
+
+                                <span>
+                                    Total Clients
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Legend -->
+
+                        <div class="distribution-list">
+
+                            <div class="distribution-item">
+
+                                <span class="distribution-color stable-color"></span>
+
+                                <span>
+                                    Stable
+                                </span>
+
+                                <strong>
+                                    12 (50%)
+                                </strong>
+
+                            </div>
+
+
+                            <div class="distribution-item">
+
+                                <span class="distribution-color attention-color"></span>
+
+                                <span>
+                                    Needs Attention
+                                </span>
+
+                                <strong>
+                                    7 (29%)
+                                </strong>
+
+                            </div>
+
+
+                            <div class="distribution-item">
+
+                                <span class="distribution-color risk-color"></span>
+
+                                <span>
+                                    High Risk
+                                </span>
+
+                                <strong>
+                                    3 (13%)
+                                </strong>
+
+                            </div>
+
+
+                            <div class="distribution-item">
+
+                                <span class="distribution-color improving-color"></span>
+
+                                <span>
+                                    Improving
+                                </span>
+
+                                <strong>
+                                    2 (8%)
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TODAY'S SCHEDULE
+            ================================================== -->
+
+            <div class="schedule-card dashboard-card">
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <p class="section-label">
+                            TODAY
+                        </p>
+
+                        <h2>
+                            Today's Schedule
+                        </h2>
+
+                    </div>
+
+                    <a href="#" class="view-link">
+                        View full schedule
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+
+                </div>
+
+
+                <div class="schedule-list">
+
+
+                    <!-- Session 1 -->
+
+                    <div class="schedule-item">
+
+                        <div class="session-time green-time">
+                            10:00 AM
+                        </div>
+
+                        <div class="session-info">
+
+                            <strong>
+                                Aarav Sharma
+                            </strong>
+
+                            <span>
+                                Follow-up Session
+                            </span>
+
+                        </div>
+
+                        <button class="session-btn">
+                            Start Session
+                        </button>
+
+                    </div>
+
+
+                    <!-- Session 2 -->
+
+                    <div class="schedule-item">
+
+                        <div class="session-time blue-time">
+                            11:30 AM
+                        </div>
+
+                        <div class="session-info">
+
+                            <strong>
+                                Meera Kapoor
+                            </strong>
+
+                            <span>
+                                Regular Check-in
+                            </span>
+
+                        </div>
+
+                        <button class="session-btn">
+                            Start Session
+                        </button>
+
+                    </div>
+
+
+                    <!-- Session 3 -->
+
+                    <div class="schedule-item">
+
+                        <div class="session-time yellow-time">
+                            02:00 PM
+                        </div>
+
+                        <div class="session-info">
+
+                            <strong>
+                                Rohan Verma
+                            </strong>
+
+                            <span>
+                                Initial Consultation
+                            </span>
+
+                        </div>
+
+                        <button class="session-btn">
+                            Start Session
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <a href="#" class="all-appointments">
+                    View all appointments
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUICK ACTIONS
+            ================================================== -->
+
+            <div class="quick-actions dashboard-card">
+
+                <div class="quick-action">
+
+                    <div class="quick-icon green-icon">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </div>
+
+                    <span>
+                        Add New Client
+                    </span>
+
+                </div>
+
+
+                <div class="quick-action">
+
+                    <div class="quick-icon blue-icon">
+                        <i class="fa-regular fa-calendar-plus"></i>
+                    </div>
+
+                    <span>
+                        Schedule Session
+                    </span>
+
+                </div>
+
+
+                <div class="quick-action">
+
+                    <div class="quick-icon yellow-icon">
+                        <i class="fa-regular fa-clipboard"></i>
+                    </div>
+
+                    <span>
+                        Create Assessment
+                    </span>
+
+                </div>
+
+
+                <div class="quick-action">
+
+                    <div class="quick-icon teal-icon">
+                        <i class="fa-regular fa-message"></i>
+                    </div>
+
+                    <span>
+                        Send Message
+                    </span>
+
+                </div>
+
+
+                <div class="quick-action">
+
+                    <div class="quick-icon purple-icon">
+                        <i class="fa-regular fa-file-lines"></i>
+                    </div>
+
+                    <span>
+                        Generate Report
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Footer -->
+
+            <footer class="dashboard-footer">
+
+                <span>
+                    ✨ Small steps create meaningful change.
+                    You're making a difference.
+                </span>
+
+                <span class="footer-divider"></span>
+
+                <span>
+                    MannSetu practice insights
+                </span>
+
+            </footer>
+
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="counsellor.js"></script>
+
+</body>
+</html>

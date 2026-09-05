@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title> | User Dashboard</title>
+
+
+    <!-- Google Font -->
+
+     <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
+          rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- Dashboard CSS -->
+
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         BACKGROUND
+    ========================================== -->
+
+    <div class="background-shape shape-one"></div>
+
+    <div class="background-shape shape-two"></div>
+
+
+
+    <!-- =========================================
+         MAIN DASHBOARD
+    ========================================== -->
+
+    <div class="dashboard-container">
+
+
+
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
+
+        <aside class="sidebar">
+
+
+            <!-- Logo -->
+
+            <div class="logo">
+
+                <h1 class="logo">
+                <span class="mann">मन</span><span class="setu">Setu</span>
+                </h1>
+
+            </div>
+
+
+
+            <!-- User Profile -->
+
+            <div class="profile">
+
+                <div class="profile-icon">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+                <div class="profile-info">
+
+                    <h3>
+                        Akriti
+                    </h3>
+
+                    <p>
+                        User
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Navigation -->
+
+            <nav class="sidebar-nav">
+
+
+                <a href="#"
+                   class="nav-item active">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="nav-item">
+
+                    <i class="fa-solid fa-heart"></i>
+
+                    <span>
+                        My Wellbeing
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="nav-item">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <span>
+                        Mood Trends
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="nav-item">
+
+                    <i class="fa-solid fa-brain"></i>
+
+                    <span>
+                        AI Insights
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="nav-item">
+
+                    <i class="fa-solid fa-comments"></i>
+
+                    <span>
+                        SentinelAI Chat
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="nav-item">
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    <span>
+                        Counsellor
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="nav-item emergency">
+
+                    <i class="fa-solid fa-life-ring"></i>
+
+                    <span>
+                        Emergency Help
+                    </span>
+
+                </a>
+
+
+            </nav>
+
+
+
+            <!-- Bottom Navigation -->
+
+            <div class="sidebar-bottom">
+
+
+                <a href="#"
+                   class="nav-item">
+
+                    <i class="fa-solid fa-gear"></i>
+
+                    <span>
+                        Settings
+                    </span>
+
+                </a>
+
+
+                <a href="#"
+                   class="nav-item logout">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                    <span>
+                        Log out
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </aside>
+
+
+
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
+        <main class="main-content">
+
+
+
+            <!-- =================================
+                 TOP BAR
+            ================================== -->
+
+            <header class="top-bar">
+
+
+                <div class="welcome">
+
+                    <h2>
+                        HELLO, AKRITI!
+                    </h2>
+
+                    <p>
+                        How are you feeling today?
+                    </p>
+
+                </div>
+
+
+
+                <!-- Top Controls -->
+
+                <div class="top-controls">
+
+
+                    <!-- Search -->
+
+                    <button class="top-button">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                    </button>
+
+
+
+                    <!-- Language -->
+
+                    <button class="top-button">
+
+                        <i class="fa-solid fa-globe"></i>
+
+                    </button>
+
+
+
+                    <!-- Notification -->
+
+                    <button class="top-button notification">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+
+
+                    <!-- Three Line Menu -->
+
+                    <button class="top-button menu-button">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+
+                </div>
+
+
+            </header>
+
+
+
+
+            <!-- =================================
+                 DASHBOARD CONTENT
+            ================================== -->
+
+            <section class="dashboard-content">
+
+
+
+                <!-- =================================
+                     DISTRESS SCORE
+                ================================== -->
+
+                <div class="dashboard-card distress-card">
+
+
+                    <div class="card-heading">
+
+                        <h3>
+                            YOUR DISTRESS LEVEL
+                        </h3>
+
+                        <i class="fa-solid fa-heart-pulse"></i>
+
+                    </div>
+
+
+                    <div class="score-area">
+
+                        <div class="score-circle">
+
+                            <span>
+                                42%
+                            </span>
+
+                        </div>
+
+
+                        <div class="score-info">
+
+                            <h4>
+                                MODERATE
+                            </h4>
+
+                            <p>
+                                Your current wellbeing
+                                appears stable.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================
+                     MOOD TODAY
+                ================================== -->
+
+                <div class="dashboard-card mood-card">
+
+                    <div class="card-heading">
+                        <h3>MOOD TODAY</h3>
+                        <i class="fa-regular fa-face-smile"></i>
+                    </div>
+
+                    <div class="mood-content">
+                        <div class="mood-icon">😊</div>
+
+                        <div>
+                            <h4>CALM</h4>
+                            <p>Feeling better today</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     MOOD & DISTRESS TREND
+                ================================== -->
+
+                <div class="dashboard-card trend-card">
+
+                    <div class="card-heading">
+                        <div>
+                            <h3>MOOD &amp; DISTRESS TREND</h3>
+                            <p>Your wellbeing over the past week</p>
+                        </div>
+                    </div>
+
+                    <button class="view-button">View Details</button>
+
+                    <!-- Chart -->
+                    <div class="chart">
+
+                        <div class="chart-y-axis">
+                            <span>80</span>
+                            <span>60</span>
+                            <span>40</span>
+                            <span>20</span>
+                            <span>0</span>
+                        </div>
+
+                        <div class="chart-area">
+
+                            <div class="chart-line">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+
+                            <div class="chart-days">
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                                <span>Sun</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="chart-legend">
+                        <span>
+                            <i class="legend-dot distress"></i>
+                            Distress
+                        </span>
+
+                        <span>
+                            <i class="legend-dot mood"></i>
+                            Mood
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     RECENT CHECK-INS
+                ================================== -->
+
+                <div class="dashboard-card checkin-card">
+
+                    <div class="card-heading">
+                        <h3>RECENT CHECK-INS</h3>
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+
+                    <div class="checkin-list">
+
+                        <div class="checkin">
+                            <div>
+                                <strong>Today</strong>
+                                <span>10:30 AM</span>
+                            </div>
+                            <span class="mood calm">😊 Calm</span>
+                        </div>
+
+                        <div class="checkin">
+                            <div>
+                                <strong>Yesterday</strong>
+                                <span>06:20 PM</span>
+                            </div>
+                            <span class="mood anxious">😟 Anxious</span>
+                        </div>
+
+                        <div class="checkin">
+                            <div>
+                                <strong>Aug 29</strong>
+                                <span>08:15 PM</span>
+                            </div>
+                            <span class="mood neutral">😐 Neutral</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     AI INSIGHT
+                ================================== -->
+
+                <div class="dashboard-card insight-card">
+
+
+                    <div class="card-heading">
+
+                        <h3>
+                            AI INSIGHT
+                        </h3>
+
+                        <i class="fa-solid fa-brain"></i>
+
+                    </div>
+
+
+                    <div class="insight-content">
+
+                        <div class="insight-icon">
+
+                            <i class="fa-solid fa-lightbulb"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <h4>
+                                You're doing better!
+                            </h4>
+
+                            <p>
+                                Your distress level has
+                                decreased compared to
+                                your previous check-in.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================
+                     RECOMMENDATIONS
+                ================================== -->
+
+                <div class="dashboard-card recommendation-card">
+
+
+                    <div class="card-heading">
+
+                        <h3>
+                            RECOMMENDED FOR YOU
+                        </h3>
+
+                        <i class="fa-solid fa-sparkles"></i>
+
+                    </div>
+
+
+                    <div class="recommendations">
+
+
+                        <button class="recommendation">
+
+                            <i class="fa-solid fa-wind"></i>
+
+                            <span>
+                                Breathing Exercise
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button class="recommendation">
+
+                            <i class="fa-solid fa-headphones"></i>
+
+                            <span>
+                                Relaxation Activity
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <button class="recommendation">
+
+                            <i class="fa-solid fa-user-doctor"></i>
+
+                            <span>
+                                Talk to Counsellor
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================
+                     COUNSELLOR SUPPORT
+                ================================== -->
+
+                <div class="dashboard-card counsellor-card">
+
+
+                    <div class="card-heading">
+
+                        <h3>
+                            COUNSELLOR SUPPORT
+                        </h3>
+
+                        <i class="fa-solid fa-user-doctor"></i>
+
+                    </div>
+
+
+                    <div class="counsellor-content">
+
+                        <div class="counsellor-avatar">
+
+                            <i class="fa-solid fa-user-doctor"></i>
+
+                        </div>
+
+
+                        <div class="counsellor-info">
+
+                            <h4>
+                                Your Counsellor
+                            </h4>
+
+                            <p>
+                                Available to talk
+                            </p>
+
+                        </div>
+
+
+                        <button class="chat-button">
+
+                            Start Chat
+
+                        </button>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <!-- =================================
+                     EMERGENCY HELP
+                ================================== -->
+
+                <div class="emergency-card">
+
+
+                    <div>
+
+                        <h3>
+                            Need someone to talk to?
+                        </h3>
+
+                        <p>
+                            You're not alone. Get immediate
+                            support when you need it.
+                        </p>
+
+                    </div>
+
+
+                    <button>
+                        Get Help
+                    </button>
+
+
+                </div>
+
+
+            </section>
+
+
+        </main>
+
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script src="dashboard.js"></script>
+
+</body>
+
+</html>
