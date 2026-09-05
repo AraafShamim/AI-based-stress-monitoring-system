@@ -1,15 +1,19 @@
 import os
 from dotenv import load_dotenv
-load_dotenv()
+
+# 1. Force Python to load the .env file from the exact directory this script is in
+current_dir = os.path.dirname(os.path.abspath(__file__))
+env_path = os.path.join(current_dir, ".env")
+load_dotenv(dotenv_path=env_path)
 import joblib
 import numpy as np
 import tempfile
-import google.generativeai as genai
-from fastapi import FastAPI, HTTPException
+from google import genai
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
 from typing import List, Optional
-from fastapi import UploadFile, File
 from groq import Groq
+groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 app = FastAPI(
     title="SIH26094 Intelligence Layer API",
@@ -18,10 +22,12 @@ app = FastAPI(
 )
 
 # --- 1. Load Models at Startup ---
-MODEL_EN_PATH = os.path.join("models", "model_en.pkl")
-MODEL_HI_PATH = os.path.join("models", "model_hi.pkl")
-MODEL_MR_PATH = os.path.join("models", "model_mr.pkl")
-MODEL_ESC_PATH = os.path.join("models", "escalation_model.pkl")
+MODELS_DIR = os.path.join(current_dir, "models")
+
+MODEL_EN_PATH = os.path.join(MODELS_DIR, "model_en.pkl")
+MODEL_HI_PATH = os.path.join(MODELS_DIR, "model_hi.pkl")
+MODEL_MR_PATH = os.path.join(MODELS_DIR, "model_mr.pkl")
+MODEL_ESC_PATH = os.path.join(MODELS_DIR, "escalation_model.pkl")
 
 model_en = joblib.load(MODEL_EN_PATH) if os.path.exists(MODEL_EN_PATH) else None
 model_hi = joblib.load(MODEL_HI_PATH) if os.path.exists(MODEL_HI_PATH) else None
@@ -177,14 +183,13 @@ class ChatRequest(BaseModel):
 @app.post("/ai/v1/chat")
 def chat_counselor(req: ChatRequest):
     try:
-        # Pulls the secret API key securely from the cloud environment
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
             raise HTTPException(status_code=500, detail="Gemini API Key is missing on the server.")
         
-        genai.configure(api_key=api_key)
+        # Initialize the new SDK Client
+        client = genai.Client(api_key=api_key)
         
-        # The hidden prompt that enforces the counselor persona and bilingual safety
         system_instruction = (
             "You are a trauma-informed crisis counselor AI supporting victims of atrocities. "
             "Your tone must be highly empathetic, non-judgmental, grounding, and concise. "
@@ -192,13 +197,14 @@ def chat_counselor(req: ChatRequest):
             f"Respond to the user strictly in this language code: {req.language}."
         )
         
-       # Initializing Gemini 3.6 Flash for high-speed conversational responses
-        model = genai.GenerativeModel(
-            model_name="gemini-3.6-flash",
-            system_instruction=system_instruction
+        # New syntax for passing system instructions and generating content
+        response = client.models.generate_content(
+            model='gemini-3.6-flash',
+            contents=req.message,
+            config=genai.types.GenerateContentConfig(
+                system_instruction=system_instruction,
+            ),
         )
-        
-        response = model.generate_content(req.message)
         
         return {
             "reply": response.text,
