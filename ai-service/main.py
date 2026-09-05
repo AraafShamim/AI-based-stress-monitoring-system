@@ -1,10 +1,15 @@
 import os
+from dotenv import load_dotenv
+load_dotenv()
 import joblib
 import numpy as np
+import tempfile
 import google.generativeai as genai
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
+from fastapi import UploadFile, File
+from groq import Groq
 
 app = FastAPI(
     title="SIH26094 Intelligence Layer API",
@@ -131,14 +136,36 @@ def score_checkin(req: ScoreRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# --- 4. The Transcription Endpoint (Lightweight Simulated Fallback) ---
+# --- 4. The Transcription Endpoint (Real Whisper API) ---
+# Initialize Groq client (requires GROQ_API_KEY in your Render environment variables)
+groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
 @app.post("/ai/v1/transcribe")
-def transcribe_audio(req: TranscribeRequest):
+async def transcribe_audio(file: UploadFile = File(...)):
     try:
+        if not os.environ.get("GROQ_API_KEY"):
+            raise HTTPException(status_code=500, detail="Groq API Key is missing.")
+
+        # Save the uploaded file temporarily to pass to the Groq API
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
+            temp_audio.write(await file.read())
+            temp_path = temp_audio.name
+
+        # Call Groq's Whisper API
+        with open(temp_path, "rb") as audio_file:
+            transcription = groq_client.audio.transcriptions.create(
+                file=(file.filename, audio_file.read()),
+                model="whisper-large-v3",
+                response_format="json"
+            )
+            
+        # Clean up the temporary file to prevent Render memory leaks
+        os.remove(temp_path)
+
         return {
-            "transcript_text": "Simulated audio transcript: I am feeling anxious about the trial.",
-            "language_detected": "en",
-            "confidence": 0.85
+            "transcript_text": transcription.text,
+            "language_detected": "auto", 
+            "confidence": 0.95
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

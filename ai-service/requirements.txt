@@ -3,6 +3,7 @@ uvicorn
 scikit-learn
 pandas
 joblib
-python-multipart
 google-generativeai
+groq
+python-multipart
 python-dotenv
