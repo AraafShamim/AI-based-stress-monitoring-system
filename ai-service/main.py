@@ -1,25 +1,45 @@
 import os
 from dotenv import load_dotenv
 
-# 1. Force Python to load the .env file from the exact directory this script is in
+# Force Python to load the .env file from the exact directory
 current_dir = os.path.dirname(os.path.abspath(__file__))
 env_path = os.path.join(current_dir, ".env")
 load_dotenv(dotenv_path=env_path)
+
 import joblib
 import numpy as np
-import tempfile
 from google import genai
+import tempfile
 from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware  # <-- NEW IMPORT
 from pydantic import BaseModel
 from typing import List, Optional
 from groq import Groq
-groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+# Resilient Groq Initialization
+groq_api_key = os.environ.get("GROQ_API_KEY")
+groq_client = Groq(api_key=groq_api_key) if groq_api_key else None
 
 app = FastAPI(
     title="SIH26094 Intelligence Layer API",
     version="1.1.0",
     description="Dynamic Distress Scoring and Escalation Prediction Service"
 )
+
+# --- NEW: CORS Configuration ---
+# This allows Anjali's frontend to connect from local environments or Vercel
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# --- NEW: Health Check Endpoint ---
+@app.get("/health")
+def health_check():
+    return {"status": "alive", "service": "SIH26094 Intelligence Layer"}
 
 # --- 1. Load Models at Startup ---
 MODELS_DIR = os.path.join(current_dir, "models")
