@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MannSetu - National Dashboard</title>
+    <script>
+
+    <!-- Fonts -->
+    /* ================= PAGE NAVIGATION ================= */
+
+function showSection(sectionId, clickedItem) {
+
+    const sections = document.querySelectorAll(".section");
+
+    sections.forEach(section => {
+        section.classList.remove("active-section");
+    });
+
+    const selectedSection = document.getElementById(sectionId);
+
+    if (selectedSection) {
+        selectedSection.classList.add("active-section");
+    }
+
+    const navItems = document.querySelectorAll(".nav-item");
+
+    navItems.forEach(item => {
+        item.classList.remove("active");
+    });
+
+    if (clickedItem) {
+        clickedItem.classList.add("active");
+    }
+
+    const titles = {
+        dashboard: "राज्य डैशबोर्ड",
+        population: "जनसंख्या विश्लेषण",
+        district: "जिला विश्लेषण",
+        services: "मानसिक स्वास्थ्य सेवाएँ",
+        reports: "रिपोर्ट"
+    };
+
+    document.getElementById("pageTitle").innerText =
+        titles[sectionId] || "राज्य डैशबोर्ड";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* ================= STATE SELECTOR ================= */
+
+function changeState() {
+
+    const state = document.getElementById("stateSelect").value;
+
+    alert(
+        "आपने " + state + " राज्य चुना है।\n\n" +
+        "डैशबोर्ड का डेटा अब " + state + " के अनुसार प्रदर्शित किया जाएगा।"
+    );
+}
+
+
+/* ================= TREND CHART ================= */
+
+const trendCanvas = document.getElementById("trendChart");
+
+const trendChart = new Chart(trendCanvas, {
+
+    type: "line",
+
+    data: {
+
+        labels: [
+            "सितंबर",
+            "अक्टूबर",
+            "नवंबर",
+            "दिसंबर",
+            "जनवरी",
+            "फरवरी",
+            "मार्च",
+            "अप्रैल",
+            "मई",
+            "जून",
+            "जुलाई",
+            "अगस्त"
+        ],
+
+        datasets: [
+
+            {
+                label: "मानसिक स्वास्थ्य मामले",
+
+                data: [
+                    52000,
+                    54800,
+                    57200,
+                    60100,
+                    63400,
+                    66800,
+                    70200,
+                    73500,
+                    76800,
+                    80500,
+                    84200,
+                    87800
+                ],
+
+                borderWidth: 3,
+                tension: 0.4,
+                fill: true
+            }
+
+        ]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        plugins: {
+
+            legend: {
+                display: false
+            }
+
+        },
+
+        scales: {
+
+            y: {
+                beginAtZero: false,
+                grid: {
+                    color: "#edf1f5"
+                },
+
+                ticks: {
+                    font: {
+                        family: "Noto Sans Devanagari"
+                    }
+                }
+            },
+
+            x: {
+
+                grid: {
+                    display: false
+                },
+
+                ticks: {
+                    font: {
+                        family: "Noto Sans Devanagari"
+                    }
+                }
+
+            }
+
+        }
+
+    }
+
+});
+
+
+/* ================= RISK CHART ================= */
+
+const riskCanvas = document.getElementById("riskChart");
+
+const riskChart = new Chart(riskCanvas, {
+
+    type: "doughnut",
+
+    data: {
+
+        labels: [
+            "कम जोखिम",
+            "मध्यम जोखिम",
+            "उच्च जोखिम"
+        ],
+
+        datasets: [
+
+            {
+                data: [54, 31, 15],
+
+                borderWidth: 0,
+
+                cutout: "72%"
+            }
+
+        ]
+
+    },
+
+    options: {
+
+        responsive: true,
+
+        maintainAspectRatio: false,
+
+        plugins: {
+
+            legend: {
+                display: false
+            }
+
+        }
+
+    }
+
+});
+
+
+/* ================= TREND FILTER ================= */
+
+function updateTrendChart() {
+
+    const filter =
+        document.getElementById("trendFilter").value;
+
+    let data;
+
+    if (filter === "high") {
+
+        data = [
+            7100,
+            7400,
+            7700,
+            7900,
+            8300,
+            8600,
+            9000,
+            9400,
+            9800,
+            10100,
+            10500,
+            10800
+        ];
+
+        trendChart.data.datasets[0].label =
+            "उच्च जोखिम वाले मामले";
+
+    }
+
+    else if (filter === "services") {
+
+        data = [
+            32000,
+            34500,
+            36000,
+            38400,
+            41000,
+            43500,
+            46000,
+            48900,
+            51500,
+            54200,
+            57300,
+            60400
+        ];
+
+        trendChart.data.datasets[0].label =
+            "सेवा उपयोग";
+
+    }
+
+    else {
+
+        data = [
+            52000,
+            54800,
+            57200,
+            60100,
+            63400,
+            66800,
+            70200,
+            73500,
+            76800,
+            80500,
+            84200,
+            87800
+        ];
+
+        trendChart.data.datasets[0].label =
+            "मानसिक स्वास्थ्य मामले";
+
+    }
+
+    trendChart.data.datasets[0].data = data;
+
+    trendChart.update();
+}
+
+
+/* ================= DISTRICT SEARCH ================= */
+
+function searchDistrict() {
+
+    const input =
+        document.getElementById("districtSearch")
+            .value
+            .toLowerCase();
+
+    const rows =
+        document.querySelectorAll("#districtTable tbody tr");
+
+    rows.forEach(row => {
+
+        const district =
+            row.cells[1].innerText.toLowerCase();
+
+        if (district.includes(input)) {
+            row.style.display = "";
+        }
+
+        else {
+            row.style.display = "none";
+        }
+
+    });
+
+}
+
+
+/* ================= REPORT DOWNLOAD ================= */
+
+function downloadReport() {
+
+    const reportText = `
+मनसेतु - राज्य मानसिक स्वास्थ्य रिपोर्ट
+========================================
+
+रिपोर्ट वर्ष: 2026
+
+कुल लाभार्थी: 12.4 लाख
+सेवा प्राप्त करने वाले: 8.7 लाख
+उच्च जोखिम वाले मामले: 1.86 लाख
+मानसिक स्वास्थ्य केंद्र: 1,248
+
+जिला-वार स्थिति:
+
+लखनऊ - 18,420 मामले
+कानपुर नगर - 15,680 मामले
+प्रयागराज - 13,940 मामले
+वाराणसी - 12,360 मामले
+आगरा - 10,820 मामले
+
+यह रिपोर्ट मनसेतु डैशबोर्ड से तैयार की गई है।
+`;
+
+    const blob =
+        new Blob([reportText], {
+            type: "text/plain;charset=utf-8"
+        });
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "MannSetu-State-Report.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+
+
+/* ================= TABLE EXPORT ================= */
+
+function exportData() {
+
+    const rows =
+        document.querySelectorAll("#districtTable tr");
+
+    let csv = [];
+
+    rows.forEach(row => {
+
+        const cols =
+            row.querySelectorAll("th, td");
+
+        let rowData = [];
+
+        cols.forEach(col => {
+
+            rowData.push(
+                `"${col.innerText.replace(/"/g, '""')}"`
+            );
+
+        });
+
+        csv.push(rowData.join(","));
+
+    });
+
+    const blob =
+        new Blob(
+            [csv.join("\n")],
+            {
+                type: "text/csv;charset=utf-8;"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "MannSetu-District-Data.csv";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
+}
+
+
+/* ================= NOTIFICATION ================= */
+
+document
+    .querySelector(".notification")
+    .addEventListener("click", function () {
+
+        alert(
+            "🔔 महत्वपूर्ण सूचनाएँ\n\n" +
+            "• 12 जिलों में विशेषज्ञों की आवश्यकता है।\n" +
+            "• उच्च जोखिम वाले मामलों में 6.4% वृद्धि हुई है।\n" +
+            "• 5 जिलों में टेली-परामर्श सेवा शुरू हुई है।"
+        );
+
+    });
+    </script>
+
+    <link rel="stylesheet" href="./national.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">♡</div>
+
+            <div class="brand-name">
+                <span class="mann">मन</span><span class="setu">Setu</span>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="section-title">MAIN MENU</p>
+
+            <button class="nav-item active">
+                <span>▦</span>
+                National Overview
+            </button>
+
+            <button class="nav-item">
+                <span>◫</span>
+                State Analytics
+            </button>
+
+            <button class="nav-item">
+                <span>◉</span>
+                District Status
+            </button>
+
+            <button class="nav-item">
+                <span>⚠</span>
+                Priority Alerts
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="section-title">MANAGEMENT</p>
+
+            <button class="nav-item">
+                <span>♧</span>
+                Reports
+            </button>
+
+            <button class="nav-item">
+                <span>⚙</span>
+                Settings
+            </button>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="admin-card">
+                <div class="admin-avatar">A</div>
+                <div>
+                    <strong>National Admin</strong>
+                    <small>Government Portal</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+            <div class="topbar-title">
+                National Mental Wellness Dashboard
+            </div>
+
+            <div class="topbar-actions">
+                <button class="icon-btn">⌕</button>
+                <button class="icon-btn">🔔</button>
+                <div class="profile">NA</div>
+            </div>
+
+        </header>
+
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <!-- HEADER -->
+            <section class="dashboard-header">
+
+                <div>
+                    <p class="breadcrumb">MannSetu / National Dashboard</p>
+
+                    <h1>
+                        National Overview
+                    </h1>
+
+                    <p class="subtitle">
+                        Monitor mental wellness indicators across India
+                    </p>
+                </div>
+
+                <div class="header-actions">
+                    <select id="yearFilter">
+                        <option>2026</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                    </select>
+
+                    <button class="primary-btn" onclick="showToast('Report generated successfully')">
+                        ↓ Export Report
+                    </button>
+                </div>
+
+            </section>
+
+
+            <!-- STAT CARDS -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Total Population Covered</span>
+                        <div class="stat-icon blue">◎</div>
+                    </div>
+
+                    <h2>142.8 Cr</h2>
+
+                    <p class="positive">
+                        ↑ 4.8%
+                        <span>from last year</span>
+                    </p>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>People Assessed</span>
+                        <div class="stat-icon green">♙</div>
+                    </div>
+
+                    <h2>8.42 Cr</h2>
+
+                    <p class="positive">
+                        ↑ 12.6%
+                        <span>from last year</span>
+                    </p>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Wellness Index</span>
+                        <div class="stat-icon purple">♡</div>
+                    </div>
+
+                    <h2>72.4</h2>
+
+                    <p class="positive">
+                        ↑ 3.2%
+                        <span>national average</span>
+                    </p>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>Priority Cases</span>
+                        <div class="stat-icon orange">⚠</div>
+                    </div>
+
+                    <h2>18,462</h2>
+
+                    <p class="negative">
+                        ↓ 8.4%
+                        <span>from last month</span>
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- ANALYTICS -->
+            <section class="analytics-grid">
+
+                <div class="panel chart-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>National Wellness Trend</h3>
+                            <p>Monthly wellness index across India</p>
+                        </div>
+
+                        <select id="trendFilter" onchange="updateChart()">
+                            <option>2026</option>
+                            <option>2025</option>
+                        </select>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <div class="y-axis">
+                            <span>80</span>
+                            <span>75</span>
+                            <span>70</span>
+                            <span>65</span>
+                            <span>60</span>
+                        </div>
+
+                        <div class="chart-area">
+                            <div class="grid-line line1"></div>
+                            <div class="grid-line line2"></div>
+                            <div class="grid-line line3"></div>
+                            <div class="grid-line line4"></div>
+                            <div class="grid-line line5"></div>
+
+                            <svg viewBox="0 0 700 250" preserveAspectRatio="none">
+
+                                <defs>
+                                    <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-opacity=".25"/>
+                                        <stop offset="100%" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <path
+                                    id="chartArea"
+                                    d=""
+                                    fill="url(#areaGradient)">
+                                </path>
+
+                                <polyline
+                                    id="chartLine"
+                                    points=""
+                                    fill="none"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                </polyline>
+
+                                <g id="chartDots"></g>
+
+                            </svg>
+
+                            <div class="months">
+                                <span>Jan</span>
+                                <span>Feb</span>
+                                <span>Mar</span>
+                                <span>Apr</span>
+                                <span>May</span>
+                                <span>Jun</span>
+                                <span>Jul</span>
+                                <span>Aug</span>
+                                <span>Sep</span>
+                                <span>Oct</span>
+                                <span>Nov</span>
+                                <span>Dec</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- NATIONAL STATUS -->
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>National Status</h3>
+                            <p>States by wellness category</p>
+                        </div>
+                    </div>
+
+                    <div class="status-list">
+
+                        <div class="status-row">
+                            <div class="status-label">
+                                <span class="dot green-dot"></span>
+                                Healthy
+                            </div>
+                            <strong>18 States</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-green" style="width:72%"></div>
+                        </div>
+
+
+                        <div class="status-row">
+                            <div class="status-label">
+                                <span class="dot yellow-dot"></span>
+                                Watch
+                            </div>
+                            <strong>10 States</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-yellow" style="width:40%"></div>
+                        </div>
+
+
+                        <div class="status-row">
+                            <div class="status-label">
+                                <span class="dot red-dot"></span>
+                                Priority
+                            </div>
+                            <strong>8 States</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-red" style="width:32%"></div>
+                        </div>
+
+                    </div>
+
+                    <button class="view-btn" onclick="showToast('Opening state analytics')">
+                        View State Analytics →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- STATES -->
+            <section class="panel states-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>State-wise Performance</h3>
+                        <p>Wellness index and population coverage by state</p>
+                    </div>
+
+                    <div class="table-actions">
+                        <input
+                            type="text"
+                            id="searchState"
+                            placeholder="Search state..."
+                            onkeyup="filterStates()"
+                        >
+
+                        <select id="statusFilter" onchange="filterStates()">
+                            <option value="all">All Status</option>
+                            <option value="healthy">Healthy</option>
+                            <option value="watch">Watch</option>
+                            <option value="priority">Priority</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>STATE</th>
+                                <th>POPULATION</th>
+                                <th>ASSESSED</th>
+                                <th>WELLNESS INDEX</th>
+                                <th>CHANGE</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="stateTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- ALERTS -->
+            <section class="bottom-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Priority Alerts</h3>
+                            <p>States requiring immediate attention</p>
+                        </div>
+
+                        <span class="alert-count">8 Active</span>
+                    </div>
+
+                    <div class="alerts">
+
+                        <div class="alert">
+                            <div class="alert-icon red">!</div>
+                            <div>
+                                <strong>Uttar Pradesh</strong>
+                                <p>Wellness index dropped by 6.2%</p>
+                            </div>
+                            <span>High</span>
+                        </div>
+
+                        <div class="alert">
+                            <div class="alert-icon orange">!</div>
+                            <div>
+                                <strong>Maharashtra</strong>
+                                <p>High priority cases increased</p>
+                            </div>
+                            <span>Medium</span>
+                        </div>
+
+                        <div class="alert">
+                            <div class="alert-icon orange">!</div>
+                            <div>
+                                <strong>West Bengal</strong>
+                                <p>Assessment coverage below target</p>
+                            </div>
+                            <span>Medium</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel quick-panel">
+
+                    <h3>National Highlights</h3>
+
+                    <div class="highlight">
+                        <span>🏆</span>
+                        <div>
+                            <strong>Kerala</strong>
+                            <p>Highest wellness index — 81.6</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight">
+                        <span>📈</span>
+                        <div>
+                            <strong>Rajasthan</strong>
+                            <p>Highest improvement — +11.4%</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight">
+                        <span>👥</span>
+                        <div>
+                            <strong>Uttar Pradesh</strong>
+                            <p>Highest population coverage</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div id="toast" class="toast">
+    Action completed successfully
+</div>
+
+<script src="./national.js"></script>
+
+</body>
+</html>

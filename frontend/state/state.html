@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MannSetu | State Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&family=Noto+Sans+Devanagari:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./state.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div>
+
+            <div class="brand">
+
+                <div class="brand-heart">♥</div>
+
+                <div class="brand-name">
+                    <span class="mann">मन</span><span class="setu">Setu</span>
+                </div>
+
+                <button class="close-sidebar" id="closeSidebar">×</button>
+
+            </div>
+
+
+            <div class="admin-card">
+
+                <div class="avatar">SA</div>
+
+                <div class="admin-info">
+                    <strong>State Administrator</strong>
+                    <small>Government Dashboard</small>
+                </div>
+
+                <span class="down">⌄</span>
+
+            </div>
+
+
+            <div class="label">
+                WORKSPACE
+            </div>
+
+
+            <nav class="nav">
+
+                <button class="nav-item active" data-page="Overview">
+                    <span>▣</span>
+                    Dashboard
+                </button>
+
+                <button class="nav-item" data-page="State Overview">
+                    <span>◈</span>
+                    State Overview
+                </button>
+
+                <button class="nav-item" data-page="Districts">
+                    <span>▦</span>
+                    Districts
+                    <b>75</b>
+                </button>
+
+                <button class="nav-item" data-page="Mental Health Trends">
+                    <span>⌁</span>
+                    Mental Health Trends
+                </button>
+
+                <button class="nav-item" data-page="High-Risk Alerts">
+                    <span>▲</span>
+                    High-Risk Alerts
+                    <b class="red-badge">4</b>
+                </button>
+
+                <button class="nav-item" data-page="Counsellor Network">
+                    <span>♣</span>
+                    Counsellor Network
+                </button>
+
+                <button class="nav-item" data-page="Appointments">
+                    <span>□</span>
+                    Appointments
+                </button>
+
+                <button class="nav-item" data-page="Reports">
+                    <span>▤</span>
+                    Reports & Analytics
+                </button>
+
+            </nav>
+
+        </div>
+
+
+        <div>
+
+            <button class="nav-item">
+                <span>⚙</span>
+                Settings
+            </button>
+
+            <button class="nav-item">
+                <span>?</span>
+                Help & Support
+            </button>
+
+            <button class="nav-item" id="logout">
+                <span>↪</span>
+                Log out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <div class="overlay" id="overlay"></div>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <button class="menu-button" id="openSidebar">
+                ☰
+            </button>
+
+
+            <div class="breadcrumb">
+
+                <span>Workspace</span>
+
+                <i>›</i>
+
+                <strong id="pageTitle">
+                    Overview
+                </strong>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <div class="global-search">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="globalSearch"
+                        type="search"
+                        placeholder="Search districts, alerts..."
+                    >
+
+                </div>
+
+
+                <button class="notification" id="notification">
+                    ♧
+                    <em></em>
+                </button>
+
+
+                <div class="mini-avatar">
+                    SA
+                </div>
+
+
+                <span class="top-name">
+                    State Admin⌄
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <div class="content">
+
+
+            <!-- WELCOME -->
+
+            <section class="welcome">
+
+                <div>
+
+                    <div class="date" id="date"></div>
+
+                    <h1>
+                        Good morning, State Administrator 👋
+                    </h1>
+
+                    <p>
+                        Here's what's happening across the state today.
+                    </p>
+
+                </div>
+
+
+                <button class="primary-button" id="reportButton">
+                    ▣ View Reports
+                </button>
+
+            </section>
+
+
+            <!-- FILTERS -->
+
+            <section class="filters">
+
+                <label>
+                    State
+
+                    <select id="stateSelect">
+
+                        <option>Maharashtra</option>
+                        <option>Uttar Pradesh</option>
+                        <option>Karnataka</option>
+                        <option>Gujarat</option>
+                        <option>Rajasthan</option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+
+                    Date range
+
+                    <select id="rangeSelect">
+
+                        <option>Last 30 days</option>
+                        <option>Last 7 days</option>
+                        <option>Today</option>
+                        <option>This quarter</option>
+
+                    </select>
+
+                </label>
+
+            </section>
+
+
+            <!-- ================= STAT CARDS ================= -->
+
+            <section class="stats">
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon green">
+                            ♣
+                        </span>
+
+                        <span class="change positive">
+                            +12%
+                        </span>
+
+                    </div>
+
+                    <p>Citizens Supported</p>
+
+                    <h2>
+                        1,24,680
+                    </h2>
+
+                    <small>
+                        vs. 1,11,321 last month
+                    </small>
+
+                    <div class="spark green-bars">
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon blue">
+                            ▣
+                        </span>
+
+                        <span class="change positive">
+                            +8%
+                        </span>
+
+                    </div>
+
+                    <p>Active Counsellors</p>
+
+                    <h2>
+                        1,248
+                    </h2>
+
+                    <small>
+                        Across 72 districts
+                    </small>
+
+                    <div class="spark blue-bars">
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon purple">
+                            ⌁
+                        </span>
+
+                        <span class="change positive">
+                            +15%
+                        </span>
+
+                    </div>
+
+                    <p>Sessions This Month</p>
+
+                    <h2>
+                        18,642
+                    </h2>
+
+                    <small>
+                        vs. 16,210 last month
+                    </small>
+
+                    <div class="spark purple-bars">
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon amber">
+                            ⌁
+                        </span>
+
+                        <span class="change negative">
+                            −4%
+                        </span>
+
+                    </div>
+
+                    <p>Avg. Distress Score</p>
+
+                    <h2>
+                        38<span>/100</span>
+                    </h2>
+
+                    <small>
+                        12,420 assessments this month
+                    </small>
+
+                    <div class="progress">
+                        <i style="width:38%"></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon red">
+                            ▲
+                        </span>
+
+                        <span class="change red-text">
+                            +6%
+                        </span>
+
+                    </div>
+
+                    <p>High-Risk Cases</p>
+
+                    <h2>
+                        426
+                    </h2>
+
+                    <small>
+                        Needs active monitoring
+                    </small>
+
+                    <div class="progress red-progress">
+                        <i style="width:58%"></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon teal">
+                            ◈
+                        </span>
+
+                        <span class="change positive">
+                            +3
+                        </span>
+
+                    </div>
+
+                    <p>Districts Covered</p>
+
+                    <h2>
+                        72<span>/75</span>
+                    </h2>
+
+                    <small>
+                        96% state coverage
+                    </small>
+
+                    <div class="progress teal-progress">
+                        <i style="width:96%"></i>
+                    </div>
+
+                </article>
+
+
+            </section>
+
+
+            <!-- ================= CHART ================= -->
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            STATE ANALYTICS
+                        </div>
+
+                        <h3>
+                            Mental Health Overview
+                        </h3>
+
+                    </div>
+
+
+                    <div class="chart-tabs">
+
+                        <button
+                            class="chart-tab active"
+                            data-metric="seeking">
+                            Citizens Seeking Help
+                        </button>
+
+                        <button
+                            class="chart-tab"
+                            data-metric="sessions">
+                            Sessions
+                        </button>
+
+                        <button
+                            class="chart-tab"
+                            data-metric="distress">
+                            Distress Score
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-area">
+
+                    <svg
+                        id="mainChart"
+                        viewBox="0 0 900 290"
+                        preserveAspectRatio="none">
+                    </svg>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= LOWER GRID ================= -->
+
+            <div class="lower-grid">
+
+
+                <!-- DISTRICTS -->
+
+                <section class="panel district-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                GEOGRAPHIC OVERVIEW
+                            </div>
+
+                            <h3>
+                                District Status
+                            </h3>
+
+                        </div>
+
+
+                        <div class="legend">
+
+                            <span>
+                                <i class="dot healthy"></i>
+                                Healthy
+                            </span>
+
+                            <span>
+                                <i class="dot attention"></i>
+                                Attention
+                            </span>
+
+                            <span>
+                                <i class="dot critical"></i>
+                                Critical
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="district-grid"
+                        id="districtGrid">
+                    </div>
+
+
+                    <div
+                        class="district-detail"
+                        id="districtDetail">
+
+                        Click a district to view details.
+
+                    </div>
+
+                </section>
+
+
+                <!-- ALERTS -->
+
+                <section class="panel alerts-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                ACTION REQUIRED
+                            </div>
+
+                            <h3>
+                                Priority Alerts
+                            </h3>
+
+                        </div>
+
+
+                        <button
+                            class="link-button"
+                            id="viewAlerts">
+
+                            View all →
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="alerts"></div>
+
+                </section>
+
+            </div>
+
+
+            <!-- ================= TABLE ================= -->
+
+            <section class="panel table-panel">
+
+                <div class="panel-header table-header">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            DISTRICT-WISE DATA
+                        </div>
+
+                        <h3>
+                            District Performance
+                        </h3>
+
+                    </div>
+
+
+                    <div class="table-tools">
+
+                        <input
+                            id="districtSearch"
+                            type="search"
+                            placeholder="⌕ Filter district"
+                        >
+
+
+                        <div class="pills">
+
+                            <button
+                                class="pill active"
+                                data-filter="all">
+                                All
+                            </button>
+
+                            <button
+                                class="pill"
+                                data-filter="healthy">
+                                Healthy
+                            </button>
+
+                            <button
+                                class="pill"
+                                data-filter="attention">
+                                Attention
+                            </button>
+
+                            <button
+                                class="pill"
+                                data-filter="critical">
+                                Critical
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-scroll">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>District</th>
+                                <th>Citizens</th>
+                                <th>Counsellors</th>
+                                <th>Sessions</th>
+                                <th>Avg Distress</th>
+                                <th>High-Risk</th>
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="districtRows"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+
+            <footer>
+
+                <span class="mann">मन</span>
+                <span class="setu">Setu</span>
+
+                · State Administration ·
+                Aggregated & anonymised data ·
+                Privacy protected
+
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<!-- JavaScript -->
+
+<script src="./state.js"></script>
+
+</body>
+</html>
