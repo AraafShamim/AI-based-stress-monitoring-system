@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
        DATA
     ===================================================== */
 
+
     const moodData = {
         happy: {
             name: "HAPPY",

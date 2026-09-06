@@ -82,6 +82,14 @@ body {
 
 /* LOGO */
 
+html[lang="hi"] body {
+    font-family: "Noto Sans Devanagari", sans-serif;
+}
+
+.brand {
+    font-family: "Arya", sans-serif;
+}
+
 .logo {
     padding: 25px 25px 18px;
 }

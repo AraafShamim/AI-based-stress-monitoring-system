@@ -1,356 +1,339 @@
-/* =========================================================
-   MANNSETU COUNSELLOR DASHBOARD JS
-========================================================= */
-
 document.addEventListener("DOMContentLoaded", () => {
 
-    /* =========================
-       SIDEBAR NAVIGATION
-    ========================= */
+  lucide.createIcons();
 
-    const navItems = document.querySelectorAll(".nav-item");
+  const sidebar = document.getElementById("sidebar");
+  const menuButton = document.getElementById("menuButton");
+  const sidebarClose = document.getElementById("sidebarClose");
 
-    navItems.forEach(item => {
-        item.addEventListener("click", () => {
+  const toast = document.getElementById("toast");
+  const toastText = document.getElementById("toastText");
 
-            navItems.forEach(nav => {
-                nav.classList.remove("active");
-            });
+  const search = document.getElementById("clientSearch");
+  const emptySearch = document.getElementById("emptySearch");
 
-            item.classList.add("active");
-        });
-    });
+  const notificationBtn =
+    document.getElementById("notificationBtn");
 
+  const notificationPopover =
+    document.getElementById("notificationPopover");
 
-    /* =========================
-       SEARCH
-    ========================= */
-
-    const searchInput = document.querySelector(".search-box input");
-
-    if (searchInput) {
-        searchInput.addEventListener("input", () => {
-
-            const searchValue = searchInput.value.toLowerCase().trim();
-
-            const clientRows = document.querySelectorAll(".client-row");
-
-            clientRows.forEach(row => {
-
-                const text = row.textContent.toLowerCase();
-
-                if (text.includes(searchValue)) {
-                    row.style.display = "grid";
-                } else {
-                    row.style.display = "none";
-                }
-            });
-        });
-    }
+  let toastTimer;
 
 
-    /* =========================
-       VIEW SCHEDULE
-    ========================= */
+  /* =========================
+     TOAST
+  ========================= */
 
-    const scheduleButton = document.querySelector(".schedule-btn");
+  function notify(message) {
 
-    if (scheduleButton) {
-        scheduleButton.addEventListener("click", () => {
-            showMessage(
-                "Today's schedule",
-                "You have 5 counselling sessions scheduled today."
-            );
-        });
-    }
+    toastText.textContent = message;
 
+    toast.hidden = false;
 
-    /* =========================
-       VIEW ALL CLIENTS
-    ========================= */
+    clearTimeout(toastTimer);
 
-    const viewAll = document.querySelector(".view-link");
-
-    if (viewAll) {
-        viewAll.addEventListener("click", (event) => {
-
-            event.preventDefault();
-
-            showMessage(
-                "Client Overview",
-                "Opening your complete client list..."
-            );
-        });
-    }
+    toastTimer = setTimeout(() => {
+      toast.hidden = true;
+    }, 2800);
+  }
 
 
-    /* =========================
-       PRIORITY ALERTS
-    ========================= */
+  /* =========================
+     MOBILE SIDEBAR
+  ========================= */
 
-    const alertItems = document.querySelectorAll(".priority-alert");
+  menuButton.addEventListener("click", () => {
+    sidebar.classList.add("sidebar-open");
+  });
 
-    alertItems.forEach(alert => {
+  sidebarClose.addEventListener("click", () => {
+    sidebar.classList.remove("sidebar-open");
+  });
 
-        alert.addEventListener("click", () => {
 
-            const clientName =
-                alert.querySelector("strong")?.textContent ||
-                "Client";
+  /* =========================
+     NAVIGATION
+  ========================= */
 
-            showMessage(
-                "Priority Alert",
-                `Review ${clientName}'s latest update.`
-            );
-        });
+  document
+    .querySelectorAll(".nav-item[data-nav]")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        document
+          .querySelectorAll(".nav-item[data-nav]")
+          .forEach(item => {
+            item.classList.remove("active");
+          });
+
+        button.classList.add("active");
+
+        sidebar.classList.remove("sidebar-open");
+
+        notify(button.dataset.nav + " selected");
+
+      });
 
     });
 
 
-    /* =========================
-       REVIEW ALL ALERTS
-    ========================= */
+  /* =========================
+     NOTIFICATIONS
+  ========================= */
 
-    const reviewAlerts =
-        document.querySelector(".review-alerts-btn");
+  notificationBtn.addEventListener("click", event => {
 
-    if (reviewAlerts) {
+    event.stopPropagation();
 
-        reviewAlerts.addEventListener("click", () => {
+    notificationPopover.hidden =
+      !notificationPopover.hidden;
 
-            showMessage(
-                "Priority Alerts",
-                "Showing all clients that may need attention."
-            );
+  });
 
-        });
+
+  document.addEventListener("click", event => {
+
+    if (!event.target.closest(".notification-wrap")) {
+      notificationPopover.hidden = true;
     }
 
-
-    /* =========================
-       PERIOD SELECTOR
-    ========================= */
-
-    const periodSelect =
-        document.querySelector(".period-select");
-
-    if (periodSelect) {
-
-        periodSelect.addEventListener("change", () => {
-
-            const selected =
-                periodSelect.options[
-                    periodSelect.selectedIndex
-                ].text;
-
-            showMessage(
-                "Chart Updated",
-                `Showing distress trends for ${selected}.`
-            );
-
-        });
-    }
+  });
 
 
-    /* =========================
-       SESSION BUTTONS
-    ========================= */
+  document
+    .getElementById("markRead")
+    .addEventListener("click", () => {
 
-    const sessionButtons =
-        document.querySelectorAll(".session-btn");
+      notificationPopover.hidden = true;
 
-    sessionButtons.forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const session =
-                button.closest(".schedule-item");
-
-            const client =
-                session?.querySelector("strong")?.textContent ||
-                "client";
-
-            showMessage(
-                "Session",
-                `Opening today's session with ${client}.`
-            );
-
-        });
+      notify("Notifications marked as read.");
 
     });
 
 
-    /* =========================
-       APPOINTMENTS
-    ========================= */
+  /* =========================
+     CLIENT SEARCH
+  ========================= */
 
-    const appointments =
-        document.querySelector(".all-appointments");
+  search.addEventListener("input", () => {
 
-    if (appointments) {
+    const term =
+      search.value.trim().toLowerCase();
 
-        appointments.addEventListener("click", event => {
+    let visible = 0;
 
-            event.preventDefault();
+    document
+      .querySelectorAll("#clientTable tr")
+      .forEach(row => {
 
-            showMessage(
-                "Appointments",
-                "Opening all your appointments."
-            );
+        const client =
+          row.dataset.client.toLowerCase();
 
-        });
+        const matches =
+          client.includes(term);
 
-    }
+        row.style.display =
+          matches ? "" : "none";
 
-
-    /* =========================
-       QUICK ACTIONS
-    ========================= */
-
-    const quickActions =
-        document.querySelectorAll(".quick-action");
-
-    quickActions.forEach(action => {
-
-        action.addEventListener("click", () => {
-
-            const actionName =
-                action.textContent.trim();
-
-            showMessage(
-                "MannSetu",
-                `${actionName} selected.`
-            );
-
-        });
-
-    });
-
-
-    /* =========================
-       TOP PROFILE
-    ========================= */
-
-    const topProfile =
-        document.querySelector(".top-profile");
-
-    if (topProfile) {
-
-        topProfile.addEventListener("click", () => {
-
-            showMessage(
-                "Counsellor Profile",
-                "Profile settings opened."
-            );
-
-        });
-
-    }
-
-
-    /* =========================
-       LOGOUT
-    ========================= */
-
-    const logout =
-        document.querySelector(".logout");
-
-    if (logout) {
-
-        logout.addEventListener("click", event => {
-
-            event.preventDefault();
-
-            const confirmLogout =
-                confirm("Are you sure you want to log out?");
-
-            if (confirmLogout) {
-
-                window.location.href = "login.html";
-
-            }
-
-        });
-
-    }
-
-
-    /* =========================
-       MOBILE SIDEBAR
-    ========================= */
-
-    const menuButton =
-        document.querySelector(".menu-button");
-
-    const sidebar =
-        document.querySelector(".sidebar");
-
-    if (menuButton && sidebar) {
-
-        menuButton.addEventListener("click", () => {
-
-            sidebar.classList.toggle("sidebar-open");
-
-        });
-
-    }
-
-});
-
-
-/* =========================================================
-   MESSAGE / TOAST
-========================================================= */
-
-function showMessage(title, message) {
-
-    const existing =
-        document.querySelector(".mannsetu-toast");
-
-    if (existing) {
-        existing.remove();
-    }
-
-    const toast =
-        document.createElement("div");
-
-    toast.className = "mannsetu-toast";
-
-    toast.innerHTML = `
-        <div class="toast-icon">
-            <i class="fa-solid fa-heart-pulse"></i>
-        </div>
-
-        <div>
-            <strong>${title}</strong>
-            <p>${message}</p>
-        </div>
-
-        <button class="toast-close">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-    `;
-
-    document.body.appendChild(toast);
-
-
-    /* Close button */
-
-    const close =
-        toast.querySelector(".toast-close");
-
-    close.addEventListener("click", () => {
-        toast.remove();
-    });
-
-
-    /* Auto remove */
-
-    setTimeout(() => {
-
-        if (toast) {
-            toast.remove();
+        if (matches) {
+          visible++;
         }
 
-    }, 3500);
-}
+      });
+
+
+    emptySearch.hidden =
+      visible !== 0;
+
+    if (visible === 0) {
+
+      emptySearch.textContent =
+        `No clients match “${search.value}”.`;
+
+    }
+
+  });
+
+
+  /* =========================
+     CLIENT VIEW
+  ========================= */
+
+  document
+    .querySelectorAll(".client-view")
+    .forEach(button => {
+
+      button.addEventListener("click", event => {
+
+        const client =
+          event.currentTarget
+            .closest("tr")
+            .dataset.client;
+
+        notify(`Opening ${client}'s profile`);
+
+      });
+
+    });
+
+
+  /* =========================
+     PANEL ACTIONS
+  ========================= */
+
+  document
+    .querySelectorAll(".notify-action")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        notify("Opening requested information");
+
+      });
+
+    });
+
+
+  /* =========================
+     ALERT REVIEW
+  ========================= */
+
+  document
+    .querySelectorAll(".review-button")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const title =
+          button
+            .closest(".alert-item")
+            .querySelector("strong")
+            .textContent;
+
+        notify(`Reviewing ${title}`);
+
+      });
+
+    });
+
+
+  /* =========================
+     SCHEDULE
+  ========================= */
+
+  document
+    .querySelectorAll(".schedule-btn")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const name =
+          button
+            .closest(".schedule-item")
+            .querySelector(".schedule-person strong")
+            .textContent;
+
+        notify(`Starting session with ${name}`);
+
+      });
+
+    });
+
+
+  /* =========================
+     QUICK ACTIONS
+  ========================= */
+
+  document
+    .querySelectorAll(".quick-actions button")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const text =
+          button.querySelector("span:nth-of-type(2)");
+
+        if (text) {
+          notify(`${text.textContent} opened`);
+        }
+
+      });
+
+    });
+
+
+  /* =========================
+     CALL CLIENT
+  ========================= */
+
+  document
+    .getElementById("callClient")
+    .addEventListener("click", () => {
+
+      notify("Connecting you to Client C");
+
+    });
+
+
+  /* =========================
+     SETTINGS
+  ========================= */
+
+  document
+    .getElementById("settingsBtn")
+    .addEventListener("click", () => {
+
+      notify("Settings are ready to customize.");
+
+    });
+
+
+  /* =========================
+     LOGOUT
+  ========================= */
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener("click", () => {
+
+      notify("Logout confirmation sent.");
+
+    });
+
+
+  /* =========================
+     TREND PERIOD TABS
+  ========================= */
+
+  document
+    .querySelectorAll(".period-tabs button")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        document
+          .querySelectorAll(".period-tabs button")
+          .forEach(item => {
+            item.classList.remove("selected");
+          });
+
+        button.classList.add("selected");
+
+        document
+          .getElementById("trendChart")
+          .setAttribute(
+            "aria-label",
+            `Distress trend over ${button.dataset.period}`
+          );
+
+        notify(
+          `Showing ${button.dataset.period} trend`
+        );
+
+      });
+
+    });
+
+});

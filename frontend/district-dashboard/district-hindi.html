@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>मनSetu | जिला डैशबोर्ड</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="district.css">
+</head>
+
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-top">
+
+            <!-- Logo -->
+            <div class="logo">
+                <h2>
+                    <span class="mann">मन</span><span class="setu">Setu</span>
+                </h2>
+            </div>
+
+            <!-- Administrator Profile -->
+            <div class="admin-profile">
+
+                <div class="profile-avatar">
+                    DA
+                </div>
+
+                <div class="profile-info">
+                    <h4>जिला प्रशासक</h4>
+                    <span>जिला प्राधिकरण</span>
+                </div>
+
+            </div>
+
+            <!-- Navigation -->
+            <nav class="sidebar-nav">
+
+                <p class="nav-title">मुख्य मेनू</p>
+
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fa-solid fa-house"></i>
+                    <span>डैशबोर्ड</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="overview">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>जिला अवलोकन</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="areas">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>क्षेत्र विश्लेषण</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="alerts">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                    <span>जोखिम चेतावनी</span>
+                    <span class="nav-badge">5</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="counsellors">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>परामर्शदाता</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="sessions">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>परामर्श गतिविधि</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="insights">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>एआई अंतर्दृष्टि</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="reports">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>रिपोर्ट</span>
+                </a>
+
+                <a href="#" class="nav-item" data-section="resources">
+                    <i class="fa-solid fa-hospital"></i>
+                    <span>संसाधन</span>
+                </a>
+
+                <p class="nav-title settings-title">खाता</p>
+
+                <a href="#" class="nav-item" id="settingsBtn">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>सेटिंग्स</span>
+                </a>
+
+            </nav>
+
+        </div>
+
+        <!-- Logout -->
+        <div class="sidebar-bottom">
+
+            <button class="logout-btn" id="logoutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>लॉग आउट</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+
+            <div class="topbar-title">
+                <h1>जिला डैशबोर्ड</h1>
+                <p>जिला-व्यापी कल्याण निगरानी और विश्लेषण</p>
+            </div>
+
+            <div class="topbar-actions">
+
+                <!-- Search -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text"
+                           id="searchInput"
+                           placeholder="खोजें...">
+                </div>
+
+                <!-- Language -->
+                <div class="dropdown-wrapper">
+
+                    <button class="top-icon-btn" id="languageBtn">
+                        <i class="fa-solid fa-globe"></i>
+                    </button>
+
+                    <div class="small-dropdown" id="languageDropdown">
+
+                        <button>English</button>
+                        <button>हिन्दी</button>
+                        <button>বাংলা</button>
+
+                    </div>
+
+                </div>
+
+                <!-- Notifications -->
+                <div class="dropdown-wrapper">
+
+                    <button class="top-icon-btn notification-btn"
+                            id="notificationBtn">
+
+                        <i class="fa-regular fa-bell"></i>
+
+                        <span class="notification-dot"></span>
+
+                    </button>
+
+                    <div class="notification-dropdown"
+                         id="notificationDropdown">
+
+                        <div class="dropdown-header">
+                            <strong>सूचनाएं</strong>
+                            <span>5 नई</span>
+                        </div>
+
+                        <div class="notification-item">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <div>
+                                <strong>उच्च-जोखिम चेतावनी</strong>
+                                <p>ब्लॉक C पर ध्यान देने की आवश्यकता है।</p>
+                            </div>
+                        </div>
+
+                        <div class="notification-item">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <div>
+                                <strong>रिपोर्ट तैयार है</strong>
+                                <p>मासिक रिपोर्ट उपलब्ध है।</p>
+                            </div>
+                        </div>
+
+                        <button class="view-notifications">
+                            सभी सूचनाएं देखें
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Profile -->
+                <div class="dropdown-wrapper">
+
+                    <button class="profile-button" id="profileBtn">
+
+                        <div class="top-avatar">
+                            DA
+                        </div>
+
+                        <div class="top-profile-text">
+                            <strong>जिला प्रशासक</strong>
+                          <span>प्रशासक</span>
+                        </div>
+
+                        <i class="fa-solid fa-chevron-down"></i>
+
+                    </button>
+
+                    <div class="profile-dropdown"
+                         id="profileDropdown">
+
+                        <button>
+                            <i class="fa-solid fa-user"></i>
+                            मेरी प्रोफ़ाइल
+                        </button>
+
+                        <button id="profileSettings">
+                            <i class="fa-solid fa-gear"></i>
+                            सेटिंग्स
+                        </button>
+
+                        <hr>
+
+                        <button id="profileLogout">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            लॉग आउट
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <section class="dashboard-page">
+
+            <!-- Welcome -->
+            <div class="welcome-section">
+
+                <div>
+                    <p class="welcome-small">वापसी पर स्वागत है 👋</p>
+
+                    <h2>जिला कल्याण अवलोकन</h2>
+
+                    <p>
+                        अपने पूरे जिले में मानसिक कल्याण के रुझानों, जोखिम स्तरों,
+                        परामर्श गतिविधि और सहायता संसाधनों की निगरानी करें।
+                    </p>
+                </div>
+
+                <div class="date-display">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span id="currentDate"></span>
+                </div>
+
+            </div>
+
+
+            <!-- ================= STAT CARDS ================= -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>कुल पंजीकृत उपयोगकर्ता</span>
+                        <h3>12,450</h3>
+                        <small class="positive">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            इस महीने 8.4%
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>सक्रिय उपयोगकर्ता</span>
+                        <h3>8,920</h3>
+                        <small class="positive">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            इस महीने 5.2%
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        <i class="fa-solid fa-user-clock"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>निगरानी के अधीन</span>
+                        <h3>1,240</h3>
+                        <small>
+                            सक्रिय निगरानी
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card risk-card">
+
+                    <div class="stat-icon red">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>उच्च-जोखिम मामले</span>
+                        <h3>327</h3>
+                        <small class="negative">
+                            <i class="fa-solid fa-arrow-up"></i>
+                            इस सप्ताह 3.1%
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>परामर्श सत्र</span>
+                        <h3>1,240</h3>
+                        <small class="positive">
+                            इस सप्ताह 86
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card emergency-card">
+
+                    <div class="stat-icon orange">
+                        <i class="fa-solid fa-phone-volume"></i>
+                    </div>
+
+                    <div class="stat-content">
+                        <span>आपातकालीन मामले</span>
+                        <h3>12</h3>
+                        <small>
+                            निगरानी की आवश्यकता है
+                        </small>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= CHART ROW ================= -->
+
+            <div class="content-grid chart-row">
+
+                <!-- DISTRESS TREND -->
+
+                <div class="dashboard-card large-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>जिला कल्याण रुझान</h3>
+                            <p>पूरे जिले में औसत संकट स्तर</p>
+                        </div>
+
+                        <select id="trendFilter">
+                            <option value="6">पिछले 6 महीने</option>
+                            <option value="7">पिछले 7 दिन</option>
+                            <option value="30">पिछले 30 दिन</option>
+                            <option value="12">पिछला वर्ष</option>
+                        </select>
+
+                    </div>
+
+                    <div class="chart-summary">
+
+                        <div>
+                            <span>वर्तमान औसत</span>
+                            <strong id="averageScore">40%</strong>
+                        </div>
+
+                        <div class="trend-indicator positive">
+                            <i class="fa-solid fa-arrow-down"></i>
+                            4.2% सुधार
+                        </div>
+
+                    </div>
+
+                    <div class="line-chart">
+
+                        <div class="y-axis">
+                            <span>80%</span>
+                            <span>60%</span>
+                            <span>40%</span>
+                            <span>20%</span>
+                            <span>0%</span>
+                        </div>
+
+                        <div class="chart-area">
+
+                            <div class="grid-line line-1"></div>
+                            <div class="grid-line line-2"></div>
+                            <div class="grid-line line-3"></div>
+                            <div class="grid-line line-4"></div>
+                            <div class="grid-line line-5"></div>
+
+                            <svg id="trendSvg"
+                                 viewBox="0 0 700 250"
+                                 preserveAspectRatio="none">
+
+                                <defs>
+
+                                    <linearGradient id="areaGradient"
+                                                    x1="0"
+                                                    x2="0"
+                                                    y1="0"
+                                                    y2="1">
+
+                                        <stop offset="0%"
+                                              stop-color="#1688C9"
+                                              stop-opacity=".20"/>
+
+                                        <stop offset="100%"
+                                              stop-color="#1688C9"
+                                              stop-opacity="0"/>
+
+                                    </linearGradient>
+
+                                </defs>
+
+                                <path id="areaPath"
+                                      fill="url(#areaGradient)">
+                                </path>
+
+                                <path id="trendPath"
+                                      fill="none"
+                                      stroke="#1688C9"
+                                      stroke-width="4"
+                                      stroke-linecap="round">
+                                </path>
+
+                                <g id="chartPoints"></g>
+
+                            </svg>
+
+                            <div class="x-axis"
+                                 id="xAxis"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DISTRICT STATUS -->
+
+                <div class="dashboard-card status-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>जिला स्थिति</h3>
+                            <p>समग्र कल्याण वितरण</p>
+                        </div>
+
+                        <i class="fa-solid fa-chart-pie header-icon"></i>
+
+                    </div>
+
+                    <div class="donut-wrapper">
+
+                        <div class="donut-chart">
+                            <div class="donut-center">
+                                <strong>40%</strong>
+                                <span>औसत</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="status-list">
+
+                        <div class="status-item">
+                            <span>
+                                <i class="status-dot low"></i>
+                                कम
+                            </span>
+                            <strong>48%</strong>
+                        </div>
+
+                        <div class="status-item">
+                            <span>
+                                <i class="status-dot moderate"></i>
+                                मध्यम
+                            </span>
+                            <strong>37%</strong>
+                        </div>
+
+                        <div class="status-item">
+                            <span>
+                                <i class="status-dot high"></i>
+                                उच्च
+                            </span>
+                            <strong>12%</strong>
+                        </div>
+
+                        <div class="status-item">
+                            <span>
+                                <i class="status-dot critical"></i>
+                                गंभीर
+                            </span>
+                            <strong>3%</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= AREA + ALERTS ================= -->
+
+            <div class="content-grid two-column">
+
+                <!-- AREA ANALYTICS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>क्षेत्र-वार कल्याण</h3>
+                            <p>ब्लॉक के अनुसार औसत संकट स्कोर</p>
+                        </div>
+
+                        <button class="text-button" id="viewAreasBtn">
+                            सभी देखें
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="area-table">
+
+                        <div class="table-heading">
+                            <span>क्षेत्र</span>
+                            <span>संकट</span>
+                            <span>स्थिति</span>
+                        </div>
+
+                        <div class="area-row">
+                            <strong>ब्लॉक A</strong>
+
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <span style="width:28%"></span>
+                                </div>
+                                <small>28%</small>
+                            </div>
+
+                            <span class="status-pill low-pill">
+                                कम
+                            </span>
+                        </div>
+
+
+                        <div class="area-row">
+                            <strong>ब्लॉक B</strong>
+
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <span style="width:46%"></span>
+                                </div>
+                                <small>46%</small>
+                            </div>
+
+                            <span class="status-pill moderate-pill">
+                                मध्यम
+                            </span>
+                        </div>
+
+
+                        <div class="area-row">
+                            <strong>ब्लॉक C</strong>
+
+                            <div class="progress-container">
+                                <div class="progress-bar high-progress">
+                                    <span style="width:72%"></span>
+                                </div>
+                                <small>72%</small>
+                            </div>
+
+                            <span class="status-pill high-pill">
+                                उच्च
+                            </span>
+                        </div>
+
+
+                        <div class="area-row">
+                            <strong>ब्लॉक D</strong>
+
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <span style="width:39%"></span>
+                                </div>
+                                <small>39%</small>
+                            </div>
+
+                            <span class="status-pill moderate-pill">
+                                मध्यम
+                            </span>
+                        </div>
+
+
+                        <div class="area-row">
+                            <strong>ब्लॉक E</strong>
+
+                            <div class="progress-container">
+                                <div class="progress-bar">
+                                    <span style="width:31%"></span>
+                                </div>
+                                <small>31%</small>
+                            </div>
+
+                            <span class="status-pill low-pill">
+                                कम
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RISK ALERTS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>प्राथमिकता जोखिम चेतावनियां</h3>
+                            <p>ध्यान देने योग्य मामले</p>
+                        </div>
+
+                        <span class="alert-count">
+                            5 सक्रिय
+                        </span>
+
+                    </div>
+
+                    <div class="alerts-list">
+
+                        <div class="alert-item critical-alert">
+
+                            <div class="alert-icon">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                            </div>
+
+                            <div class="alert-content">
+                                <strong>ब्लॉक C में उच्च संकट</strong>
+                                <p>18 उच्च-जोखिम वाले मामलों की पहचान की गई</p>
+                                <small>12 मिनट पहले</small>
+                            </div>
+
+                            <button class="review-btn">
+                                समीक्षा करें
+                            </button>
+
+                        </div>
+
+
+                        <div class="alert-item warning-alert">
+
+                            <div class="alert-icon">
+                                <i class="fa-solid fa-arrow-trend-up"></i>
+                            </div>
+
+                            <div class="alert-content">
+                                <strong>ब्लॉक B में संकट बढ़ रहा है</strong>
+                                <p>इस सप्ताह 12% की वृद्धि</p>
+                                <small>1 घंटा पहले</small>
+                            </div>
+
+                            <button class="review-btn">
+                                समीक्षा करें
+                            </button>
+
+                        </div>
+
+
+                        <div class="alert-item critical-alert">
+
+                            <div class="alert-icon">
+                                <i class="fa-solid fa-phone-volume"></i>
+                            </div>
+
+                            <div class="alert-content">
+                                <strong>आपातकालीन मामले बढ़े हैं</strong>
+                                <p>5 नए मामले दर्ज किए गए</p>
+                                <small>3 घंटे पहले</small>
+                            </div>
+
+                            <button class="review-btn">
+                                समीक्षा करें
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <button class="full-width-button" id="reviewAlertsBtn">
+                        सभी चेतावनियों की समीक्षा करें
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= COUNSELLORS + SESSIONS ================= -->
+
+            <div class="content-grid two-column">
+
+                <!-- COUNSELLORS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>परामर्शदाता और सहायता टीम</h3>
+                            <p>वर्तमान टीम की उपलब्धता</p>
+                        </div>
+
+                        <button class="text-button" id="viewCounsellorsBtn">
+                            टीम देखें
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </div>
+
+                    <div class="counsellor-stats">
+
+                        <div class="team-stat">
+                            <div class="team-icon blue">
+                                <i class="fa-solid fa-user-doctor"></i>
+                            </div>
+                            <strong>31</strong>
+                            <span>कुल परामर्शदाता</span>
+                        </div>
+
+                        <div class="team-stat">
+                            <div class="team-icon green">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <strong>18</strong>
+                            <span>उपलब्ध</span>
+                        </div>
+
+                        <div class="team-stat">
+                            <div class="team-icon orange">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <strong>9</strong>
+                            <span>व्यस्त</span>
+                        </div>
+
+                        <div class="team-stat">
+                            <div class="team-icon grey">
+                                <i class="fa-solid fa-circle"></i>
+                            </div>
+                            <strong>4</strong>
+                            <span>ऑफ़लाइन</span>
+                        </div>
+
+                    </div>
+
+                    <div class="pending-box">
+
+                        <div>
+                            <i class="fa-solid fa-clipboard-list"></i>
+
+                            <div>
+                                <strong>27 लंबित मामले</strong>
+                                <span>परामर्शदाता के ध्यान की प्रतीक्षा है</span>
+                            </div>
+                        </div>
+
+                        <button id="assignCasesBtn">
+                            मामले सौंपें
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COUNSELLING ACTIVITY -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>परामर्श गतिविधि</h3>
+                            <p>इस सप्ताह संभाले गए सत्र</p>
+                        </div>
+
+                        <select id="sessionFilter">
+                            <option>इस सप्ताह</option>
+                            <option>इस महीने</option>
+                            <option>पिछले 3 महीने</option>
+                        </select>
+
+                    </div>
+
+                    <div class="session-summary">
+
+                        <div>
+                            <strong>86</strong>
+                            <span>कुल सत्र</span>
+                        </div>
+
+                        <div>
+                            <strong class="green-text">71</strong>
+                            <span>पूर्ण</span>
+                        </div>
+
+                        <div>
+                            <strong class="orange-text">10</strong>
+                            <span>लंबित</span>
+                        </div>
+
+                    </div>
+
+                    <div class="bar-chart">
+
+                        <div class="bar-column">
+                            <div class="bar-value">18</div>
+                            <div class="bar" style="height:70%"></div>
+                            <span>सोम</span>
+                        </div>
+
+                        <div class="bar-column">
+                            <div class="bar-value">14</div>
+                            <div class="bar" style="height:55%"></div>
+                            <span>मंगल</span>
+                        </div>
+
+                        <div class="bar-column">
+                            <div class="bar-value">21</div>
+                            <div class="bar" style="height:82%"></div>
+                            <span>बुध</span>
+                        </div>
+
+                        <div class="bar-column">
+                            <div class="bar-value">12</div>
+                            <div class="bar" style="height:48%"></div>
+                            <span>गुरु</span>
+                        </div>
+
+                        <div class="bar-column">
+                            <div class="bar-value">16</div>
+                            <div class="bar" style="height:63%"></div>
+                            <span>शुक्र</span>
+                        </div>
+
+                        <div class="bar-column">
+                            <div class="bar-value">5</div>
+                            <div class="bar" style="height:25%"></div>
+                            <span>शनि</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= AI INSIGHTS + RESOURCES ================= -->
+
+            <div class="content-grid two-column">
+
+                <!-- AI INSIGHTS -->
+
+                <div class="dashboard-card ai-card">
+
+                    <div class="card-header">
+
+                        <div class="ai-title">
+
+                            <div class="ai-icon">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+
+                            <div>
+                                <h3>एआई जिला अंतर्दृष्टि</h3>
+                                <p>पैटर्न-आधारित अवलोकन</p>
+                            </div>
+
+                        </div>
+
+                        <span class="ai-label">
+                            एआई समर्थित
+                        </span>
+
+                    </div>
+
+
+                    <div class="insight-box">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        <p>
+                            पिछले दो हफ्तों में <strong>3 निगरानी वाले क्षेत्रों</strong> में मध्यम
+                            संकट स्तर बढ़ गया है।
+                        </p>
+
+                    </div>
+
+
+                    <div class="insight-box">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        <!-- ================= DISTRICT SUPPORT RESOURCES ================= -->
+
+<div class="dashboard-card">
+
+    <div class="card-header">
+        <div>
+            <h3>जिला सहायता संसाधन</h3>
+            <p>वर्तमान समर्थन क्षमता</p>
+        </div>
+        <i class="fa-solid fa-hospital header-icon"></i>
+    </div>
+
+    <div class="resource-list">
+        <div class="resource-item">
+            <div class="resource-icon blue">
+                <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+                <strong>8</strong>
+                <span>परामर्श केंद्र</span>
+            </div>
+        </div>
+
+        <div class="resource-item">
+            <div class="resource-icon green">
+                <i class="fa-solid fa-user-doctor"></i>
+            </div>
+            <div>
+                <strong>42</strong>
+                <span>मानसिक स्वास्थ्य पेशेवर</span>
+            </div>
+        </div>
+
+        <div class="resource-item">
+            <div class="resource-icon orange">
+                <i class="fa-solid fa-truck-medical"></i>
+            </div>
+            <div>
+                <strong>5</strong>
+                <span>आपातकालीन सुविधाएं</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="capacity-section">
+        <div class="capacity-heading">
+            <span>उपलब्ध सहायता क्षमता</span>
+            <strong>68%</strong>
+        </div>
+        <div class="capacity-bar">
+            <span></span>
+        </div>
+    </div>
+
+    <button class="full-width-button" id="manageResourcesBtn">
+        संसाधन प्रबंधित करें
+    </button>
+
+</div>
+
+<!-- ================= REPORTS & ANALYTICS ================= -->
+
+<div class="dashboard-card reports-card">
+
+    <div class="card-header">
+        <div>
+            <h3>रिपोर्ट और विश्लेषण</h3>
+            <p>जिला कल्याण रिपोर्ट तैयार करें</p>
+        </div>
+        <i class="fa-solid fa-file-chart-column header-icon"></i>
+    </div>
+
+    <div class="report-actions">
+        <button class="report-button" id="weeklyReportBtn">
+            <i class="fa-solid fa-file-lines"></i>
+            <span>
+                <strong>साप्ताहिक रिपोर्ट</strong>
+                <small>नवीनतम रिपोर्ट जनरेट करें</small>
+            </span>
+        </button>
+
+        <button class="report-button" id="monthlyReportBtn">
+            <i class="fa-solid fa-calendar-days"></i>
+            <span>
+                <strong>मासिक रिपोर्ट</strong>
+                <small>मासिक विश्लेषण जनरेट करें</small>
+            </span>
+        </button>
+
+        <button class="report-button" id="analyticsBtn">
+            <i class="fa-solid fa-chart-column"></i>
+            <span>
+                <strong>जिला विश्लेषण</strong>
+                <small>विस्तृत आँकड़े देखें</small>
+            </span>
+        </button>
+
+        <button class="report-button primary-report" id="downloadReportBtn">
+            <i class="fa-solid fa-download"></i>
+            <span>
+                <strong>रिपोर्ट डाउनलोड करें</strong>
+                <small>जिला डेटा निर्यात करें</small>
+            </span>
+        </button>
+    </div>
+
+</div>
+
+<!-- ================= TOAST ================= -->
+
+<div class="toast" id="toast">
+    <div class="toast-icon">
+        <i class="fa-solid fa-check"></i>
+    </div>
+    <div>
+        <strong id="toastTitle">सफलता</strong>
+        <p id="toastMessage">कार्रवाई पूरी हो गई।</p>
+    </div>
+    <button id="closeToast">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+</div>
