@@ -1,4 +1,4 @@
-package com.sih.stressmonitoring.queue;
+package com.sih.stressmonitoring.scheduler;
 
 import com.sih.stressmonitoring.ai.AiServiceClient;
 import com.sih.stressmonitoring.dto.ai.ScoreRequest;
@@ -12,64 +12,69 @@ import com.sih.stressmonitoring.entity.enums.RiskTier;
 import com.sih.stressmonitoring.repository.AlertRepository;
 import com.sih.stressmonitoring.repository.CheckInRepository;
 import com.sih.stressmonitoring.repository.ScoreRepository;
-import com.sih.stressmonitoring.repository.VictimRepository;
+import com.sih.stressmonitoring.service.SmsService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Duration;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class JobWorker {
+public class ScoringWorker {
 
-    private static final Logger logger = LoggerFactory.getLogger(JobWorker.class);
-    private final RedisTemplate<String, Object> redisTemplate;
-    private final AiServiceClient aiServiceClient;
+    private static final Logger logger = LoggerFactory.getLogger(ScoringWorker.class);
+
     private final CheckInRepository checkInRepository;
     private final ScoreRepository scoreRepository;
     private final AlertRepository alertRepository;
-    private final VictimRepository victimRepository;
+    private final AiServiceClient aiServiceClient;
+    private final SmsService smsService;
 
-    @Scheduled(fixedDelayString = "1000") // Check queue every 1s
-    public void processQueue() {
-        Object item = redisTemplate.opsForList().leftPop(JobPublisher.SCORING_QUEUE, Duration.ofSeconds(1));
-        if (item instanceof ScoringJob job) {
+    @Scheduled(fixedDelayString = "3000") // Run every 3s
+    public void processPendingCheckIns() {
+        // Fetch up to 10 pending check-ins at a time
+        List<CheckIn> pendingCheckIns = checkInRepository.findByProcessingStatus("PENDING", PageRequest.of(0, 10));
+
+        for (CheckIn checkIn : pendingCheckIns) {
             try {
-                processJob(job);
+                processSingleCheckIn(checkIn);
             } catch (Exception e) {
-                logger.error("Error processing scoring job: {}", e.getMessage());
-                handleFailure(job);
+                logger.error("Failed to process check-in {}: {}", checkIn.getId(), e.getMessage());
+                checkIn.setProcessingStatus("FAILED");
+                checkInRepository.save(checkIn);
+                // Real system would implement retry thresholds
             }
         }
     }
 
     @Transactional
-    public void processJob(ScoringJob job) {
-        logger.info("Processing scoring job for checkin {}", job.getCheckinId());
+    public void processSingleCheckIn(CheckIn checkIn) {
+        // 1. Mark as processing (optimistic approach, in real prod use select for update or status check)
+        checkIn.setProcessingStatus("PROCESSING");
+        checkIn = checkInRepository.save(checkIn);
 
-        // 1. Idempotency check: Already scored?
-        if (scoreRepository.existsByCheckInId(job.getCheckinId())) {
-            logger.info("Score already exists for checkin {}. Ignoring job.", job.getCheckinId());
+        if (scoreRepository.existsByCheckInId(checkIn.getId())) {
+            logger.info("Score already exists for checkin {}. Ignoring.", checkIn.getId());
+            checkIn.setProcessingStatus("COMPLETED");
+            checkInRepository.save(checkIn);
             return;
         }
 
-        CheckIn checkIn = checkInRepository.findById(job.getCheckinId())
-                .orElseThrow(() -> new IllegalStateException("Checkin missing: " + job.getCheckinId()));
-        Victim victim = victimRepository.findById(job.getVictimId())
-                .orElseThrow(() -> new IllegalStateException("Victim missing: " + job.getVictimId()));
+        Victim victim = checkIn.getVictim();
 
         // 2. Call AI/Mock
         ScoreRequest req = ScoreRequest.builder()
-                .checkinId(job.getCheckinId())
-                .victimId(job.getVictimId())
-                .text(job.getText())
-                .audioRef(job.getAudioRef())
+                .checkinId(checkIn.getId())
+                .victimId(victim.getId())
+                .text(checkIn.getRawText())
+                .audioRef(checkIn.getAudioRef())
                 .build();
+
         ScoreResponse result = aiServiceClient.getScore(req);
 
         // 3. Save Score
@@ -87,18 +92,18 @@ public class JobWorker {
 
         score = scoreRepository.save(score);
 
-        // DB trigger updates victim.currentRiskTier automatically in real DB execution.
-        // But Hibernate doesn't know it unless refreshed. We'll proceed to evaluating alerts off the new result's risk tier directly.
-
         // 4. Alert evaluation
+        smsService.evaluateAndSendDistressSms(score, victim, checkIn);
         evaluateAndCreateAlert(score, victim);
+
+        // 5. Mark checkin as completed
+        checkIn.setProcessingStatus("COMPLETED");
+        checkInRepository.save(checkIn);
     }
 
     private void evaluateAndCreateAlert(Score score, Victim victim) {
         RiskTier tier = score.getRiskTier();
         if (tier == RiskTier.HIGH || tier == RiskTier.CRITICAL) {
-
-            // Prevent duplicate alerts
             boolean alertOpen = alertRepository.existsByScoreIdAndStatus(score.getId(), AlertStatus.OPEN);
             if (!alertOpen) {
                 String threshold = "DDS >= 70 (Escalation to " + tier.name() + ")";
@@ -107,26 +112,12 @@ public class JobWorker {
                         .score(score)
                         .thresholdCrossed(threshold)
                         .status(AlertStatus.OPEN)
-                        .assignedTo(victim.getAssignedCounsellor()) // Assumes we will fetch User entity
+                        .assignedTo(victim.getAssignedCounsellor())
                         .build();
 
                 alertRepository.save(alert);
                 logger.info("Created {} alert for victim {}", tier, victim.getId());
-
-                // Usually we trigger WebSocket or Email notification here.
             }
-        }
-    }
-
-    private void handleFailure(ScoringJob job) {
-        job.setAttempt(job.getAttempt() + 1);
-        if (job.getAttempt() < 3) {
-            // Requeue for retry
-            redisTemplate.opsForList().rightPush(JobPublisher.SCORING_QUEUE, job);
-            logger.info("Job re-queued. Attempt {}", job.getAttempt());
-        } else {
-            logger.error("Job max retries exceeded for checkin {}", job.getCheckinId());
-            // Log for manual intervention / DLQ
         }
     }
 }

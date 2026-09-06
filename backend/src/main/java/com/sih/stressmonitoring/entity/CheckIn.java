@@ -51,6 +51,10 @@ public class CheckIn {
     @Column(name = "is_missed", nullable = false)
     private Boolean isMissed = false;
 
+    @Builder.Default
+    @Column(name = "processing_status", nullable = false)
+    private String processingStatus = "PENDING";
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;

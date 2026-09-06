@@ -6,8 +6,6 @@ import com.sih.stressmonitoring.entity.CheckIn;
 import com.sih.stressmonitoring.entity.Consent;
 import com.sih.stressmonitoring.entity.Victim;
 import com.sih.stressmonitoring.entity.enums.ConsentStatus;
-import com.sih.stressmonitoring.queue.JobPublisher;
-import com.sih.stressmonitoring.queue.ScoringJob;
 import com.sih.stressmonitoring.repository.CheckInRepository;
 import com.sih.stressmonitoring.repository.ConsentRepository;
 import com.sih.stressmonitoring.repository.VictimRepository;
@@ -24,7 +22,6 @@ public class CheckInService {
     private final CheckInRepository checkInRepository;
     private final VictimRepository victimRepository;
     private final ConsentRepository consentRepository;
-    private final JobPublisher jobPublisher;
 
     @Transactional
     public CheckInResponse ingestCheckIn(CheckInRequest request) {
@@ -49,19 +46,10 @@ public class CheckInService {
                 .responseLatencySec(request.getResponseLatencySec())
                 .metadata(request.getMetadata())
                 .isMissed(request.getIsMissed() != null ? request.getIsMissed() : false)
+                .processingStatus("PENDING")
                 .build();
 
         checkIn = checkInRepository.save(checkIn);
-
-        // Async scoring step - push to Redis queue
-        ScoringJob job = new ScoringJob(
-                checkIn.getId(),
-                victim.getId(),
-                request.getRawText(),
-                request.getAudioRef(),
-                0
-        );
-        jobPublisher.publishScoringJob(job);
 
         // Return immediately without waiting for AI
         return CheckInResponse.builder()
@@ -69,7 +57,7 @@ public class CheckInService {
                 .victimId(victim.getId())
                 .channel(checkIn.getChannel())
                 .createdAt(checkIn.getCreatedAt())
-                .status("PENDING_SCORING")
+                .status(checkIn.getProcessingStatus())
                 .build();
     }
 }
