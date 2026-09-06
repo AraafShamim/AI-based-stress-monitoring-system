@@ -62,6 +62,10 @@ class ScoreRequest(BaseModel):
     recent_history: Optional[List[str]] = []
     previous_dds_scores: Optional[List[int]] = []
     response_latency_sec: Optional[int] = 0
+    # NEW: Demographic prep for future dashboard slicing
+    age_group: Optional[str] = None
+    gender: Optional[str] = None
+    location: Optional[str] = None
 
 class ChatRequest(BaseModel):
     message: str
@@ -74,6 +78,14 @@ class CounselorInsightRequest(BaseModel):
     trigger_words: Optional[List[str]] = []
     trend_slope: Optional[int] = 0
     missed_checkins: Optional[int] = 0
+
+# NEW: Regional Request for State/National Dashboards
+class RegionalInsightRequest(BaseModel):
+    region_name: str
+    average_dds: int
+    critical_cases_count: int
+    top_triggers: List[str]
+    primary_demographic: Optional[str] = "Unknown"
 
 
 # --- 3. Dynamic Distress Scoring Endpoint ---
@@ -250,6 +262,30 @@ def generate_counselor_insight(req: CounselorInsightRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+# --- 7. Regional AI Insights (State/National Dashboards) ---
+@app.post("/ai/v1/regional-insight")
+def generate_regional_insight(req: RegionalInsightRequest):
+    try:
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            raise HTTPException(status_code=500, detail="Gemini API Key missing on the server.")
+        
+        client = genai.Client(api_key=api_key)
+        prompt = (
+            f"You are a public health AI advisor for the Ministry of Social Justice. "
+            f"Generate a concise 3-sentence macro-level policy briefing for the region of {req.region_name}. "
+            f"Average Distress Score: {req.average_dds}/100. Critical Cases: {req.critical_cases_count}. "
+            f"Top Triggers: {', '.join(req.top_triggers)}. Most affected demographic: {req.primary_demographic}. "
+            "Identify the core problem and recommend specific resource allocation (e.g., deploy debt counselors, medical aid). Do not discuss individual users."
+        )
+        
+        response = client.models.generate_content(
+            model='gemini-3.6-flash',
+            contents=prompt,
+        )
+        return {"region": req.region_name, "policy_briefing": response.text}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
     import uvicorn
