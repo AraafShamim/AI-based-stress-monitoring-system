@@ -1,4 +1,6 @@
 import os
+import tempfile
+from typing import List, Optional
 from dotenv import load_dotenv
 
 # Force Python to load the .env file from the exact directory
@@ -9,25 +11,22 @@ load_dotenv(dotenv_path=env_path)
 import joblib
 import numpy as np
 from google import genai
-import tempfile
 from fastapi import FastAPI, HTTPException, UploadFile, File
-from fastapi.middleware.cors import CORSMiddleware  # <-- NEW IMPORT
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
 from groq import Groq
 
-# Resilient Groq Initialization
+# Resilient Groq Initialization (guards against crashes if key is delayed/missing)
 groq_api_key = os.environ.get("GROQ_API_KEY")
 groq_client = Groq(api_key=groq_api_key) if groq_api_key else None
 
 app = FastAPI(
     title="SIH26094 Intelligence Layer API",
-    version="1.1.0",
+    version="1.2.0",
     description="Dynamic Distress Scoring and Escalation Prediction Service"
 )
 
-# --- NEW: CORS Configuration ---
-# This allows Anjali's frontend to connect from local environments or Vercel
+# CORS Configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -36,7 +35,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- NEW: Health Check Endpoint ---
+# Health Check Endpoint for 24/7 Keep-Alive
 @app.get("/health")
 def health_check():
     return {"status": "alive", "service": "SIH26094 Intelligence Layer"}
@@ -55,7 +54,7 @@ model_mr = joblib.load(MODEL_MR_PATH) if os.path.exists(MODEL_MR_PATH) else None
 escalation_model = joblib.load(MODEL_ESC_PATH) if os.path.exists(MODEL_ESC_PATH) else None
 
 
-# --- 2. Define Request Payloads ---
+# --- 2. Request Payloads ---
 class ScoreRequest(BaseModel):
     checkin_id: str
     text: str
@@ -64,15 +63,23 @@ class ScoreRequest(BaseModel):
     previous_dds_scores: Optional[List[int]] = []
     response_latency_sec: Optional[int] = 0
 
-class TranscribeRequest(BaseModel):
-    audio_ref: str
+class ChatRequest(BaseModel):
+    message: str
+    language: Optional[str] = "en"
+
+class CounselorInsightRequest(BaseModel):
+    client_name: str
+    current_dds: int
+    risk_tier: str
+    trigger_words: Optional[List[str]] = []
+    trend_slope: Optional[int] = 0
+    missed_checkins: Optional[int] = 0
 
 
-# --- 3. The Scoring Endpoint (Explainable AI & Predictive Trend) ---
+# --- 3. Dynamic Distress Scoring Endpoint ---
 @app.post("/ai/v1/score")
 def score_checkin(req: ScoreRequest):
     try:
-        # 0. Route to requested language model
         if req.language == "mr":
             clf = model_mr
         elif req.language == "hi":
@@ -83,36 +90,33 @@ def score_checkin(req: ScoreRequest):
         if clf is None:
             raise HTTPException(status_code=500, detail=f"Requested language model '{req.language}' is not loaded.")
 
-        # 1. NLP Sentiment & Distress Probability
+        # NLP Sentiment & Distress Probability
         distress_prob = float(clf.predict_proba([req.text])[0][1])
         nlp_points = distress_prob * 70  
 
-        # 2. Explainable AI: Extract Trigger Words
+        # Explainable AI: Extract Trigger Words
         feature_names = clf.named_steps['tfidf'].get_feature_names_out()
         coefficients = clf.named_steps['clf'].coef_[0]
         
         words = req.text.lower().split()
         word_weights = {}
-        
-        # Match user words against the model's distress vocabulary
         for word in words:
             if word in feature_names:
                 idx = list(feature_names).index(word)
                 if coefficients[idx] > 0:
                     word_weights[word] = float(coefficients[idx])
         
-        # Grab the top 3 most impactful words
         trigger_words = sorted(word_weights, key=word_weights.get, reverse=True)[:3]
 
-        # 3. Behavioural Signal Penalties
+        # Behavioural Signal Penalties
         missed_count = req.recent_history.count("missed")
         missed_penalty = min(missed_count * 10, 20)
         latency_penalty = 10 if req.response_latency_sec > 60 else 0
 
-        # 4. Dynamic Distress Score Calculation (0-100)
+        # Dynamic Distress Score (0-100)
         dds_score = int(min(100, max(0, nlp_points + missed_penalty + latency_penalty)))
 
-        # 5. Risk Tiering
+        # Risk Tiering
         if dds_score < 40:
             risk_tier = "Low"
         elif dds_score < 70:
@@ -122,20 +126,17 @@ def score_checkin(req: ScoreRequest):
         else:
             risk_tier = "Critical"
 
-        # 6. Predictive Escalation (ML Trend Model)
-        # Calculates trend slope from past check-in scores vs current score
+        # Predictive Escalation Trend Slope
         past_score = req.previous_dds_scores[-1] if req.previous_dds_scores else dds_score
         slope = dds_score - past_score
 
         if escalation_model:
-            # Features must match training: [current_dds, slope, missed_count]
             pred_features = np.array([[dds_score, slope, missed_count]])
             escalation_flag = bool(escalation_model.predict(pred_features)[0] == 1)
         else:
-            # Fallback heuristic if ML model fails to load
             escalation_flag = risk_tier in ["High", "Critical"]
 
-        # 7. Explainability Factors for the Dashboard
+        # Explainability Factors
         factors = [f"Text distress probability: {distress_prob:.2f}"]
         if trigger_words:
             factors.append(f"Trigger words detected: {', '.join(trigger_words)}")
@@ -162,22 +163,17 @@ def score_checkin(req: ScoreRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# --- 4. The Transcription Endpoint (Real Whisper API) ---
-# Initialize Groq client (requires GROQ_API_KEY in your Render environment variables)
-groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-
+# --- 4. Whisper Multilingual Speech-to-Text Endpoint ---
 @app.post("/ai/v1/transcribe")
 async def transcribe_audio(file: UploadFile = File(...)):
     try:
-        if not os.environ.get("GROQ_API_KEY"):
-            raise HTTPException(status_code=500, detail="Groq API Key is missing.")
+        if not groq_client:
+            raise HTTPException(status_code=500, detail="Groq API Key is missing or client failed to initialize.")
 
-        # Save the uploaded file temporarily to pass to the Groq API
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
             temp_audio.write(await file.read())
             temp_path = temp_audio.name
 
-        # Call Groq's Whisper API
         with open(temp_path, "rb") as audio_file:
             transcription = groq_client.audio.transcriptions.create(
                 file=(file.filename, audio_file.read()),
@@ -185,7 +181,6 @@ async def transcribe_audio(file: UploadFile = File(...)):
                 response_format="json"
             )
             
-        # Clean up the temporary file to prevent Render memory leaks
         os.remove(temp_path)
 
         return {
@@ -196,10 +191,8 @@ async def transcribe_audio(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-class ChatRequest(BaseModel):
-    message: str
-    language: Optional[str] = "en"
 
+# --- 5. Trauma-Informed Counselor Chatbot ---
 @app.post("/ai/v1/chat")
 def chat_counselor(req: ChatRequest):
     try:
@@ -207,7 +200,6 @@ def chat_counselor(req: ChatRequest):
         if not api_key:
             raise HTTPException(status_code=500, detail="Gemini API Key is missing on the server.")
         
-        # Initialize the new SDK Client
         client = genai.Client(api_key=api_key)
         
         system_instruction = (
@@ -217,7 +209,6 @@ def chat_counselor(req: ChatRequest):
             f"Respond to the user strictly in this language code: {req.language}."
         )
         
-        # New syntax for passing system instructions and generating content
         response = client.models.generate_content(
             model='gemini-3.6-flash',
             contents=req.message,
@@ -232,6 +223,33 @@ def chat_counselor(req: ChatRequest):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# --- 6. Counselor AI Insights Endpoint ---
+@app.post("/ai/v1/counselor-insight")
+def generate_counselor_insight(req: CounselorInsightRequest):
+    try:
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            raise HTTPException(status_code=500, detail="Gemini API Key missing on the server.")
+        
+        client = genai.Client(api_key=api_key)
+        prompt = (
+            f"Provide a concise, 2-sentence objective clinical summary for a human crisis counselor. "
+            f"Client: {req.client_name}. Distress Score: {req.current_dds}/100 ({req.risk_tier} Risk). "
+            f"Detected triggers: {', '.join(req.trigger_words) if req.trigger_words else 'None'}. "
+            f"Trend slope: {req.trend_slope}. Missed check-ins: {req.missed_checkins}. "
+            "Highlight potential risks and recommended focus areas for their session."
+        )
+        
+        response = client.models.generate_content(
+            model='gemini-3.6-flash',
+            contents=prompt,
+        )
+        return {"counselor_ai_summary": response.text}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 
 if __name__ == "__main__":
     import uvicorn
