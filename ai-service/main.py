@@ -1,10 +1,24 @@
 import os
+from dotenv import load_dotenv
+
+# Force Python to load the .env file from the exact directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+env_path = os.path.join(current_dir, ".env")
+load_dotenv(dotenv_path=env_path)
+
 import joblib
 import numpy as np
-import google.generativeai as genai
-from fastapi import FastAPI, HTTPException
+from google import genai
+import tempfile
+from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi.middleware.cors import CORSMiddleware  # <-- NEW IMPORT
 from pydantic import BaseModel
 from typing import List, Optional
+from groq import Groq
+
+# Resilient Groq Initialization
+groq_api_key = os.environ.get("GROQ_API_KEY")
+groq_client = Groq(api_key=groq_api_key) if groq_api_key else None
 
 app = FastAPI(
     title="SIH26094 Intelligence Layer API",
@@ -12,11 +26,28 @@ app = FastAPI(
     description="Dynamic Distress Scoring and Escalation Prediction Service"
 )
 
+# --- NEW: CORS Configuration ---
+# This allows Anjali's frontend to connect from local environments or Vercel
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# --- NEW: Health Check Endpoint ---
+@app.get("/health")
+def health_check():
+    return {"status": "alive", "service": "SIH26094 Intelligence Layer"}
+
 # --- 1. Load Models at Startup ---
-MODEL_EN_PATH = os.path.join("models", "model_en.pkl")
-MODEL_HI_PATH = os.path.join("models", "model_hi.pkl")
-MODEL_MR_PATH = os.path.join("models", "model_mr.pkl")
-MODEL_ESC_PATH = os.path.join("models", "escalation_model.pkl")
+MODELS_DIR = os.path.join(current_dir, "models")
+
+MODEL_EN_PATH = os.path.join(MODELS_DIR, "model_en.pkl")
+MODEL_HI_PATH = os.path.join(MODELS_DIR, "model_hi.pkl")
+MODEL_MR_PATH = os.path.join(MODELS_DIR, "model_mr.pkl")
+MODEL_ESC_PATH = os.path.join(MODELS_DIR, "escalation_model.pkl")
 
 model_en = joblib.load(MODEL_EN_PATH) if os.path.exists(MODEL_EN_PATH) else None
 model_hi = joblib.load(MODEL_HI_PATH) if os.path.exists(MODEL_HI_PATH) else None
@@ -131,14 +162,36 @@ def score_checkin(req: ScoreRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# --- 4. The Transcription Endpoint (Lightweight Simulated Fallback) ---
+# --- 4. The Transcription Endpoint (Real Whisper API) ---
+# Initialize Groq client (requires GROQ_API_KEY in your Render environment variables)
+groq_client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
 @app.post("/ai/v1/transcribe")
-def transcribe_audio(req: TranscribeRequest):
+async def transcribe_audio(file: UploadFile = File(...)):
     try:
+        if not os.environ.get("GROQ_API_KEY"):
+            raise HTTPException(status_code=500, detail="Groq API Key is missing.")
+
+        # Save the uploaded file temporarily to pass to the Groq API
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
+            temp_audio.write(await file.read())
+            temp_path = temp_audio.name
+
+        # Call Groq's Whisper API
+        with open(temp_path, "rb") as audio_file:
+            transcription = groq_client.audio.transcriptions.create(
+                file=(file.filename, audio_file.read()),
+                model="whisper-large-v3",
+                response_format="json"
+            )
+            
+        # Clean up the temporary file to prevent Render memory leaks
+        os.remove(temp_path)
+
         return {
-            "transcript_text": "Simulated audio transcript: I am feeling anxious about the trial.",
-            "language_detected": "en",
-            "confidence": 0.85
+            "transcript_text": transcription.text,
+            "language_detected": "auto", 
+            "confidence": 0.95
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -150,14 +203,13 @@ class ChatRequest(BaseModel):
 @app.post("/ai/v1/chat")
 def chat_counselor(req: ChatRequest):
     try:
-        # Pulls the secret API key securely from the cloud environment
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
             raise HTTPException(status_code=500, detail="Gemini API Key is missing on the server.")
         
-        genai.configure(api_key=api_key)
+        # Initialize the new SDK Client
+        client = genai.Client(api_key=api_key)
         
-        # The hidden prompt that enforces the counselor persona and bilingual safety
         system_instruction = (
             "You are a trauma-informed crisis counselor AI supporting victims of atrocities. "
             "Your tone must be highly empathetic, non-judgmental, grounding, and concise. "
@@ -165,13 +217,14 @@ def chat_counselor(req: ChatRequest):
             f"Respond to the user strictly in this language code: {req.language}."
         )
         
-       # Initializing Gemini 3.6 Flash for high-speed conversational responses
-        model = genai.GenerativeModel(
-            model_name="gemini-3.6-flash",
-            system_instruction=system_instruction
+        # New syntax for passing system instructions and generating content
+        response = client.models.generate_content(
+            model='gemini-3.6-flash',
+            contents=req.message,
+            config=genai.types.GenerateContentConfig(
+                system_instruction=system_instruction,
+            ),
         )
-        
-        response = model.generate_content(req.message)
         
         return {
             "reply": response.text,
