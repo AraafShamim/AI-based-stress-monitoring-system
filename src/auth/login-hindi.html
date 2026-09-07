@@ -20,30 +20,20 @@
 
    <div class="top-right-actions">
 
-    <!-- Hamburger Menu -->
+    <!-- Hamburger Menu (Role Selector) -->
     <div class="menu-wrapper">
-        <button class="icon-btn" id="menuBtn" aria-label="Menu">
+        <button class="icon-btn" id="menuBtn" aria-label="Menu" title="Select Role">
             <i class="fa-solid fa-bars"></i>
         </button>
 
         <div class="dropdown-menu" id="menuDropdown">
-            <a href="user-login.html">
-                <i class="fa-solid fa-user"></i>
-                User Login
-            </a>
-
-            <a href="counsellor-login.html">
-                <i class="fa-solid fa-user-doctor"></i>
-                Counsellor Login
-            </a>
-
-            <a href="admin-login.html">
-                <i class="fa-solid fa-user-shield"></i>
-                Admin Login
-            </a>
+            <a href="#" class="role-btn" data-url="../pages/national/national-hindi.html"><i class="fa-solid fa-flag"></i> राष्ट्रीय प्रशासक</a>
+            <a href="#" class="role-btn" data-url="../pages/state/state-hindi.html"><i class="fa-solid fa-map"></i> राज्य प्रशासक</a>
+            <a href="#" class="role-btn" data-url="../pages/district-dashboard/district-hindi.html"><i class="fa-solid fa-building"></i> जिला प्रशासक</a>
+            <a href="#" class="role-btn" data-url="../pages/counsellor-dashboard/counsellor-hindi.html"><i class="fa-solid fa-user-doctor"></i> परामर्शदाता</a>
+            <a href="#" class="role-btn" data-url="../pages/victim-dashboard/dashboard-hindi.html"><i class="fa-solid fa-user"></i> उपयोगकर्ता</a>
         </div>
     </div>
-
 
     <!-- Language -->
     <div class="language-wrapper">
@@ -54,9 +44,10 @@
         <div class="dropdown-menu language-dropdown" id="languageDropdown">
             <button>English</button>
             <button>हिन्दी</button>
-            <button>বাংলা</button>
         </div>
     </div>
+
+   </div>
 
 </div>
 
@@ -74,7 +65,7 @@
 
         
 
-        <h2><span class="english">वापस स्वागत है</span></h2>
+        <h2><span class="english" id="welcomeText">वापस स्वागत है</span></h2>
         <!--<p class="subtitle">Login to continue your journey</p>-->
 
         <!-- Login Form -->

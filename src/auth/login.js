@@ -1,7 +1,80 @@
-// Password show/hide
+// === DROPDOWN LOGIC ===
+const menuBtn = document.getElementById("menuBtn");
+const menuDropdown = document.getElementById("menuDropdown");
+const languageBtn = document.getElementById("languageBtn");
+const languageDropdown = document.getElementById("languageDropdown");
+
+// Toggle Menu
+menuBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    menuDropdown.classList.toggle("show");
+    languageDropdown.classList.remove("show");
+});
+
+// Toggle Language
+languageBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    languageDropdown.classList.toggle("show");
+    menuDropdown.classList.remove("show");
+});
+
+// Close dropdowns when clicking outside
+document.addEventListener("click", () => {
+    menuDropdown.classList.remove("show");
+    languageDropdown.classList.remove("show");
+});
+
+// Prevent closing when clicking inside dropdowns
+menuDropdown.addEventListener("click", (e) => e.stopPropagation());
+languageDropdown.addEventListener("click", (e) => e.stopPropagation());
+
+// === LANGUAGE SWITCHER ===
+const langButtons = languageDropdown.querySelectorAll("button");
+langButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        const lang = e.target.innerText.trim();
+        if (lang === "हिन्दी") {
+            window.location.href = "login-hindi.html";
+        } else if (lang === "English") {
+            window.location.href = "login.html";
+        }
+    });
+});
+
+// === ROLE SELECTION ===
+let targetDashboard = "../pages/counsellor-dashboard/counsellor.html"; // Default
+const roleButtons = document.querySelectorAll(".role-btn");
+const welcomeText = document.getElementById("welcomeText");
+
+roleButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        
+        // Highlight selected role
+        roleButtons.forEach(b => b.style.color = "#173B4D");
+        btn.style.color = "#1688C9";
+
+        // Set the destination URL
+        targetDashboard = btn.getAttribute("data-url");
+
+        // Update the greeting text to show the selected role
+        const roleName = btn.innerText.trim();
+        if (window.location.pathname.includes("hindi")) {
+            welcomeText.innerText = roleName + " के रूप में लॉगिन करें";
+        } else {
+            welcomeText.innerText = "Login as " + roleName;
+        }
+
+        menuDropdown.classList.remove("show");
+    });
+});
+
+// === LOGIN FORM SUBMISSION ===
+const loginForm = document.getElementById("loginForm");
 const password = document.getElementById("password");
 const eye = document.getElementById("eye");
 
+// Password show/hide
 eye.addEventListener("click", () => {
     if (password.type === "password") {
         password.type = "text";
@@ -14,36 +87,19 @@ eye.addEventListener("click", () => {
     }
 });
 
-
-// Login validation
-const loginForm = document.getElementById("loginForm");
-
+// Form Submit
 loginForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const email = document.getElementById("email").value.trim();
     const pass = password.value.trim();
+    const userNameInput = document.getElementById("usernameInput").value;
 
-    if (email === "" || pass === "") {
-        alert("Please enter your email and password.");
+    if (pass === "") {
+        alert("Please enter your password.");
         return;
     }
 
-    if (!email.includes("@")) {
-        alert("Please enter a valid email address.");
-        return;
-    }
-
-    alert("Welcome to MannSetu! 🌿");
-
-// Inside your login form submit handler/function
-const userNameInput = document.getElementById("usernameInput").value; // Get name from input field
-
-// Save the name to browser storage
-localStorage.setItem("loggedInUser", userNameInput);
-
-// Redirect to dashboard
-window.location.href = "../pages/counsellor-dashboard/counsellor.html";
-
-    // Later you can connect this to your backend
+    // Save name and route to the correct dashboard
+    localStorage.setItem("loggedInUser", userNameInput);
+    window.location.href = targetDashboard;
 });
