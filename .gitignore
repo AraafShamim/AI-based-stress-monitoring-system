@@ -1,0 +1,7 @@
+# Environment Variables
+.env
+ai-service/.env
+
+# Python Cache
+__pycache__/
+*.pyc
