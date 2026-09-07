@@ -1,0 +1,397 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: linear-gradient(135deg, #0878c9, #0b9b9a, #45a948);
+}
+
+/* Login Card */
+
+.login-container {
+    width: 590px;
+    padding: 35px 65px;
+
+    background: rgba(255, 255, 255, 0.88);
+    border-radius: 28px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo */
+
+.logo {
+    width: 160px;
+    height: 160px;
+
+    object-fit: contain;
+    margin-top: -25px;
+    border-radius: 50%;
+
+    margin-bottom: 5px;
+}
+
+/*tagline*/
+
+.tagline {
+    font-family: 'Poppins', sans-serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 16px;
+    color: #555555;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+/* MannSetu */
+
+h1 {
+    font-size: 52px;
+}
+
+.hindi {
+    font-family: 'Arya', sans-serif;
+    color: #0878c9;
+    font-weight: 700;
+}
+
+.english {
+    font-family: 'Poppins', sans-serif;
+    color: #16a958;
+}
+
+/* Small symbol */
+
+.leaf {
+    color: #36a978;
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+/* Heading */
+
+h2 {
+    font-size: 25px;
+    color: #111;
+    margin-bottom: 7px;
+}
+
+.subtitle {
+    color: #555;
+    margin-bottom: 22px;
+}
+
+/* Inputs */
+
+.input-box {
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+
+    background: #f4eeee;
+    border-radius: 10px;
+
+    margin-bottom: 14px;
+    padding: 0 16px;
+}
+
+.input-box span {
+    margin-right: 13px;
+    color: #637080;
+}
+
+.input-box input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    font-size: 15px;
+}
+
+.input-box .eye {
+    margin-right: 0;
+    cursor: pointer;
+}
+
+/* Forgot password */
+
+.forgot {
+    text-align: right;
+    margin: 5px 3px 20px;
+}
+
+.forgot a {
+    color: #087c82;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Login Button */
+
+button {
+    width: 100%;
+    height: 55px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(90deg, #0878c9, #35a94c);
+
+    color: white;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+/* OR */
+
+.or {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 18px 0;
+}
+
+.or span {
+    flex: 1;
+    height: 1px;
+    background: #ccc;
+}
+
+.or p {
+    color: #555;
+}
+
+/* Google */
+
+.google {
+    background: #f5eeee;
+    color: #222;
+
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.google b {
+    color: #4285f4;
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+/* Sign up */
+
+.signup {
+    margin-top: 20px;
+    color: #555;
+    font-size: 14px;
+}
+
+.signup a {
+    color: #087c82;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+
+    .login-container {
+        width: 90%;
+        padding: 30px 25px;
+    }
+
+    h1 {
+        font-size: 42px;
+    }
+
+    .logo {
+        width: 90px;
+        height: 90px;
+    }
+}
+
+/* =========================================
+   TOP RIGHT ICONS
+========================================= */
+
+.top-right-actions {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    z-index: 1000;
+}
+
+
+/* ICON BUTTON */
+
+.icon-btn {
+    width: 44px;
+    height: 44px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.9);
+
+    color: #173B4D;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.icon-btn:hover {
+    background: #1688C9;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* WRAPPERS */
+
+.menu-wrapper,
+.language-wrapper {
+    position: relative;
+}
+
+
+/* =========================================
+   DROPDOWN
+========================================= */
+
+.dropdown-menu {
+    position: absolute;
+
+    top: 54px;
+    right: 0;
+
+    width: 210px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    padding: 8px;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transform: translateY(-8px);
+
+    transition: all 0.2s ease;
+}
+
+
+/* SHOW DROPDOWN */
+
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+
+    transform: translateY(0);
+}
+
+
+/* MENU LINKS */
+
+.dropdown-menu a {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 11px 12px;
+
+    text-decoration: none;
+
+    color: #173B4D;
+
+    font-size: 14px;
+
+    border-radius: 8px;
+
+    transition: 0.2s ease;
+}
+
+.dropdown-menu a i {
+    width: 20px;
+
+    color: #1688C9;
+}
+
+.dropdown-menu a:hover {
+    background: #E8F7F7;
+
+    color: #1688C9;
+}
+
+
+/* =========================================
+   LANGUAGE DROPDOWN
+========================================= */
+
+.language-dropdown {
+    width: 150px;
+}
+
+
+.language-dropdown button {
+    width: 100%;
+
+    border: none;
+    background: transparent;
+
+    text-align: left;
+
+    padding: 10px 12px;
+
+    border-radius: 8px;
+
+    color: #173B4D;
+
+    font-family: inherit;
+
+    cursor: pointer;
+
+    font-size: 14px;
+}
+
+.language-dropdown button:hover {
+    background: #E8F7F7;
+
+    color: #1688C9;
+}

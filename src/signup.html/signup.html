@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>मनSetu | Signup</title>
+
+    <link rel="stylesheet" href="signup.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Dancing+Script:wght@600&family=Poppins:ital,wght@1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+   <div class="top-right-actions">
+
+    <!-- Hamburger Menu (Role Selector) -->
+    <div class="menu-wrapper">
+        <button class="icon-btn" id="menuBtn" aria-label="Menu" title="Select Role">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="dropdown-menu" id="menuDropdown">
+            <a href="#" class="role-btn" data-url="../pages/national/national.html"><i class="fa-solid fa-flag"></i> National Admin</a>
+            <a href="#" class="role-btn" data-url="../pages/state/state.html"><i class="fa-solid fa-map"></i> State Admin</a>
+            <a href="#" class="role-btn" data-url="../pages/district-dashboard/district.html"><i class="fa-solid fa-building"></i> District Admin</a>
+            <a href="#" class="role-btn" data-url="../pages/counsellor-dashboard/counsellor.html"><i class="fa-solid fa-user-doctor"></i> Counsellor</a>
+            <a href="#" class="role-btn" data-url="../pages/victim-dashboard/dashboard.html"><i class="fa-solid fa-user"></i> Victim / User</a>
+        </div>
+    </div>
+
+    <!-- Language -->
+    <div class="language-wrapper">
+        <button class="icon-btn" id="languageBtn" aria-label="Language">
+            <i class="fa-solid fa-globe"></i>
+        </button>
+
+        <div class="dropdown-menu language-dropdown" id="languageDropdown">
+            <button>English</button>
+            <button>हिन्दी</button>
+            
+        </div>
+    </div>
+
+   </div>
+
+    <div class="login-container">
+
+        
+
+        <!-- App Name -->
+        <h1><span class="hindi">मन</span><span class="english">Setu</span></h1>
+
+        <p class="tagline">Your wellbeing, our bridge.</p>
+
+        <!-- Logo -->
+        <img src="../assets/logo1.png" class="logo" alt="MannSetu Logo">
+
+        
+
+        <h2><span class="english" id="welcomeText">Create an account</span></h2>
+        <!--<p class="subtitle">Login to continue your journey</p>-->
+
+        <!-- Login Form -->
+        <!-- Login Form -->
+        <form id="loginForm">
+
+            <div class="input-box">
+                <span>♙</span>
+                <input type="text" id="usernameInput" placeholder="Full Name">
+            </div>
+
+            <div class="input-box">
+                <span>♙</span>
+                <input type="text" id="usernameInput" placeholder="Phone number">
+            </div>
+
+            <div class="input-box">
+                <span>♙</span>
+                <input type="email" id="email" placeholder="Email (optional)">
+            </div>
+            <div class="input-box">
+                <span>🔒</span>
+                <input type="password" id="password" placeholder="Password">
+                <i class="fa-solid fa-eye eye" id="eye" style="cursor: pointer; color: #637080;"></i>
+            </div>
+
+           <div class="input-box">
+                <span>🔒</span>
+                <input type="password" id="password" placeholder="Confirm Password">
+                <i class="fa-solid fa-eye eye" id="eye" style="cursor: pointer; color: #637080;"></i>
+            </div>
+            <button type="submit">Signup</button>
+        </form>
+
+        <div class="or">
+            <span></span>
+            <p>or</p>
+            <span></span>
+        </div>
+
+        <button class="google">
+            <b>G</b> Continue with Google
+        </button>
+
+        <p class="signup">
+            Already have an account?
+            <a href="#">login</a>
+        </p>
+
+    </div>
+
+    <script src="login.js"></script>
+
+</body>
+</html>
