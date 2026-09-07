@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>MannSetu - National Dashboard</title>
+    <title>MannSetu - राष्ट्रीय डैशबोर्ड</title>
     <link rel="stylesheet" href="./national.css">
 </head>
 
@@ -12,49 +12,49 @@
 
 <div class="app">
 
-    <!-- SIDEBAR -->
+    <!-- साइडबार -->
      <aside class="sidebar" id="sidebar">
 
-        <!-- LOGO -->
+        <!-- लोगो -->
         <div class="logo">
-            <span class="mann">मन</span><span class="setu">Setu</span>
+            <span class="mann" style="font-family: 'Arya', sans-serif;">मन</span><span class="setu">Setu</span>
         </div>
 
         <div class="sidebar-section">
-            <p class="section-title">MAIN MENU</p>
+            <p class="section-title">मुख्य मेनू</p>
 
             <button class="nav-item active">
                 <span>▦</span>
-                National Overview
+                राष्ट्रीय अवलोकन
             </button>
 
             <button class="nav-item">
                 <span>◫</span>
-                State Analytics
+                राज्य विश्लेषण
             </button>
 
             <button class="nav-item">
                 <span>◉</span>
-                District Status
+                जिला स्थिति
             </button>
 
             <button class="nav-item">
                 <span>⚠</span>
-                Priority Alerts
+                प्राथमिकता अलर्ट
             </button>
         </div>
 
         <div class="sidebar-section">
-            <p class="section-title">MANAGEMENT</p>
+            <p class="section-title">प्रबंधन</p>
 
             <button class="nav-item">
                 <span>♧</span>
-                Reports
+                रिपोर्ट
             </button>
 
             <button class="nav-item">
                 <span>⚙</span>
-                Settings
+                सेटिंग्स
             </button>
         </div>
 
@@ -62,8 +62,8 @@
             <div class="admin-card">
                 <div class="admin-avatar">A</div>
                 <div>
-                    <strong>National Admin</strong>
-                    <small>Government Portal</small>
+                    <strong>राष्ट्रीय प्रशासनिक</strong>
+                    <small>सरकारी पोर्टल</small>
                 </div>
             </div>
         </div>
@@ -71,16 +71,16 @@
     </aside>
 
 
-    <!-- MAIN -->
+    <!-- मुख्य भाग -->
     <main class="main">
 
-        <!-- TOPBAR -->
+        <!-- शीर्ष पट्टी -->
         <header class="topbar">
 
             <button class="menu-btn" onclick="toggleSidebar()">☰</button>
 
             <div class="topbar-title">
-                National Mental Wellness Dashboard
+                राष्ट्रीय मानसिक कल्याण डैशबोर्ड
             </div>
 
             <div class="topbar-actions">
@@ -92,21 +92,21 @@
         </header>
 
 
-        <!-- CONTENT -->
+        <!-- सामग्री -->
         <div class="content">
 
-            <!-- HEADER -->
+            <!-- शीर्षक -->
             <section class="dashboard-header">
 
                 <div>
-                    <p class="breadcrumb">MannSetu / National Dashboard</p>
+                    <p class="breadcrumb">MannSetu / राष्ट्रीय डैशबोर्ड</p>
 
                     <h1>
-                        National Overview
+                        राष्ट्रीय अवलोकन
                     </h1>
 
                     <p class="subtitle">
-                        Monitor mental wellness indicators across India
+                        पूरे भारत में मानसिक कल्याण संकेतकों की निगरानी करें
                     </p>
                 </div>
 
@@ -117,20 +117,20 @@
                         <option>2024</option>
                     </select>
 
-                    <button class="primary-btn" onclick="showToast('Report generated successfully')">
-                        ↓ Export Report
+                    <button class="primary-btn" onclick="showToast('रिपोर्ट सफलतापूर्वक जनरेट हुई')">
+                        ↓ रिपोर्ट निर्यात करें
                     </button>
                 </div>
 
             </section>
 
 
-            <!-- STAT CARDS -->
+            <!-- सांख्यिकी कार्ड -->
             <section class="stats-grid">
 
                 <div class="stat-card">
                     <div class="stat-top">
-                        <span>Total Population Covered</span>
+                        <span>कुल कवर की गई आबादी</span>
                         <div class="stat-icon blue">◎</div>
                     </div>
 
@@ -138,14 +138,14 @@
 
                     <p class="positive">
                         ↑ 4.8%
-                        <span>from last year</span>
+                        <span>पिछले वर्ष से</span>
                     </p>
                 </div>
 
 
                 <div class="stat-card">
                     <div class="stat-top">
-                        <span>People Assessed</span>
+                        <span>आंकलन किए गए लोग</span>
                         <div class="stat-icon green">♙</div>
                     </div>
 
@@ -153,14 +153,14 @@
 
                     <p class="positive">
                         ↑ 12.6%
-                        <span>from last year</span>
+                        <span>पिछले वर्ष से</span>
                     </p>
                 </div>
 
 
                 <div class="stat-card">
                     <div class="stat-top">
-                        <span>Wellness Index</span>
+                        <span>कल्याण सूचकांक</span>
                         <div class="stat-icon purple">♡</div>
                     </div>
 
@@ -168,14 +168,14 @@
 
                     <p class="positive">
                         ↑ 3.2%
-                        <span>national average</span>
+                        <span>राष्ट्रीय औसत</span>
                     </p>
                 </div>
 
 
                 <div class="stat-card">
                     <div class="stat-top">
-                        <span>Priority Cases</span>
+                        <span>प्राथमिकता मामले</span>
                         <div class="stat-icon orange">⚠</div>
                     </div>
 
@@ -183,22 +183,22 @@
 
                     <p class="negative">
                         ↓ 8.4%
-                        <span>from last month</span>
+                        <span>पिछले महीने से</span>
                     </p>
                 </div>
 
             </section>
 
 
-            <!-- ANALYTICS -->
+            <!-- विश्लेषण -->
             <section class="analytics-grid">
 
                 <div class="panel chart-panel">
 
                     <div class="panel-header">
                         <div>
-                            <h3>National Wellness Trend</h3>
-                            <p>Monthly wellness index across India</p>
+                            <h3>राष्ट्रीय कल्याण रुझान</h3>
+                            <p>पूरे भारत में मासिक कल्याण सूचकांक</p>
                         </div>
 
                         <select id="trendFilter" onchange="updateChart()">
@@ -252,18 +252,18 @@
                             </svg>
 
                             <div class="months">
-                                <span>Jan</span>
-                                <span>Feb</span>
-                                <span>Mar</span>
-                                <span>Apr</span>
-                                <span>May</span>
-                                <span>Jun</span>
-                                <span>Jul</span>
-                                <span>Aug</span>
-                                <span>Sep</span>
-                                <span>Oct</span>
-                                <span>Nov</span>
-                                <span>Dec</span>
+                                <span>जनवरी</span>
+                                <span>फरवरी</span>
+                                <span>मार्च</span>
+                                <span>अप्रैल</span>
+                                <span>मई</span>
+                                <span>जून</span>
+                                <span>जुलाई</span>
+                                <span>अगस्त</span>
+                                <span>सितंबर</span>
+                                <span>अक्टूबर</span>
+                                <span>नवंबर</span>
+                                <span>दिसंबर</span>
                             </div>
                         </div>
                     </div>
@@ -271,13 +271,13 @@
                 </div>
 
 
-                <!-- NATIONAL STATUS -->
+                <!-- राष्ट्रीय स्थिति -->
                 <div class="panel">
 
                     <div class="panel-header">
                         <div>
-                            <h3>National Status</h3>
-                            <p>States by wellness category</p>
+                            <h3>राष्ट्रीय स्थिति</h3>
+                            <p>कल्याण श्रेणी के अनुसार राज्य</p>
                         </div>
                     </div>
 
@@ -286,9 +286,9 @@
                         <div class="status-row">
                             <div class="status-label">
                                 <span class="dot green-dot"></span>
-                                Healthy
+                                स्वस्थ
                             </div>
-                            <strong>18 States</strong>
+                            <strong>18 राज्य</strong>
                         </div>
 
                         <div class="progress">
@@ -299,9 +299,9 @@
                         <div class="status-row">
                             <div class="status-label">
                                 <span class="dot yellow-dot"></span>
-                                Watch
+                                नजर रखें
                             </div>
-                            <strong>10 States</strong>
+                            <strong>10 राज्य</strong>
                         </div>
 
                         <div class="progress">
@@ -312,9 +312,9 @@
                         <div class="status-row">
                             <div class="status-label">
                                 <span class="dot red-dot"></span>
-                                Priority
+                                प्राथमिकता
                             </div>
-                            <strong>8 States</strong>
+                            <strong>8 राज्य</strong>
                         </div>
 
                         <div class="progress">
@@ -323,8 +323,8 @@
 
                     </div>
 
-                    <button class="view-btn" onclick="showToast('Opening state analytics')">
-                        View State Analytics →
+                    <button class="view-btn" onclick="showToast('राज्य विश्लेषण खोला जा रहा है')">
+                        राज्य विश्लेषण देखें →
                     </button>
 
                 </div>
@@ -332,29 +332,29 @@
             </section>
 
 
-            <!-- STATES -->
+            <!-- राज्य -->
             <section class="panel states-panel">
 
                 <div class="panel-header">
 
                     <div>
-                        <h3>State-wise Performance</h3>
-                        <p>Wellness index and population coverage by state</p>
+                        <h3>राज्य-वार प्रदर्शन</h3>
+                        <p>राज्य के अनुसार कल्याण सूचकांक और जनसंख्या कवरेज</p>
                     </div>
 
                     <div class="table-actions">
                         <input
                             type="text"
                             id="searchState"
-                            placeholder="Search state..."
+                            placeholder="राज्य खोजें..."
                             onkeyup="filterStates()"
                         >
 
                         <select id="statusFilter" onchange="filterStates()">
-                            <option value="all">All Status</option>
-                            <option value="healthy">Healthy</option>
-                            <option value="watch">Watch</option>
-                            <option value="priority">Priority</option>
+                            <option value="all">सभी स्थिति</option>
+                            <option value="healthy">स्वस्थ</option>
+                            <option value="watch">नजर रखें</option>
+                            <option value="priority">प्राथमिकता</option>
                         </select>
                     </div>
 
@@ -367,12 +367,12 @@
 
                         <thead>
                             <tr>
-                                <th>STATE</th>
-                                <th>POPULATION</th>
-                                <th>ASSESSED</th>
-                                <th>WELLNESS INDEX</th>
-                                <th>CHANGE</th>
-                                <th>STATUS</th>
+                                <th>राज्य</th>
+                                <th>जनसंख्या</th>
+                                <th>आंकलन किए गए</th>
+                                <th>कल्याण सूचकांक</th>
+                                <th>बदलाव</th>
+                                <th>स्थिति</th>
                             </tr>
                         </thead>
 
@@ -387,18 +387,18 @@
             </section>
 
 
-            <!-- ALERTS -->
+            <!-- अलर्ट्स -->
             <section class="bottom-grid">
 
                 <div class="panel">
 
                     <div class="panel-header">
                         <div>
-                            <h3>Priority Alerts</h3>
-                            <p>States requiring immediate attention</p>
+                            <h3>प्राथमिकता अलर्ट</h3>
+                            <p>तत्काल ध्यान देने की आवश्यकता वाले राज्य</p>
                         </div>
 
-                        <span class="alert-count">8 Active</span>
+                        <span class="alert-count">8 सक्रिय</span>
                     </div>
 
                     <div class="alerts">
@@ -406,28 +406,28 @@
                         <div class="alert">
                             <div class="alert-icon red">!</div>
                             <div>
-                                <strong>Uttar Pradesh</strong>
-                                <p>Wellness index dropped by 6.2%</p>
+                                <strong>उत्तर प्रदेश</strong>
+                                <p>कल्याण सूचकांक में 6.2% की गिरावट</p>
                             </div>
-                            <span>High</span>
+                            <span>उच्च</span>
                         </div>
 
                         <div class="alert">
                             <div class="alert-icon orange">!</div>
                             <div>
-                                <strong>Maharashtra</strong>
-                                <p>High priority cases increased</p>
+                                <strong>महाराष्ट्र</strong>
+                                <p>उच्च प्राथमिकता वाले मामले बढ़े</p>
                             </div>
-                            <span>Medium</span>
+                            <span>मध्यम</span>
                         </div>
 
                         <div class="alert">
                             <div class="alert-icon orange">!</div>
                             <div>
-                                <strong>West Bengal</strong>
-                                <p>Assessment coverage below target</p>
+                                <strong>पश्चिम बंगाल</strong>
+                                <p>आंकलन कवरेज लक्ष्य से कम</p>
                             </div>
-                            <span>Medium</span>
+                            <span>मध्यम</span>
                         </div>
 
                     </div>
@@ -437,29 +437,29 @@
 
                 <div class="panel quick-panel">
 
-                    <h3>National Highlights</h3>
+                    <h3>राष्ट्रीय मुख्य विशेषताएं</h3>
 
                     <div class="highlight">
                         <span>🏆</span>
                         <div>
-                            <strong>Kerala</strong>
-                            <p>Highest wellness index — 81.6</p>
+                            <strong>केरल</strong>
+                            <p>सर्वोच्च कल्याण सूचकांक — 81.6</p>
                         </div>
                     </div>
 
                     <div class="highlight">
                         <span>📈</span>
                         <div>
-                            <strong>Rajasthan</strong>
-                            <p>Highest improvement — +11.4%</p>
+                            <strong>राजस्थान</strong>
+                            <p>सबसे अधिक सुधार — +11.4%</p>
                         </div>
                     </div>
 
                     <div class="highlight">
                         <span>👥</span>
                         <div>
-                            <strong>Uttar Pradesh</strong>
-                            <p>Highest population coverage</p>
+                            <strong>उत्तर प्रदेश</strong>
+                            <p>সর্বोच्च जनसंख्या कवरेज</p>
                         </div>
                     </div>
 
@@ -474,7 +474,7 @@
 </div>
 
 <div id="toast" class="toast">
-    Action completed successfully
+    कार्य सफलतापूर्वक पूरा हुआ
 </div>
 
 <script src="./national.js"></script>

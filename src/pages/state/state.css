@@ -72,39 +72,26 @@ button {
 
 
 /* LOGO */
+.logo {
+    margin-left: 8px;
+    margin-bottom: 35px;
 
-
-.brand {
-    height: 54px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    padding: 0 8px 17px;
-}
-
-.brand-heart {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 10px;
-
-    background: #e8f6f1;
-
-    color: var(--green);
-
-    display: grid;
-    place-items: center;
-
-    font-size: 15px;
-}
-
-.brand-name {
-    font: 800 24px/1 "Manrope", sans-serif;
+    font-size: 32px;
+    font-weight: 700;
 
     letter-spacing: -1px;
+}
+
+.logo .mann {
+    font-family: "Arya", sans-serif;
+    color: #1088ca;
+    font-weight: 700;
+}
+
+.logo .setu {
+    font-family: "Poppins", sans-serif;
+    color: #13a35b;
+    font-weight: 700;
 }
 
 

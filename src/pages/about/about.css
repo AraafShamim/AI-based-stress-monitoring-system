@@ -27,6 +27,21 @@ body {
     background: #E8F7F7;
     color: #173B4D;
 }
+/* Normal Hindi text */
+body {
+    font-family: "Noto Sans Devanagari", sans-serif;
+}
+
+/* Only "मन" */
+.mann {
+    font-family: "Arya", sans-serif;
+}
+
+/* Setu stays in normal English font */
+.setu {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+}
 
 
 /* ================= DASHBOARD ================= */
@@ -59,8 +74,13 @@ body {
 /* LOGO */
 
 .logo {
-    font-size: 40px;
+     margin-left: 8px;
+    margin-bottom: 35px;
+
+    font-size: 32px;
     font-weight: 700;
+
+    letter-spacing: -1px;
 }
 
 .mann {

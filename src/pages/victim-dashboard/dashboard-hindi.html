@@ -1,417 +1,356 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>MannSetu | उपयोगकर्ता डैशबोर्ड</title>
 
-    <title>मनSetu | उपयोगकर्ता डैशबोर्ड</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-
-    <!-- Google Font -->
-
-     <!--<link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&display=swap" rel="stylesheet">-->
-
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
-          rel="stylesheet">
-
+    <!-- Arya + Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Font Awesome -->
-
     <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
-    <!-- Dashboard CSS -->
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <link rel="stylesheet" href="dashboard.css">
-
 </head>
-
 
 <body>
 
+<div class="dashboard">
 
-    <!-- =========================================
-         BACKGROUND
-    ========================================== -->
+    <!-- ================= SIDEBAR ================= -->
 
-    <div class="background-shape shape-one"></div>
+    <aside class="sidebar" id="sidebar">
 
-    <div class="background-shape shape-two"></div>
+        <!-- LOGO -->
+        <div class="logo">
+            <span class="mann">मन</span><span class="setu">Setu</span>
+        </div>
 
-
-
-    <!-- =========================================
-         MAIN DASHBOARD
-    ========================================== -->
-
-    <div class="dashboard-container">
-
-
-
-        <!-- =====================================
-             SIDEBAR
-        ====================================== -->
-
-        <aside class="sidebar">
-
-
-            <!-- Logo -->
-
-            <div class="logo">
-
-                <h1 class="logo">
-                <span class="mann">मन</span><span class="setu">Setu</span>
-                </h1>
-
+        <!-- PROFILE -->
+        <div class="profile">
+            <div class="profile-avatar">
+                AK
             </div>
 
+            <div class="profile-info">
+                <h4>Akriti Kumari</h4>
+                <p>उपयोगकर्ता</p>
+            </div>
+
+            <i class="fa-solid fa-ellipsis"></i>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="navigation">
+
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>डैशबोर्ड</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-face-smile"></i>
+                <span>मेरा मूड</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-square-check"></i>
+                <span>चेक-इन</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-book-open"></i>
+                <span>संसाधन</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-message"></i>
+                <span>संदेश</span>
+                <span class="badge">2</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>प्रोफ़ाइल</span>
+            </a>
+
+            <a href="#" class="nav-item emergency">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>आपातकालीन अलर्ट</span>
+                <span class="orange-dot"></span>
+            </a>
+
+        </nav>
+
+        <!-- BOTTOM MENU -->
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>सेटिंग्स</span>
+            </a>
+
+            <a href="#" class="nav-item logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>लॉग आउट</span>
+            </a>
+
+        </div>
+
+    </aside>
 
 
-            <!-- User Profile -->
+    <!-- ================= MAIN ================= -->
 
-            <div class="profile">
+    <main class="main-content">
 
-                <div class="profile-icon">
+        <!-- TOP HEADER -->
 
-                    <i class="fa-solid fa-user"></i>
+        <header class="top-header">
 
-                </div>
+            <div class="header-left">
 
-                <div class="profile-info">
+                <button class="mobile-menu" id="menuBtn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
 
-                    <h3>
-                        आकृति
-                    </h3>
+                <div>
+                    <div class="date-text">
+                        सोमवार, 4 सितंबर, 2026
+                    </div>
+
+                    <h1>उपयोगकर्ता डैशबोर्ड</h1>
 
                     <p>
-                        उपयोगकर्ता
+                        अपने मूड को ट्रैक करें, अपने स्वास्थ्य का ध्यान रखें,
+                        और आवश्यक सहायता प्राप्त करें।
                     </p>
-
                 </div>
 
             </div>
 
 
+            <div class="header-actions">
 
-            <!-- Navigation -->
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input
+                        type="text"
+                        placeholder="कुछ भी खोजें..."
+                    >
+                </div>
 
-            <nav class="sidebar-nav">
+                <div class="notification">
+                    <i class="fa-regular fa-bell"></i>
+                    <span></span>
+                </div>
 
+                <div class="header-avatar">
+                    AK
+                </div>
 
-                <a href="#"
-                   class="nav-item active">
-
-                    <i class="fa-solid fa-house"></i>
-
-                    <span>
-                        डैशबोर्ड
-                    </span>
-
-                </a>
-
-
-                <a href="#"
-                   class="nav-item">
-
-                    <i class="fa-solid fa-heart"></i>
-
-                    <span>
-                        मेरा कल्याण
-                    </span>
-
-                </a>
-
-
-                <a href="#"
-                   class="nav-item">
-
-                    <i class="fa-solid fa-chart-line"></i>
-
-                    <span>
-                        मूड रुझान
-                    </span>
-
-                </a>
-
-
-                <a href="#"
-                   class="nav-item">
-
-                    <i class="fa-solid fa-brain"></i>
-
-                    <span>
-                        एआई अंतर्दृष्टि
-                    </span>
-
-                </a>
-
-
-                <a href="#"
-                   class="nav-item">
-
-                    <i class="fa-solid fa-comments"></i>
-
-                    <span>
-                        सेंटिनेल एआई चैट
-                    </span>
-
-                </a>
-
-
-                <a href="#"
-                   class="nav-item">
-
-                    <i class="fa-solid fa-user-doctor"></i>
-
-                    <span>
-                        परामर्शदाता
-                    </span>
-
-                </a>
-
-
-                <a href="#"
-                   class="nav-item emergency">
-
-                    <i class="fa-solid fa-life-ring"></i>
-
-                    <span>
-                        आपातकालीन सहायता
-                    </span>
-
-                </a>
-
-
-            </nav>
-
-
-
-            <!-- Bottom Navigation -->
-
-            <div class="sidebar-bottom">
-
-
-                <a href="#"
-                   class="nav-item">
-
-                    <i class="fa-solid fa-gear"></i>
-
-                    <span>
-                        सेटिंग्स
-                    </span>
-
-                </a>
-
-
-                <a href="#"
-                   class="nav-item logout">
-
-                    <i class="fa-solid fa-right-from-bracket"></i>
-
-                    <span>
-                        लॉग आउट
-                    </span>
-
-                </a>
-
+                <i class="fa-solid fa-chevron-down arrow"></i>
 
             </div>
 
-
-        </aside>
-
+        </header>
 
 
-        <!-- =====================================
-             MAIN CONTENT
-        ====================================== -->
+        <!-- ================= CONTENT ================= -->
 
-        <main class="main-content">
+        <section class="content">
 
 
+            <!-- WELCOME -->
 
-            <!-- =================================
-                 TOP BAR
-            ================================== -->
+            <div class="welcome-section">
 
-            <header class="top-bar">
-
-
-                <div class="welcome">
+                <div>
+                    <span class="section-label">
+                        आपका स्वास्थ्य महत्वपूर्ण है
+                    </span>
 
                     <h2>
-                        नमस्ते, आकृति!
+                        सुप्रभात, Akriti!
+                        <span class="sparkle">✦</span>
                     </h2>
 
                     <p>
-                        आज आप कैसा महसूस कर रही हैं?
+                        आज आप कैसा महसूस कर रहे हैं, इसकी एक संक्षिप्त जानकारी यहाँ है।
                     </p>
-
                 </div>
 
+                <button class="date-button">
+                    <i class="fa-regular fa-calendar"></i>
+                    4 सितंबर, 2026
+                </button>
+
+            </div>
 
 
-                <!-- Top Controls -->
+            <!-- ================= STAT CARDS ================= -->
 
-                <div class="top-controls">
-
-
-                    <!-- Search -->
-
-                    <button class="top-button">
-
-                        <i class="fa-solid fa-magnifying-glass"></i>
-
-                    </button>
+            <div class="stats-grid">
 
 
+                <!-- MOOD -->
 
-                    <!-- Language -->
+                <div class="stat-card">
 
-                    <button class="top-button">
-
-                        <i class="fa-solid fa-globe"></i>
-
-                    </button>
-
-
-
-                    <!-- Notification -->
-
-                    <button class="top-button notification">
-
-                        <i class="fa-regular fa-bell"></i>
-
-                        <span class="notification-dot"></span>
-
-                    </button>
-
-
-
-                    <!-- Three Line Menu -->
-
-                    <button class="top-button menu-button">
-
-                        <i class="fa-solid fa-bars"></i>
-
-                    </button>
-
-
-                </div>
-
-
-            </header>
-
-
-
-
-            <!-- =================================
-                 DASHBOARD CONTENT
-            ================================== -->
-
-            <section class="dashboard-content">
-
-
-
-                <!-- =================================
-                     DISTRESS SCORE
-                ================================== -->
-
-                <div class="dashboard-card distress-card">
-
-
-                    <div class="card-heading">
-
-                        <h3>
-                            आपका तनाव स्तर
-                        </h3>
-
-                        <i class="fa-solid fa-heart-pulse"></i>
-
-                    </div>
-
-
-                    <div class="score-area">
-
-                        <div class="score-circle">
-
-                            <span>
-                                42%
-                            </span>
-
-                        </div>
-
-
-                        <div class="score-info">
-
-                            <h4>मध्यम</h4>
-
-                            <p>
-                                आपका वर्तमान मानसिक स्वास्थ्य स्थिर लग रहा है। </p>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- =================================
-                     MOOD TODAY
-                ================================== -->
-
-                <div class="dashboard-card mood-card">
-
-                    <div class="card-heading">
-                        <h3>आज का मूड</h3>
+                    <div class="stat-icon blue">
                         <i class="fa-regular fa-face-smile"></i>
                     </div>
 
-                    <div class="mood-content">
-                        <div class="mood-icon">😊</div>
+                    <p class="stat-title">
+                        वर्तमान मूड
+                    </p>
 
-                        <div>
-                            <h4>शांत</h4>
-                            <p>आज बेहतर महसूस कर रहे हैं</p>
-                        </div>
-                    </div>
+                    <h3>
+                        सामान्य
+                    </h3>
+
+                    <span class="stat-description">
+                        आज ठीक महसूस कर रहे हैं
+                    </span>
 
                 </div>
 
 
-                <!-- =================================
-                     MOOD & DISTRESS TREND
-                ================================== -->
+                <!-- STRESS -->
 
-                <div class="dashboard-card trend-card">
+                <div class="stat-card">
 
-                    <div class="card-heading">
-                        <div>
-                            <h3>मूड और तनाव का रुझान</h3>
-                            <p>पिछले सप्ताह में आपका मानसिक स्वास्थ्य</p>
-                        </div>
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-bolt"></i>
                     </div>
 
-                    <button class="view-button">विवरण देखें</button>
+                    <p class="stat-title">
+                        तनाव का स्तर
+                    </p>
 
-                    <!-- Chart -->
+                    <h3>
+                        42%
+                    </h3>
+
+                    <span class="stat-description">
+                        मध्यम
+                    </span>
+
+                </div>
+
+
+                <!-- CHECK INS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon pink">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        आज के चेक-इन
+                    </p>
+
+                    <h3>
+                        1
+                    </h3>
+
+                    <span class="stat-description">
+                        इसे जारी रखें!
+                    </span>
+
+                </div>
+
+
+                <!-- STREAK -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon light-blue">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        लगातार दिन
+                    </p>
+
+                    <h3>
+                        2 दिन
+                    </h3>
+
+                    <span class="stat-description">
+                        बहुत अच्छी निरंतरता!
+                    </span>
+
+                </div>
+
+
+                <!-- SCORE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        स्वास्थ्य स्कोर
+                    </p>
+
+                    <h3>
+                        6.5 / 10
+                    </h3>
+
+                    <span class="stat-description">
+                        बेहतर होने की हमेशा गुंजाइश रहती है।
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= GRAPH + AI ================= -->
+
+            <div class="middle-grid">
+
+
+                <!-- GRAPH -->
+
+                <div class="dashboard-card chart-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>
+                                <i class="fa-solid fa-chart-line"></i>
+                                मूड और तनाव का रुझान
+                            </h3>
+
+                            <p>
+                                पिछले सप्ताह आपके स्वास्थ्य के पैटर्न
+                            </p>
+                        </div>
+
+                        <a href="#">
+                            विवरण देखें
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+
+                    </div>
+
+
                     <div class="chart">
 
-                        <div class="chart-y-axis">
+                        <div class="y-axis">
+                            <span>100</span>
                             <span>80</span>
                             <span>60</span>
                             <span>40</span>
@@ -421,17 +360,53 @@
 
                         <div class="chart-area">
 
-                            <div class="chart-line">
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
+                            <div class="grid-lines"></div>
 
-                            <div class="chart-days">
+                            <svg viewBox="0 0 700 220"
+                                 preserveAspectRatio="none">
+
+                                <!-- Stress -->
+                                <polyline
+                                    class="stress-line"
+                                    points="
+                                    20,160
+                                    130,160
+                                    240,125
+                                    350,160
+                                    460,160
+                                    570,125
+                                    680,145
+                                "
+                                />
+
+                                <!-- Mood -->
+                                <polyline
+                                    class="mood-line"
+                                    points="
+                                    20,190
+                                    130,195
+                                    240,188
+                                    350,198
+                                    460,194
+                                    570,190
+                                    680,188
+                                "
+                                />
+
+                                <!-- Stress dots -->
+
+                                <circle cx="20" cy="160" r="5"/>
+                                <circle cx="130" cy="160" r="5"/>
+                                <circle cx="240" cy="125" r="5"/>
+                                <circle cx="350" cy="160" r="5"/>
+                                <circle cx="460" cy="160" r="5"/>
+                                <circle cx="570" cy="125" r="5"/>
+                                <circle cx="680" cy="145" r="5"/>
+
+                            </svg>
+
+
+                            <div class="days">
                                 <span>सोम</span>
                                 <span>मंगल</span>
                                 <span>बुध</span>
@@ -442,272 +417,323 @@
                             </div>
 
                         </div>
+
                     </div>
 
-                    <div class="chart-legend">
+
+                    <div class="legend">
+
                         <span>
-                            <i class="legend-dot distress"></i>
-                            तनाव
+                            <i class="stress-dot"></i>
+                            तनाव का स्तर
                         </span>
 
                         <span>
-                            <i class="legend-dot mood"></i>
+                            <i class="mood-dot"></i>
                             मूड
                         </span>
-                    </div>
-
-                </div>
-
-
-                <!-- =================================
-                     RECENT CHECK-INS
-                ================================== -->
-
-                <div class="dashboard-card checkin-card">
-
-                    <div class="card-heading">
-                        <h3>हाल के चेक-इन</h3>
-                        <i class="fa-regular fa-clock"></i>
-                    </div>
-
-                    <div class="checkin-list">
-
-                        <div class="checkin">
-                            <div>
-                                <strong>आज</strong>
-                                <span>10:30 AM</span>
-                            </div>
-                            <span class="mood calm">😊 शांत</span>
-                        </div>
-
-                        <div class="checkin">
-                            <div>
-                                <strong>कल</strong>
-                                <span>06:20 PM</span>
-                            </div>
-                            <span class="mood anxious">😟 चिंतित</span>
-                        </div>
-
-                        <div class="checkin">
-                            <div>
-                                <strong>29 अगस्त</strong>
-                                <span>08:15 PM</span>
-                            </div>
-                            <span class="mood neutral">😐 सामान्य</span>
-                        </div>
 
                     </div>
 
                 </div>
 
 
-                <!-- =================================
-                     AI INSIGHT
-                ================================== -->
+                <!-- AI INSIGHT -->
 
-                <div class="dashboard-card insight-card">
+                <div class="dashboard-card ai-card">
 
-
-                    <div class="card-heading">
+                    <div class="card-header">
 
                         <h3>
-                            एआई अंतर्दृष्टि
+                            <i class="fa-regular fa-lightbulb"></i>
+                            AI जानकारी
+                            <span class="sparkle">✦</span>
                         </h3>
-
-                        <i class="fa-solid fa-brain"></i>
 
                     </div>
 
+                    <div class="ai-content">
 
-                    <div class="insight-content">
-
-                        <div class="insight-icon">
-
+                        <div class="ai-icon">
                             <i class="fa-solid fa-lightbulb"></i>
-
                         </div>
 
+                        <h2>
+                            आप बेहतर कर रहे हैं!
+                        </h2>
 
-                        <div>
+                        <p>
+                            इस सप्ताह आपका मूड स्थिर रहा है।
+                            अपना ध्यान रखना जारी रखें और जब आप तनावग्रस्त महसूस करें
+                            तो थोड़ा ब्रेक लें।
+                        </p>
 
-                            <h4>
-                                आप बेहतर कर रहे हैं!
-                            </h4>
+                        <button>
+                            और जानें
+                        </button>
 
-                            <p>
-                                आपके पिछले चेक-इन की तुलना में आपका तनाव स्तर कम हुआ है।
-                            </p>
+                    </div>
 
-                        </div>
+                </div>
+
+            </div>
+
+
+            <!-- ================= BOTTOM CARDS ================= -->
+
+            <div class="bottom-grid">
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            <i class="fa-solid fa-bolt"></i>
+                            त्वरित कार्य
+                        </h3>
+
+                        <a href="#">
+                            सभी देखें
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
 
                     </div>
 
 
+                    <div class="quick-actions">
+
+                        <div class="action-item">
+                            <div class="action-icon">
+                                <i class="fa-regular fa-face-smile"></i>
+                            </div>
+
+                            <div>
+                                <b>मूड दर्ज करें</b>
+                                <span>आप कैसा महसूस कर रहे हैं?</span>
+                            </div>
+                        </div>
+
+
+                        <div class="action-item">
+                            <div class="action-icon green-bg">
+                                <i class="fa-regular fa-calendar-check"></i>
+                            </div>
+
+                            <div>
+                                <b>चेक-इन करें</b>
+                                <span>अपने विचार साझा करें</span>
+                            </div>
+                        </div>
+
+
+                        <div class="action-item">
+                            <div class="action-icon blue-bg">
+                                <i class="fa-regular fa-book-open"></i>
+                            </div>
+
+                            <div>
+                                <b>संसाधन देखें</b>
+                                <span>उपयोगी लेख और टूल</span>
+                            </div>
+                        </div>
+
+
+                        <div class="action-item">
+                            <div class="action-icon teal-bg">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+
+                            <div>
+                                <b>काउंसलर से संपर्क करें</b>
+                                <span>पेशेवर सहायता प्राप्त करें</span>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
 
+                <!-- RECOMMENDATIONS -->
 
-                <!-- =================================
-                     RECOMMENDATIONS
-                ================================== -->
+                <div class="dashboard-card">
 
-                <div class="dashboard-card recommendation-card">
-
-
-                    <div class="card-heading">
+                    <div class="card-header">
 
                         <h3>
-                            आपके लिए अनुशंसित
+                            <i class="fa-regular fa-star"></i>
+                            व्यक्तिगत सुझाव
                         </h3>
-
-                        <i class="fa-solid fa-sparkles"></i>
 
                     </div>
 
 
                     <div class="recommendations">
 
+                        <div class="recommendation">
 
-                        <button class="recommendation">
+                            <div class="rec-icon green-bg">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
 
-                            <i class="fa-solid fa-wind"></i>
-
-                            <span>
-                                सांस लेने का अभ्यास
-                            </span>
-
-                            <i class="fa-solid fa-chevron-right"></i>
-
-                        </button>
-
-
-                        <button class="recommendation">
-
-                            <i class="fa-solid fa-headphones"></i>
-
-                            <span>
-                                विश्राम गतिविधि
-                            </span>
+                            <div>
+                                <b>एक छोटा श्वास अभ्यास करें</b>
+                                <span>2 मिनट में अपने मन को शांत करें</span>
+                            </div>
 
                             <i class="fa-solid fa-chevron-right"></i>
-
-                        </button>
-
-
-                        <button class="recommendation">
-
-                            <i class="fa-solid fa-user-doctor"></i>
-
-                            <span>
-                                परामर्शदाता से बात करें
-                            </span>
-
-                            <i class="fa-solid fa-chevron-right"></i>
-
-                        </button>
-
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- =================================
-                     COUNSELLOR SUPPORT
-                ================================== -->
-
-                <div class="dashboard-card counsellor-card">
-
-
-                    <div class="card-heading">
-
-                        <h3>
-                            परामर्शदाता सहायता
-                        </h3>
-
-                        <i class="fa-solid fa-user-doctor"></i>
-
-                    </div>
-
-
-                    <div class="counsellor-content">
-
-                        <div class="counsellor-avatar">
-
-                            <i class="fa-solid fa-user-doctor"></i>
 
                         </div>
 
 
-                        <div class="counsellor-info">
+                        <div class="recommendation">
 
-                            <h4>
-                                आपकी परामर्शदाता
-                            </h4>
+                            <div class="rec-icon blue-bg">
+                                <i class="fa-regular fa-book-open"></i>
+                            </div>
 
-                            <p>
-                                बात करने के लिए उपलब्ध
-                            </p>
+                            <div>
+                                <b>पढ़ें: चिंता को संभालना</b>
+                                <span>बेहतर मानसिक स्वास्थ्य के लिए उपयोगी मार्गदर्शिका</span>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
 
                         </div>
 
 
-                        <button class="chat-button">
+                        <div class="recommendation">
 
-                            बातचीत शुरू करें
+                            <div class="rec-icon pink-bg">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
 
-                        </button>
+                            <div>
+                                <b>आप थोड़े तनाव में लग रहे हैं</b>
+                                <span>एक त्वरित चेक-इन करने पर विचार करें</span>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </div>
 
                     </div>
-
 
                 </div>
 
 
+                <!-- UPCOMING CHECKINS -->
 
-                <!-- =================================
-                     EMERGENCY HELP
-                ================================== -->
+                <div class="dashboard-card">
 
-                <div class="emergency-card">
-
-
-                    <div>
+                    <div class="card-header">
 
                         <h3>
-                            क्या आपको किसी से बात करने की ज़रूरत है?
+                            <i class="fa-regular fa-calendar"></i>
+                            आगामी चेक-इन
                         </h3>
 
-                        <p>
-                            आप अकेले नहीं हैं। जब भी आपको आवश्यकता हो, तत्काल सहायता प्राप्त करें।
-                        </p>
+                        <a href="#">
+                            सभी देखें
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
 
                     </div>
 
 
-                    <button>
-                        सहायता लें
-                    </button>
+                    <div class="checkin-list">
 
+                        <div class="checkin">
+
+                            <div class="check-date">
+                                <b>आज</b>
+                                <span>4 सितंबर</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>दैनिक चेक-इन</b>
+                                <span>4:00 PM</span>
+                            </div>
+
+                            <span class="status pending">
+                                लंबित
+                            </span>
+
+                        </div>
+
+
+                        <div class="checkin">
+
+                            <div class="check-date">
+                                <b>कल</b>
+                                <span>5 सितंबर</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>मूड चेक-इन</b>
+                                <span>10:30 AM</span>
+                            </div>
+
+                            <span class="status scheduled">
+                                निर्धारित
+                            </span>
+
+                        </div>
+
+
+                        <div class="checkin">
+
+                            <div class="check-date">
+                                <b>शुक्र</b>
+                                <span>6 सितंबर</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>स्वास्थ्य मूल्यांकन</b>
+                                <span>08:20 PM</span>
+                            </div>
+
+                            <span class="status scheduled">
+                                निर्धारित
+                            </span>
+
+                        </div>
+
+
+                        <div class="checkin">
+
+                            <div class="check-date">
+                                <b>शनि</b>
+                                <span>7 सितंबर</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>फॉलो-अप चेक-इन</b>
+                                <span>09:15 AM</span>
+                            </div>
+
+                            <span class="status pending">
+                                लंबित
+                            </span>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
+            </div>
 
-            </section>
+        </section>
 
+    </main>
 
-        </main>
+</div>
 
-
-    </div>
-
-
-    <!-- JavaScript -->
-
-    <script src="dashboard.js"></script>
+<script src="dashboard.js"></script>
 
 </body>
-
 </html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>MannSetu | State Dashboard</title>
+    <title>मनSetu | राज्य डैशबोर्ड</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
 
 <div class="app">
 
-    <!-- ================= SIDEBAR ================= -->
+    <!-- ================= साइडबार ================= -->
 
     <aside class="sidebar" id="sidebar">
 
@@ -42,8 +42,8 @@
                 <div class="avatar">SA</div>
 
                 <div class="admin-info">
-                    <strong>State Administrator</strong>
-                    <small>Government Dashboard</small>
+                    <strong>राज्य प्रशासक</strong>
+                    <small>सरकारी डैशबोर्ड</small>
                 </div>
 
                 <span class="down">⌄</span>
@@ -52,7 +52,7 @@
 
 
             <div class="label">
-                WORKSPACE
+                कार्यพื้นที่ (WORKSPACE)
             </div>
 
 
@@ -60,44 +60,44 @@
 
                 <button class="nav-item active" data-page="Overview">
                     <span>▣</span>
-                    Dashboard
+                    डैशबोर्ड
                 </button>
 
                 <button class="nav-item" data-page="State Overview">
                     <span>◈</span>
-                    State Overview
+                    राज्य सिंहावलोकन
                 </button>
 
                 <button class="nav-item" data-page="Districts">
                     <span>▦</span>
-                    Districts
+                    जिले
                     <b>75</b>
                 </button>
 
                 <button class="nav-item" data-page="Mental Health Trends">
                     <span>⌁</span>
-                    Mental Health Trends
+                    मानसिक स्वास्थ्य रुझान
                 </button>
 
                 <button class="nav-item" data-page="High-Risk Alerts">
                     <span>▲</span>
-                    High-Risk Alerts
+                    उच्च-जोखिम चेतावनी
                     <b class="red-badge">4</b>
                 </button>
 
                 <button class="nav-item" data-page="Counsellor Network">
                     <span>♣</span>
-                    Counsellor Network
+                    परामर्शदाता नेटवर्क
                 </button>
 
                 <button class="nav-item" data-page="Appointments">
                     <span>□</span>
-                    Appointments
+                    अपॉइंटमेंट
                 </button>
 
                 <button class="nav-item" data-page="Reports">
                     <span>▤</span>
-                    Reports & Analytics
+                    रिपोर्ट और एनालिटिक्स
                 </button>
 
             </nav>
@@ -109,17 +109,17 @@
 
             <button class="nav-item">
                 <span>⚙</span>
-                Settings
+                सेटिंग्स
             </button>
 
             <button class="nav-item">
                 <span>?</span>
-                Help & Support
+                सहायता और समर्थन
             </button>
 
             <button class="nav-item" id="logout">
                 <span>↪</span>
-                Log out
+                लॉग आउट
             </button>
 
         </div>
@@ -130,11 +130,11 @@
     <div class="overlay" id="overlay"></div>
 
 
-    <!-- ================= MAIN ================= -->
+    <!-- ================= मुख्य भाग ================= -->
 
     <main class="main">
 
-        <!-- TOP BAR -->
+        <!-- टॉप बार -->
 
         <header class="topbar">
 
@@ -145,12 +145,12 @@
 
             <div class="breadcrumb">
 
-                <span>Workspace</span>
+                <span>कार्यक्षेत्र</span>
 
                 <i>›</i>
 
                 <strong id="pageTitle">
-                    Overview
+                    अवलोकन
                 </strong>
 
             </div>
@@ -165,7 +165,7 @@
                     <input
                         id="globalSearch"
                         type="search"
-                        placeholder="Search districts, alerts..."
+                        placeholder="जिले, चेतावनियाँ खोजें..."
                     >
 
                 </div>
@@ -183,7 +183,7 @@
 
 
                 <span class="top-name">
-                    State Admin⌄
+                    राज्य प्रशासक⌄
                 </span>
 
             </div>
@@ -191,12 +191,12 @@
         </header>
 
 
-        <!-- ================= CONTENT ================= -->
+        <!-- ================= सामग्री ================= -->
 
         <div class="content">
 
 
-            <!-- WELCOME -->
+            <!-- स्वागत -->
 
             <section class="welcome">
 
@@ -205,37 +205,37 @@
                     <div class="date" id="date"></div>
 
                     <h1>
-                        Good morning, State Administrator 👋
+                        सुप्रभात, राज्य प्रशासक 👋
                     </h1>
 
                     <p>
-                        Here's what's happening across the state today.
+                        आज पूरे राज्य में यह सब चल रहा है।
                     </p>
 
                 </div>
 
 
                 <button class="primary-button" id="reportButton">
-                    ▣ View Reports
+                    ▣ रिपोर्ट देखें
                 </button>
 
             </section>
 
 
-            <!-- FILTERS -->
+            <!-- फ़िल्टर -->
 
             <section class="filters">
 
                 <label>
-                    State
+                    राज्य
 
                     <select id="stateSelect">
 
-                        <option>Maharashtra</option>
-                        <option>Uttar Pradesh</option>
-                        <option>Karnataka</option>
-                        <option>Gujarat</option>
-                        <option>Rajasthan</option>
+                        <option>महाराष्ट्र</option>
+                        <option>उत्तर प्रदेश</option>
+                        <option>कर्नाटक</option>
+                        <option>गुजरात</option>
+                        <option>राजस्थान</option>
 
                     </select>
 
@@ -244,14 +244,14 @@
 
                 <label>
 
-                    Date range
+                    तारीख की सीमा
 
                     <select id="rangeSelect">
 
-                        <option>Last 30 days</option>
-                        <option>Last 7 days</option>
-                        <option>Today</option>
-                        <option>This quarter</option>
+                        <option>पिछले 30 दिन</option>
+                        <option>पिछले 7 दिन</option>
+                        <option>आज</option>
+                        <option>यह तिमाही</option>
 
                     </select>
 
@@ -260,7 +260,7 @@
             </section>
 
 
-            <!-- ================= STAT CARDS ================= -->
+            <!-- ================= सांख्यिकी कार्ड ================= -->
 
             <section class="stats">
 
@@ -279,14 +279,14 @@
 
                     </div>
 
-                    <p>Citizens Supported</p>
+                    <p>समर्थित नागरिक</p>
 
                     <h2>
                         1,24,680
                     </h2>
 
                     <small>
-                        vs. 1,11,321 last month
+                        बनाम 1,11,321 पिछले महीने
                     </small>
 
                     <div class="spark green-bars">
@@ -311,14 +311,14 @@
 
                     </div>
 
-                    <p>Active Counsellors</p>
+                    <p>सक्रिय परामर्शदाता</p>
 
                     <h2>
                         1,248
                     </h2>
 
                     <small>
-                        Across 72 districts
+                        72 जिलों में
                     </small>
 
                     <div class="spark blue-bars">
@@ -343,14 +343,14 @@
 
                     </div>
 
-                    <p>Sessions This Month</p>
+                    <p>इस महीने के सत्र</p>
 
                     <h2>
                         18,642
                     </h2>
 
                     <small>
-                        vs. 16,210 last month
+                        बनाम 16,210 पिछले महीने
                     </small>
 
                     <div class="spark purple-bars">
@@ -375,14 +375,14 @@
 
                     </div>
 
-                    <p>Avg. Distress Score</p>
+                    <p>औसत तनाव स्कोर</p>
 
                     <h2>
                         38<span>/100</span>
                     </h2>
 
                     <small>
-                        12,420 assessments this month
+                        इस महीने 12,420 मूल्यांकन
                     </small>
 
                     <div class="progress">
@@ -406,14 +406,14 @@
 
                     </div>
 
-                    <p>High-Risk Cases</p>
+                    <p>उच्च-जोखिम मामले</p>
 
                     <h2>
                         426
                     </h2>
 
                     <small>
-                        Needs active monitoring
+                        सक्रिय निगरानी की आवश्यकता है
                     </small>
 
                     <div class="progress red-progress">
@@ -437,14 +437,14 @@
 
                     </div>
 
-                    <p>Districts Covered</p>
+                    <p>कवर किए गए जिले</p>
 
                     <h2>
                         72<span>/75</span>
                     </h2>
 
                     <small>
-                        96% state coverage
+                        96% राज्य कवरेज
                     </small>
 
                     <div class="progress teal-progress">
@@ -453,11 +453,10 @@
 
                 </article>
 
-
             </section>
 
 
-            <!-- ================= CHART ================= -->
+            <!-- ================= चार्ट ================= -->
 
             <section class="panel">
 
@@ -466,11 +465,11 @@
                     <div>
 
                         <div class="eyebrow">
-                            STATE ANALYTICS
+                            राज्य एनालिटिक्स
                         </div>
 
                         <h3>
-                            Mental Health Overview
+                            मानसिक स्वास्थ्य सिंहावलोकन
                         </h3>
 
                     </div>
@@ -481,19 +480,19 @@
                         <button
                             class="chart-tab active"
                             data-metric="seeking">
-                            Citizens Seeking Help
+                            सहायता चाहने वाले नागरिक
                         </button>
 
                         <button
                             class="chart-tab"
                             data-metric="sessions">
-                            Sessions
+                            सत्र
                         </button>
 
                         <button
                             class="chart-tab"
                             data-metric="distress">
-                            Distress Score
+                            तनाव स्कोर
                         </button>
 
                     </div>
@@ -514,12 +513,12 @@
             </section>
 
 
-            <!-- ================= LOWER GRID ================= -->
+            <!-- ================= निचला ग्रिड ================= -->
 
             <div class="lower-grid">
 
 
-                <!-- DISTRICTS -->
+                <!-- जिले -->
 
                 <section class="panel district-panel">
 
@@ -528,11 +527,11 @@
                         <div>
 
                             <div class="eyebrow">
-                                GEOGRAPHIC OVERVIEW
+                                भौगोलिक सिंहावलोकन
                             </div>
 
                             <h3>
-                                District Status
+                                जिले की स्थिति
                             </h3>
 
                         </div>
@@ -542,17 +541,17 @@
 
                             <span>
                                 <i class="dot healthy"></i>
-                                Healthy
+                                स्वस्थ
                             </span>
 
                             <span>
                                 <i class="dot attention"></i>
-                                Attention
+                                ध्यान दें
                             </span>
 
                             <span>
                                 <i class="dot critical"></i>
-                                Critical
+                                गंभीर
                             </span>
 
                         </div>
@@ -570,14 +569,14 @@
                         class="district-detail"
                         id="districtDetail">
 
-                        Click a district to view details.
+                        विवरण देखने के लिए किसी जिले पर क्लिक करें।
 
                     </div>
 
                 </section>
 
 
-                <!-- ALERTS -->
+                <!-- चेतावनियाँ -->
 
                 <section class="panel alerts-panel">
 
@@ -586,11 +585,11 @@
                         <div>
 
                             <div class="eyebrow">
-                                ACTION REQUIRED
+                                कार्रवाई आवश्यक
                             </div>
 
                             <h3>
-                                Priority Alerts
+                                प्राथमिकता चेतावनियाँ
                             </h3>
 
                         </div>
@@ -600,7 +599,7 @@
                             class="link-button"
                             id="viewAlerts">
 
-                            View all →
+                            सभी देखें →
 
                         </button>
 
@@ -614,7 +613,7 @@
             </div>
 
 
-            <!-- ================= TABLE ================= -->
+            <!-- ================= तालिका ================= -->
 
             <section class="panel table-panel">
 
@@ -623,11 +622,11 @@
                     <div>
 
                         <div class="eyebrow">
-                            DISTRICT-WISE DATA
+                            जिला-वार डेटा
                         </div>
 
                         <h3>
-                            District Performance
+                            जिला प्रदर्शन
                         </h3>
 
                     </div>
@@ -638,7 +637,7 @@
                         <input
                             id="districtSearch"
                             type="search"
-                            placeholder="⌕ Filter district"
+                            placeholder="⌕ जिला फ़िल्टर करें"
                         >
 
 
@@ -647,25 +646,25 @@
                             <button
                                 class="pill active"
                                 data-filter="all">
-                                All
+                                सभी
                             </button>
 
                             <button
                                 class="pill"
                                 data-filter="healthy">
-                                Healthy
+                                स्वस्थ
                             </button>
 
                             <button
                                 class="pill"
                                 data-filter="attention">
-                                Attention
+                                ध्यान दें
                             </button>
 
                             <button
                                 class="pill"
                                 data-filter="critical">
-                                Critical
+                                गंभीर
                             </button>
 
                         </div>
@@ -683,13 +682,13 @@
 
                             <tr>
 
-                                <th>District</th>
-                                <th>Citizens</th>
-                                <th>Counsellors</th>
-                                <th>Sessions</th>
-                                <th>Avg Distress</th>
-                                <th>High-Risk</th>
-                                <th>Status</th>
+                                <th>जिला</th>
+                                <th>नागरिक</th>
+                                <th>परामर्शदाता</th>
+                                <th>सत्र</th>
+                                <th>औसत तनाव</th>
+                                <th>उच्च-जोखिम</th>
+                                <th>स्थिति</th>
 
                             </tr>
 
@@ -705,16 +704,16 @@
             </section>
 
 
-            <!-- FOOTER -->
+            <!-- फुटर -->
 
             <footer>
 
                 <span class="mann">मन</span>
                 <span class="setu">Setu</span>
 
-                · State Administration ·
-                Aggregated & anonymised data ·
-                Privacy protected
+                · राज्य प्रशासन ·
+                एग्रीगेटेड और अनामित डेटा ·
+                गोपनीयता सुरक्षित
 
             </footer>
 
@@ -725,7 +724,7 @@
 </div>
 
 
-<!-- TOAST -->
+<!-- टिफ़िन / टोस्ट -->
 
 <div
     class="toast"
@@ -733,7 +732,7 @@
 </div>
 
 
-<!-- JavaScript -->
+<!-- जावास्क्रिप्ट -->
 
 <script src="./state.js"></script>
 

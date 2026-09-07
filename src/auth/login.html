@@ -19,20 +19,30 @@
 
    <div class="top-right-actions">
 
-    <!-- Hamburger Menu (Role Selector) -->
+    <!-- Hamburger Menu -->
     <div class="menu-wrapper">
-        <button class="icon-btn" id="menuBtn" aria-label="Menu" title="Select Role">
+        <button class="icon-btn" id="menuBtn" aria-label="Menu">
             <i class="fa-solid fa-bars"></i>
         </button>
 
         <div class="dropdown-menu" id="menuDropdown">
-            <a href="#" class="role-btn" data-url="../pages/national/national.html"><i class="fa-solid fa-flag"></i> National Admin</a>
-            <a href="#" class="role-btn" data-url="../pages/state/state.html"><i class="fa-solid fa-map"></i> State Admin</a>
-            <a href="#" class="role-btn" data-url="../pages/district-dashboard/district.html"><i class="fa-solid fa-building"></i> District Admin</a>
-            <a href="#" class="role-btn" data-url="../pages/counsellor-dashboard/counsellor.html"><i class="fa-solid fa-user-doctor"></i> Counsellor</a>
-            <a href="#" class="role-btn" data-url="../pages/victim-dashboard/dashboard.html"><i class="fa-solid fa-user"></i> Victim / User</a>
+            <a href="user-login.html">
+                <i class="fa-solid fa-user"></i>
+                User Login
+            </a>
+
+            <a href="counsellor-login.html">
+                <i class="fa-solid fa-user-doctor"></i>
+                Counsellor Login
+            </a>
+
+            <a href="admin-login.html">
+                <i class="fa-solid fa-user-shield"></i>
+                Admin Login
+            </a>
         </div>
     </div>
+
 
     <!-- Language -->
     <div class="language-wrapper">
@@ -43,11 +53,11 @@
         <div class="dropdown-menu language-dropdown" id="languageDropdown">
             <button>English</button>
             <button>हिन्दी</button>
-            
+            <button>বাংলা</button>
         </div>
     </div>
 
-   </div>
+</div>
 
     <div class="login-container">
 
@@ -63,7 +73,7 @@
 
         
 
-        <h2><span class="english" id="welcomeText">Welcome back</span></h2>
+        <h2><span class="english">Welcome back</span></h2>
         <!--<p class="subtitle">Login to continue your journey</p>-->
 
         <!-- Login Form -->
