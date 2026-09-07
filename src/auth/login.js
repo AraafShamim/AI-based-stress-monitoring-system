@@ -101,5 +101,8 @@ loginForm.addEventListener("submit", (e) => {
 
     // Save name and route to the correct dashboard
     localStorage.setItem("loggedInUser", userNameInput);
+
     window.location.href = targetDashboard;
+
+    window.location.href = "../pages/victim-dashboard/dashboard.html";
 });
