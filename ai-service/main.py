@@ -79,9 +79,14 @@ class CounselorInsightRequest(BaseModel):
     trend_slope: Optional[int] = 0
     missed_checkins: Optional[int] = 0
 
+class VictimInsightRequest(BaseModel):
+    current_dds: int
+    language: Optional[str] = "en"
+
 # NEW: Regional Request for State/National Dashboards
 class RegionalInsightRequest(BaseModel):
     region_name: str
+    region_level: str # "National", "State", or "District"
     average_dds: int
     critical_cases_count: int
     top_triggers: List[str]
@@ -262,21 +267,49 @@ def generate_counselor_insight(req: CounselorInsightRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/ai/v1/victim-insight")
+def generate_victim_insight(req: VictimInsightRequest):
+    try:
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if not api_key:
+            raise HTTPException(status_code=500, detail="Gemini API Key missing.")
+        
+        client = genai.Client(api_key=api_key)
+        prompt = (
+            f"You are an empathetic AI. The user has a distress score of {req.current_dds}/100. "
+            f"Write a single, encouraging, grounding sentence for their dashboard. "
+            f"Do not give medical advice. Respond in language: {req.language}."
+        )
+        
+        response = client.models.generate_content(
+            model='gemini-3.6-flash',
+            contents=prompt,
+        )
+        return {"victim_ai_summary": response.text}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))    
+
 # --- 7. Regional AI Insights (State/National Dashboards) ---
 @app.post("/ai/v1/regional-insight")
 def generate_regional_insight(req: RegionalInsightRequest):
     try:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-            raise HTTPException(status_code=500, detail="Gemini API Key missing on the server.")
+            raise HTTPException(status_code=500, detail="Gemini API Key missing.")
         
         client = genai.Client(api_key=api_key)
+        
+        if req.region_level.lower() == "district":
+            focus = "Recommend tactical, micro-level operational actions (e.g., local counselor dispatch, community shelter coordination)."
+        else:
+            focus = "Recommend macro-level state or national policy allocations."
+
         prompt = (
             f"You are a public health AI advisor for the Ministry of Social Justice. "
-            f"Generate a concise 3-sentence macro-level policy briefing for the region of {req.region_name}. "
+            f"Generate a concise 3-sentence briefing for the {req.region_level} of {req.region_name}. "
             f"Average Distress Score: {req.average_dds}/100. Critical Cases: {req.critical_cases_count}. "
             f"Top Triggers: {', '.join(req.top_triggers)}. Most affected demographic: {req.primary_demographic}. "
-            "Identify the core problem and recommend specific resource allocation (e.g., deploy debt counselors, medical aid). Do not discuss individual users."
+            f"Identify the core problem. {focus} Do not discuss individual users."
         )
         
         response = client.models.generate_content(
