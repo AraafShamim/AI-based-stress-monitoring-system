@@ -3,26 +3,23 @@
 }
 
 :root {
-    --bg: #f5faf9;
+    --bg: #E8F7F7;
     --card: #ffffff;
-    --text: #172725;
-    --muted: #75817e;
-    --border: #e2ebe8;
+    --text: #173B4D;
+    --muted: #5E858F;
+    --border: #e4eeee;
 
-    --green: #168b69;
+    --green: #20A957;
     --green-dark: #087457;
 
-    --blue: #277bbd;
+    --blue: #1688C9;
     --purple: #8764b7;
     --amber: #d7a02b;
-    --red: #d65a55;
+    --red: #e05252;
     --teal: #358da2;
 
-    --shadow: 0 8px 30px rgba(31, 62, 56, 0.055);
+    --shadow: 0 5px 20px rgba(23, 59, 77, 0.07);
 }
-
-
-/* ================= GENERAL ================= */
 
 html,
 body {
@@ -30,7 +27,7 @@ body {
     min-height: 100%;
     background: var(--bg);
     color: var(--text);
-    font-family: "DM Sans", Arial, sans-serif;
+    font-family: "Poppins", "Arya", sans-serif;
 }
 
 button,
@@ -42,7 +39,6 @@ select {
 button {
     cursor: pointer;
 }
-
 
 /* ================= APP ================= */
 

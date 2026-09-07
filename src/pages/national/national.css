@@ -5,18 +5,18 @@
 }
 
 :root {
-    --blue: #2679bd;
-    --green: #168b69;
-    --dark: #17212f;
-    --text: #293241;
-    --muted: #7c8797;
-    --border: #e8edf2;
-    --bg: #f7f9fc;
+    --blue: #1688C9;
+    --green: #20A957;
+    --dark: #173B4D;
+    --text: #173B4D;
+    --muted: #5E858F;
+    --border: #e4eeee;
+    --bg: #E8F7F7;
     --white: #ffffff;
 }
 
 body {
-    font-family: "DM Sans", sans-serif;
+    font-family: "Poppins", "Arya", sans-serif;
     background: var(--bg);
     color: var(--text);
 }
