@@ -13,9 +13,10 @@
    BODY
 ========================================= */
 
+
 body {
+    /* Match the counsellor dashboard typography */
     font-family: "Poppins", sans-serif;
-    font-family: 'Arya', sans-serif;
 
     min-height: 100vh;
 
