@@ -77,7 +77,7 @@ public class ScoringWorker {
                 checkIn.getRawText() != null ? checkIn.getRawText() : "",
                 victim.getLanguagePref(),
                 Boolean.TRUE.equals(checkIn.getIsMissed()) ? List.of("missed") : List.of(),
-                List.of(),
+                getPreviousScores(victim.getId()),
                 checkIn.getResponseLatencySec() != null ? checkIn.getResponseLatencySec().intValue() : 0,
                 null,
                 null,
@@ -178,5 +178,12 @@ public class ScoringWorker {
         map.put("voice_stress", signals.voiceStress() != null ? signals.voiceStress() : 0.0);
         map.put("flat_affect", signals.flatAffect() != null ? signals.flatAffect() : 0.0);
         return map;
+    }
+
+    private List<Integer> getPreviousScores(java.util.UUID victimId) {
+        return scoreRepository.findHistoricalScoresByVictimId(victimId, PageRequest.of(0, 5))
+                .stream()
+                .map(Score::getDdsScore)
+                .toList();
     }
 }

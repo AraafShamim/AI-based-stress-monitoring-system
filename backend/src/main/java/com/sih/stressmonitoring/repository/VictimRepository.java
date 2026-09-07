@@ -11,5 +11,6 @@ import java.util.UUID;
 @Repository
 public interface VictimRepository extends JpaRepository<Victim, UUID> {
     Optional<Victim> findByCaseId(String caseId);
+    List<Victim> findByContactNumber(String contactNumber);
     List<Victim> findByAssignedCounsellorId(UUID assignedCounsellorId);
 }
