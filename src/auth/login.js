@@ -43,7 +43,7 @@ const userNameInput = document.getElementById("usernameInput").value; // Get nam
 localStorage.setItem("loggedInUser", userNameInput);
 
 // Redirect to dashboard
-window.location.href = "user.html";
+window.location.href = "../pages/counsellor-dashboard/counsellor.html";
 
     // Later you can connect this to your backend
 });

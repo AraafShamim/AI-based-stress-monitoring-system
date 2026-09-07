@@ -77,30 +77,25 @@
         <!--<p class="subtitle">Login to continue your journey</p>-->
 
         <!-- Login Form -->
-        <form>
-
+        <!-- Login Form -->
+        <form id="loginForm">
             <div class="input-box">
                 <span>♙</span>
-                <input type="text" placeholder="phone number">
+                <input type="text" id="usernameInput" placeholder="Phone number">
             </div>
-
             <div class="input-box">
                 <span>♙</span>
-                <input type="text" placeholder="Email (optional) ">
+                <input type="email" id="email" placeholder="Email (optional)">
             </div>
-
             <div class="input-box">
                 <span>🔒</span>
-                <input type="password" placeholder="Password">
-                <span class="eye">◉</span>
+                <input type="password" id="password" placeholder="Password">
+                <i class="fa-solid fa-eye eye" id="eye" style="cursor: pointer; color: #637080;"></i>
             </div>
-
             <div class="forgot">
                 <a href="#">Forgot Password?</a>
             </div>
-
             <button type="submit">Login</button>
-
         </form>
 
         <div class="or">
