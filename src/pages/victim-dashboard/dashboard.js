@@ -457,7 +457,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (confirmLogout) {
 
                 // Clear login information
-                localStorage.removeItem("loggedInUser");
+                localStorage.clear();
                 sessionStorage.clear();
 
                 window.location.href =

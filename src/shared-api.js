@@ -10,8 +10,15 @@ async function checkAuthAndFetchDashboard() {
     const loggedInUser = localStorage.getItem("loggedInUser");
     if (loggedInUser) {
         // Attempt to find profile name elements and update them
-        const profileElements = document.querySelectorAll('.counsellor-profile strong, .admin-profile h4, .top-profile-text strong, .profile-info h4');
+        const profileElements = document.querySelectorAll('.counsellor-profile strong, .admin-profile h4, .top-profile-text strong, .profile-info h4, #victimProfileName');
         profileElements.forEach(el => el.innerText = loggedInUser);
+
+        // Update welcome header for victim dashboard
+        const welcomeHeader = document.getElementById("victimWelcomeHeader");
+        if (welcomeHeader) {
+            const firstName = loggedInUser.split(' ')[0];
+            welcomeHeader.innerHTML = `Good morning, ${firstName}!<span class="sparkle">✦</span>`;
+        }
     }
 
     try {
