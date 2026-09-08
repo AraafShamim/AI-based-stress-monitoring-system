@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="counsellor.css">
 
   <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../../shared-api.js"></script>
 </head>
 
 <body>
@@ -250,7 +251,7 @@
           </div>
 
           <p>कुल क्लाइंट्स</p>
-          <strong>128</strong>
+          <strong id="totalClients">128</strong>
           <small>इस महीने +8</small>
 
         </div>
@@ -265,7 +266,7 @@
           </div>
 
           <p>सक्रिय क्लाइंट्स</p>
-          <strong>96</strong>
+          <strong id="activeClients">96</strong>
           <small>वर्तमान में सक्रिय</small>
 
         </div>
@@ -280,7 +281,7 @@
           </div>
 
           <p>उच्च जोखिम</p>
-          <strong>12</strong>
+          <strong id="highRisk">12</strong>
           <small>ध्यान देने की आवश्यकता है</small>
 
         </div>
@@ -724,7 +725,7 @@
             <div class="donut">
 
               <div class="donut-center">
-                <strong>96</strong>
+                <strong id="activeClients">96</strong>
                 <span>क्लाइंट्स</span>
               </div>
 

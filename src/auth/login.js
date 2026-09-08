@@ -88,21 +88,55 @@ eye.addEventListener("click", () => {
 });
 
 // Form Submit
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const pass = password.value.trim();
-    const userNameInput = document.getElementById("usernameInput").value;
+    const userNameInput = document.getElementById("usernameInput").value.trim();
 
     if (pass === "") {
         alert("Please enter your password.");
         return;
     }
 
-    // Save name and route to the correct dashboard
-    localStorage.setItem("loggedInUser", userNameInput);
+    try {
+        const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email: userNameInput, password: pass })
+        });
 
-    window.location.href = targetDashboard;
+        if (!response.ok) {
+            throw new Error("Invalid credentials");
+        }
 
-    window.location.href = "../pages/victim-dashboard/dashboard.html";
+        const data = await response.json();
+
+        // Save auth data
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("loggedInUser", data.name);
+        localStorage.setItem("userRole", data.role);
+
+        // Redirect based on backend role or selected dashboard
+        const role = (data.role || "").toLowerCase();
+        const hindiMode = window.location.pathname.includes("hindi");
+        if (role === 'counsellor') {
+            window.location.href = hindiMode ? "../pages/counsellor-dashboard/counsellor-hindi.html" : "../pages/counsellor-dashboard/counsellor.html";
+        } else if (role === 'district') {
+            window.location.href = hindiMode ? "../pages/district-dashboard/district-hindi.html" : "../pages/district-dashboard/district.html";
+        } else if (role === 'state') {
+            window.location.href = hindiMode ? "../pages/state/state-hindi.html" : "../pages/state/state.html";
+        } else if (role === 'national' || role === 'admin') {
+            window.location.href = hindiMode ? "../pages/national/national-hindi.html" : "../pages/national/national.html";
+        } else {
+            // Fallback
+            window.location.href = targetDashboard;
+        }
+
+    } catch (error) {
+        alert("Login failed. Please check your email and password.");
+        console.error(error);
+    }
 });

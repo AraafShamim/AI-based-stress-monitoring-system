@@ -18,6 +18,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="district.css">
+  <script src="../../shared-api.js"></script>
 </head>
 
 <body>
@@ -300,7 +301,7 @@
 
                     <div class="stat-content">
                         <span>Total Registered Users</span>
-                        <h3>12,450</h3>
+                        <h3 id="totalClients">12,450</h3>
                         <small class="positive">
                             <i class="fa-solid fa-arrow-up"></i>
                             8.4% this month
@@ -318,7 +319,7 @@
 
                     <div class="stat-content">
                         <span>Active Users</span>
-                        <h3>8,920</h3>
+                        <h3 id="activeClients">8,920</h3>
                         <small class="positive">
                             <i class="fa-solid fa-arrow-up"></i>
                             5.2% this month
@@ -353,7 +354,7 @@
 
                     <div class="stat-content">
                         <span>High-Risk Cases</span>
-                        <h3>327</h3>
+                        <h3 id="highRisk">327</h3>
                         <small class="negative">
                             <i class="fa-solid fa-arrow-up"></i>
                             3.1% this week

@@ -18,6 +18,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="district.css">
+  <script src="../../shared-api.js"></script>
 </head>
 
 <body>
@@ -299,7 +300,7 @@
 
                     <div class="stat-content">
                         <span>कुल पंजीकृत उपयोगकर्ता</span>
-                        <h3>12,450</h3>
+                        <h3 id="totalClients">12,450</h3>
                         <small class="positive">
                             <i class="fa-solid fa-arrow-up"></i>
                             इस महीने 8.4%
@@ -317,7 +318,7 @@
 
                     <div class="stat-content">
                         <span>सक्रिय उपयोगकर्ता</span>
-                        <h3>8,920</h3>
+                        <h3 id="activeClients">8,920</h3>
                         <small class="positive">
                             <i class="fa-solid fa-arrow-up"></i>
                             इस महीने 5.2%
@@ -352,7 +353,7 @@
 
                     <div class="stat-content">
                         <span>उच्च-जोखिम मामले</span>
-                        <h3>327</h3>
+                        <h3 id="highRisk">327</h3>
                         <small class="negative">
                             <i class="fa-solid fa-arrow-up"></i>
                             इस सप्ताह 3.1%
