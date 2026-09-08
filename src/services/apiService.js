@@ -3,9 +3,9 @@
  * Handles all HTTP requests with consistent error handling, auth, and response formatting
  */
 
-// API Configuration
-const API_BASE_URL = 'http://localhost:8080/api/v1';
-const AI_SERVICE_BASE_URL = 'http://localhost:8000/ai/v1';
+// API Configuration - Update these URLs when deploying to production
+const API_BASE_URL = process.env.VITE_API_URL || 'http://localhost:8080/api/v1';
+const AI_SERVICE_BASE_URL = process.env.VITE_AI_SERVICE_URL || 'http://localhost:8000/ai/v1';
 
 // Store auth token
 let authToken = null;
