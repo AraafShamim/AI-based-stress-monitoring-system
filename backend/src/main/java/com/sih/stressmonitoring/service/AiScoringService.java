@@ -54,28 +54,18 @@ public class AiScoringService {
 
             if (response == null) {
                 log.warn("ML scoring service returned an empty body for checkin_id={}", request.checkinId());
-                return fallbackResponse("Empty response from ML scoring service");
+                throw new RuntimeException("Empty response from ML scoring service");
             }
             return response;
         } catch (RestClientException ex) {
-            log.warn(
+            log.error(
                     "ML scoring service unreachable or failed for checkin_id={}: {}",
                     request.checkinId(),
                     ex.getMessage()
             );
-            return fallbackResponse("ML scoring service unavailable; fallback score applied");
+            // Throw exception to trigger retry in ScoringWorker instead of a fake Low score fallback
+            throw new RuntimeException("ML scoring service unavailable, triggering retry queue", ex);
         }
     }
 
-    private ScoreResponse fallbackResponse(String reason) {
-        return new ScoreResponse(
-                0,
-                "Low",
-                "neutral/positive",
-                new EmotionSignals(0.0, 0.0),
-                List.of(reason),
-                List.of(),
-                false
-        );
-    }
 }

@@ -581,7 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
        INITIAL DASHBOARD DATA
     ========================================= */
 
-    const initialScore = 42;
+    const initialScore = 0;
 
     updateDistressScore(initialScore);
     updateAIInsight(initialScore);

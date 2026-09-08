@@ -50,7 +50,7 @@ public class ScoringWorker {
                 processSingleCheckIn(checkIn);
             } catch (Exception e) {
                 logger.error("Failed to process check-in {}: {}", checkIn.getId(), e.getMessage());
-                checkIn.setProcessingStatus("FAILED");
+                checkIn.setProcessingStatus("PENDING"); // Retains item in queue per PRD retry requirements
                 checkInRepository.save(checkIn);
                 // Real system would implement retry thresholds
             }
