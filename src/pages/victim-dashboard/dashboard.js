@@ -437,11 +437,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (confirmLogout) {
 
                 // Clear login information
-                localStorage.removeItem("user");
+                localStorage.removeItem("loggedInUser");
                 sessionStorage.clear();
 
                 window.location.href =
-                    "../login/login.html";
+                    "../../auth/login.html";
             }
 
         });

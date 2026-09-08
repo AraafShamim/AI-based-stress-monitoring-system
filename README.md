@@ -21,6 +21,14 @@ This repository houses the vanilla web frontend, featuring role-based dashboards
 * **Typography & Icons:** FontAwesome 6, Google Fonts (Poppins, DM Sans, Manrope, Arya)
 * **Deployment:** Vercel / GitHub Pages
 
+## Deploy to GitHub Pages
+
+1. Push the repository to GitHub using the `main` branch.
+2. Open **Settings > Pages** and set **Source** to **GitHub Actions**.
+3. The included workflow deploys the static site after each push. The live URL appears in the workflow run and Pages settings.
+
+All internal links use relative paths, so the site works both at a local host root and under a GitHub Pages repository URL.
+
 ## 📂 Directory Architecture
 
 The project follows a clean, component-separated structure designed for easy API integration:
