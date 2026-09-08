@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MannSetu | काउंसलर डैशबोर्ड</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="counsellor.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="dashboard-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-top">
+
+      <div class="brand">
+        <span class="brand-hindi">मन</span><span class="brand-setu">Setu</span>
+      </div>
+
+      <button class="sidebar-close" id="sidebarClose">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="counsellor-profile">
+        <div class="profile-avatar avatar-blue">DR</div>
+
+        <div>
+          <strong>डॉ. अंजलि सिंह</strong>
+          <span>काउंसलर</span>
+        </div>
+
+        <i data-lucide="more-horizontal" class="muted-icon"></i>
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button class="nav-item active" data-nav="Dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>डैशबोर्ड</span>
+        </button>
+
+        <button class="nav-item" data-nav="My Clients">
+          <i data-lucide="users"></i>
+          <span>मेरे क्लाइंट्स</span>
+        </button>
+
+        <button class="nav-item" data-nav="Appointments">
+          <i data-lucide="calendar-days"></i>
+          <span>अपॉइंटमेंट्स</span>
+        </button>
+
+        <button class="nav-item" data-nav="Mood Trends">
+          <i data-lucide="trending-down"></i>
+          <span>मूड के रुझान</span>
+        </button>
+
+        <button class="nav-item" data-nav="AI Insights">
+          <i data-lucide="sparkles"></i>
+          <span>एआई इनसाइट्स</span>
+        </button>
+
+        <button class="nav-item" data-nav="Messages">
+          <i data-lucide="message-circle"></i>
+          <span>संदेश</span>
+          <span class="nav-count">4</span>
+        </button>
+
+        <button class="nav-item" data-nav="Reports">
+          <i data-lucide="file-bar-chart"></i>
+          <span>रिपोर्ट्स</span>
+        </button>
+
+        <button class="nav-item" data-nav="Emergency Alerts">
+          <i data-lucide="alert-triangle"></i>
+          <span>आपातकालीन चेतावनियाँ</span>
+          <span class="nav-alert-dot"></span>
+        </button>
+
+      </nav>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+      <button class="nav-item" id="settingsBtn">
+        <i data-lucide="settings"></i>
+        <span>सेटिंग्स</span>
+      </button>
+
+      <button class="logout-button" id="logoutBtn">
+        <i data-lucide="log-out"></i>
+        <span>लॉग आउट</span>
+      </button>
+
+      <div class="privacy-note">
+        <i data-lucide="heart-pulse"></i>
+        <span>क्लाइंट की भलाई, पूरी देखभाल के साथ।</span>
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <button class="menu-button" id="menuButton">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="page-heading">
+        <p class="eyebrow">सोमवार, 4 सितंबर, 2026</p>
+        <h1>काउंसलर डैशबोर्ड</h1>
+        <p>क्लाइंट की भलाई पर नज़र रखें और समय पर सहायता प्रदान करें।</p>
+      </div>
+
+      <div class="topbar-actions">
+
+        <label class="search-field">
+          <i data-lucide="search"></i>
+          <input
+            id="clientSearch"
+            type="text"
+            placeholder="क्लाइंट खोजें"
+          >
+        </label>
+
+        <div class="notification-wrap">
+
+          <button class="icon-button" id="notificationBtn">
+            <i data-lucide="bell"></i>
+            <span class="notification-dot"></span>
+          </button>
+
+          <div class="notification-popover" id="notificationPopover" hidden>
+            <strong>सूचनाएं</strong>
+            <p>समीक्षा के लिए 3 क्लाइंट अपडेट हैं।</p>
+            <button id="markRead">पढ़े के रूप में चिह्नित करें</button>
+          </div>
+
+        </div>
+
+        <div class="top-profile">
+          <div class="profile-avatar avatar-blue small">DR</div>
+          <i data-lucide="chevron-down"></i>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+    <div class="dashboard-content">
+
+      <!-- WELCOME -->
+      <section class="welcome-row">
+
+        <div>
+          <p class="welcome-kicker">आपका अभ्यास एक नज़र में</p>
+
+          <h2>
+            सुप्रभात, डॉ. सिंह
+            <span>✦</span>
+          </h2>
+
+          <p>
+            यहाँ आपके क्लाइंट्स और आज की गतिविधियों का विवरण है।
+          </p>
+        </div>
+
+        <div class="date-chip">
+          <i data-lucide="calendar-days"></i>
+          <span>4 सितंबर, 2026</span>
+        </div>
+
+      </section>
+
+
+      <!-- DIRECT CALL -->
+      <section class="direct-call-card">
+
+        <div class="direct-call-copy">
+
+          <span class="direct-call-icon">
+            <i data-lucide="phone"></i>
+          </span>
+
+          <div>
+
+            <p class="direct-call-label">
+              तत्काल सहायता
+            </p>
+
+            <h2>किसी क्लाइंट तक पहुँचना है?</h2>
+
+            <p>
+              ऐसे क्लाइंट के साथ सुरक्षित कॉल शुरू करें जिसे तत्काल सहायता की आवश्यकता हो सकती है।
+            </p>
+
+          </div>
+
+        </div>
+
+        <a
+          class="direct-call-button"
+          href="tel:+919876543210"
+          id="callClient"
+        >
+          <i data-lucide="phone"></i>
+          क्लाइंट सी को कॉल करें
+          <i data-lucide="arrow-up-right"></i>
+        </a>
+
+      </section>
+
+
+      <!-- STATS -->
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-card-top">
+
+            <span class="stat-icon">
+              <i data-lucide="users"></i>
+            </span>
+
+            <span class="trend-badge">
+              <i data-lucide="trending-down"></i>
+              +6.7%
+            </span>
+
+          </div>
+
+          <p>कुल क्लाइंट्स</p>
+          <strong>128</strong>
+          <small>इस महीने +8</small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-card-top">
+            <span class="stat-icon">
+              <i data-lucide="activity"></i>
+            </span>
+          </div>
+
+          <p>सक्रिय क्लाइंट्स</p>
+          <strong>96</strong>
+          <small>वर्तमान में सक्रिय</small>
+
+        </div>
+
+
+        <div class="stat-card warning">
+
+          <div class="stat-card-top">
+            <span class="stat-icon">
+              <i data-lucide="alert-triangle"></i>
+            </span>
+          </div>
+
+          <p>उच्च जोखिम</p>
+          <strong>12</strong>
+          <small>ध्यान देने की आवश्यकता है</small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-card-top">
+            <span class="stat-icon">
+              <i data-lucide="calendar-days"></i>
+            </span>
+          </div>
+
+          <p>आज के सत्र</p>
+          <strong>6</strong>
+          <small>2 शेष</small>
+
+        </div>
+
+      </section>
+
+
+      <!-- CLIENTS + ALERTS -->
+      <div class="content-grid primary-grid">
+
+        <section class="panel clients-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>क्लाइंट विवरण</h3>
+            </div>
+
+            <button class="panel-action notify-action">
+              सभी क्लाइंट्स देखें
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>क्लाइंट</th>
+                  <th>आयु</th>
+                  <th>अतिम जाँच</th>
+                  <th>परेशानी का स्तर</th>
+                  <th>स्थिति</th>
+                  <th>कार्रवाई</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="clientTable">
+
+                <tr data-client="Client A">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar low">AR</div>
+                      <strong>क्लाइंट A</strong>
+                    </div>
+                  </td>
+
+                  <td>21</td>
+                  <td>आज, सुबह 9:12 बजे</td>
+
+                  <td>
+                    <span class="level-pill low">
+                      <span></span>कम
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill low">स्थिर</span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      देखें
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+
+                <tr data-client="Client B">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar moderate">KM</div>
+                      <strong>क्लाइंट B</strong>
+                    </div>
+                  </td>
+
+                  <td>19</td>
+                  <td>कल</td>
+
+                  <td>
+                    <span class="level-pill moderate">
+                      <span></span>मध्यम
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill moderate">
+                      निगरानी
+                    </span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      देखें
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+
+                <tr data-client="Client C">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar high">NS</div>
+                      <strong>क्लाइंट C</strong>
+                    </div>
+                  </td>
+
+                  <td>23</td>
+                  <td>आज, सुबह 8:45 बजे</td>
+
+                  <td>
+                    <span class="level-pill high">
+                      <span></span>उच्च
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill high">
+                      ध्यान देने की आवश्यकता
+                    </span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      देखें
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+
+                <tr data-client="Client D">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar low">RD</div>
+                      <strong>क्लाइंट D</strong>
+                    </div>
+                  </td>
+
+                  <td>28</td>
+                  <td>सोम, शाम 4:20 बजे</td>
+
+                  <td>
+                    <span class="level-pill low">
+                      <span></span>कम
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill low">स्थिर</span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      देखें
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <div class="empty-search" id="emptySearch" hidden></div>
+
+        </section>
+
+
+        <!-- ALERTS -->
+        <section class="panel alerts-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>प्राथमिकता चेतावनियाँ</h3>
+            </div>
+
+            <button class="panel-action notify-action">
+              सभी देखें
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+
+          <div class="alert-list">
+
+            <div class="alert-item">
+
+              <div class="alert-icon">
+                <i data-lucide="alert-triangle"></i>
+              </div>
+
+              <div class="alert-copy">
+
+                <strong>उच्च परेशानी का स्कोर पाया गया</strong>
+
+                <span>
+                  क्लाइंट C · जोखिम स्कोर 82/100
+                </span>
+
+                <small>12 मिनट पहले</small>
+
+              </div>
+
+              <button class="review-button">
+                समीक्षा करें
+              </button>
+
+            </div>
+
+
+            <div class="alert-item">
+
+              <div class="alert-icon">
+                <i data-lucide="alert-triangle"></i>
+              </div>
+
+              <div class="alert-copy">
+
+                <strong>बार-बार नकारात्मक मूड पैटर्न</strong>
+
+                <span>
+                  क्लाइंट B · लगातार 4 दिन
+                </span>
+
+                <small>2 घंटे पहले</small>
+
+              </div>
+
+              <button class="review-button">
+                समीक्षा करें
+              </button>
+
+            </div>
+
+
+            <div class="alert-item">
+
+              <div class="alert-icon">
+                <i data-lucide="alert-triangle"></i>
+              </div>
+
+              <div class="alert-copy">
+
+                <strong>7 दिनों से कोई जाँच नहीं</strong>
+
+                <span>
+                  क्लाइंट A · अंतिम बार 28 अगस्त को देखा गया
+                </span>
+
+                <small>कल</small>
+
+              </div>
+
+              <button class="review-button">
+                समीक्षा करें
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- ANALYTICS -->
+      <div class="content-grid analytics-grid">
+
+        <section class="panel trend-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>क्लाइंट परेशानी का रुझान</h3>
+              <p>सभी सक्रिय क्लाइंट्स में</p>
+            </div>
+
+          </div>
+
+
+          <div class="chart-toolbar">
+
+            <div class="legend">
+
+              <span>
+                <i class="legend-dot blue"></i>
+                कम
+              </span>
+
+              <span>
+                <i class="legend-dot green"></i>
+                मध्यम
+              </span>
+
+              <span>
+                <i class="legend-dot orange"></i>
+                उच्च
+              </span>
+
+            </div>
+
+
+            <div class="period-tabs">
+
+              <button class="selected" data-period="7 Days">
+                7 दिन
+              </button>
+
+              <button data-period="30 Days">
+                30 दिन
+              </button>
+
+              <button data-period="3 Months">
+                3 महीने
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="trend-chart"
+            id="trendChart"
+          >
+
+            <div class="chart-y-labels">
+
+              <span>उच्च</span>
+              <span>मध्यम</span>
+              <span>कम</span>
+
+            </div>
+
+
+            <div class="chart-area">
+
+              <div class="chart-grid-lines">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+
+
+              <svg
+                viewBox="0 0 600 160"
+                preserveAspectRatio="none"
+              >
+
+                <polyline
+                  class="chart-line blue-line"
+                  points="0,115 85,105 170,112 255,90 340,95 425,78 510,82 600,65"
+                />
+
+                <polyline
+                  class="chart-line green-line"
+                  points="0,75 85,82 170,70 255,78 340,62 425,68 510,52 600,58"
+                />
+
+                <polyline
+                  class="chart-line orange-line"
+                  points="0,125 85,118 170,128 255,115 340,120 425,105 510,112 600,96"
+                />
+
+              </svg>
+
+
+              <div class="chart-x-labels">
+
+                <span>सोम</span>
+                <span>मंगल</span>
+                <span>बुध</span>
+                <span>गुरु</span>
+                <span>शुक्र</span>
+                <span>शनि</span>
+                <span>रवि</span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- RISK DISTRIBUTION -->
+        <section class="panel risk-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>क्लाइंट जोखिम वितरण</h3>
+              <p>वर्तमान सक्रिय क्लाइंट</p>
+            </div>
+
+          </div>
+
+
+          <div class="donut-wrap">
+
+            <div class="donut">
+
+              <div class="donut-center">
+                <strong>96</strong>
+                <span>क्लाइंट्स</span>
+              </div>
+
+            </div>
+
+
+            <div class="risk-legend">
+
+              <span>
+                <i class="legend-dot blue"></i>
+                कम <b>74%</b>
+              </span>
+
+              <span>
+                <i class="legend-dot green"></i>
+                मध्यम <b>17%</b>
+              </span>
+
+              <span>
+                <i class="legend-dot orange"></i>
+                उच्च <b>9%</b>
+              </span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- SCHEDULE + QUICK ACTIONS -->
+      <div class="content-grid bottom-grid">
+
+        <section class="panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>आज का कार्यक्रम</h3>
+              <p>आपके आगामी काउंसलिंग सत्र</p>
+            </div>
+
+            <button class="panel-action notify-action">
+              कैलेंडर देखें
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+
+          <div class="schedule-list">
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                सुबह 10:00 बजे
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar low">AR</div>
+
+                <div>
+                  <strong>क्लाइंट A</strong>
+                  <span>फ़ॉलो-अप सत्र</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                शुरू करें
+              </button>
+
+            </div>
+
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                सुबह 11:30 बजे
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar moderate">KM</div>
+
+                <div>
+                  <strong>क्लाइंट B</strong>
+                  <span>मूड मूल्यांकन</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                शुरू करें
+              </button>
+
+            </div>
+
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                दोपहर 2:00 बजे
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar high">NS</div>
+
+                <div>
+                  <strong>क्लाइंट C</strong>
+                  <span>तत्काल काउंसलिंग</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                शुरू करें
+              </button>
+
+            </div>
+
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                शाम 4:30 बजे
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar low">RD</div>
+
+                <div>
+                  <strong>क्लाइंट D</strong>
+                  <span>नियमित जाँच</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                शुरू करें
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+        <section class="panel">
+
+          <div class="panel-header">
+            <div>
+              <h3>त्वरित कार्य</h3>
+              <p>आम काउंसलर कार्य</p>
+            </div>
+          </div>
+
+
+          <div class="quick-actions">
+
+            <button>
+              <span class="action-icon blue-bg">
+                <i data-lucide="user-plus"></i>
+              </span>
+              <span>क्लाइंट जोड़ें</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+
+            <button>
+              <span class="action-icon green-bg">
+                <i data-lucide="calendar-plus"></i>
+              </span>
+              <span>शेड्यूल</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+
+            <button>
+              <span class="action-icon slate-bg">
+                <i data-lucide="file-text"></i>
+              </span>
+              <span>रिपोर्ट्स</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+
+            <button>
+              <span class="action-icon blue-bg">
+                <i data-lucide="message-circle"></i>
+              </span>
+              <span>संदेश</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- FOOTER -->
+      <footer class="dashboard-footer">
+
+        <span>
+          <i data-lucide="shield-check"></i>
+          MannSetu · सुरक्षित काउंसलर कार्यक्षेत्र
+        </span>
+
+        <span>
+          क्लाइंट की जानकारी गोपनीय होती है।
+        </span>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<div class="toast" id="toast" hidden>
+  <i data-lucide="check-circle"></i>
+  <span id="toastText"></span>
+</div>
+
+
+<script src="counsellor.js"></script>
+
+</body>
+</html>

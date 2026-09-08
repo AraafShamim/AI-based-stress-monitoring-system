@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>मनसेतु | साइन अप</title>
+
+    <!-- Signup CSS -->
+    <link rel="stylesheet" href="signup.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         TOP RIGHT ACTIONS
+    ========================================== -->
+
+    <div class="top-right-actions">
+
+
+        <!-- Hamburger Menu / Role Selector -->
+
+        <div class="menu-wrapper">
+
+            <button
+                class="icon-btn"
+                id="menuBtn"
+                aria-label="मेनू"
+                title="भूमिका चुनें">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <div
+                class="dropdown-menu"
+                id="menuDropdown">
+
+
+                <a
+                    href="#"
+                    class="role-btn"
+                    data-url="../pages/national/national.html">
+
+                    <i class="fa-solid fa-flag"></i>
+
+                    राष्ट्रीय व्यवस्थापक
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="role-btn"
+                    data-url="../pages/state/state.html">
+
+                    <i class="fa-solid fa-map"></i>
+
+                    राज्य व्यवस्थापक
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="role-btn"
+                    data-url="../pages/district-dashboard/district.html">
+
+                    <i class="fa-solid fa-building"></i>
+
+                    जिला व्यवस्थापक
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="role-btn"
+                    data-url="../pages/counsellor-dashboard/counsellor.html">
+
+                    <i class="fa-solid fa-user-doctor"></i>
+
+                    परामर्शदाता
+
+                </a>
+
+
+                <a
+                    href="#"
+                    class="role-btn"
+                    data-url="../pages/victim-dashboard/dashboard.html">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    पीड़ित / उपयोगकर्ता
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Language -->
+
+        <div class="language-wrapper">
+
+            <button
+                class="icon-btn"
+                id="languageBtn"
+                aria-label="भाषा">
+
+                <i class="fa-solid fa-globe"></i>
+
+            </button>
+
+
+            <div
+                class="dropdown-menu language-dropdown"
+                id="languageDropdown">
+
+                <button>
+                    English
+                </button>
+
+                <button>
+                    हिन्दी
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         SIGNUP CONTAINER
+    ========================================== -->
+
+    <div class="login-container">
+
+
+        <!-- App Name -->
+
+        <h1>
+
+            <span class="hindi">
+                मन
+            </span><span class="english">
+                Setu
+            </span>
+
+        </h1>
+
+
+
+        <!-- Tagline -->
+
+        <p class="tagline">
+            आपका कल्याण, हमारा सेतु।
+        </p>
+
+
+
+        <!-- Logo -->
+
+        <img
+            src="../assets/logo1.png"
+            class="logo"
+            alt="मनसेतु लोगो">
+
+
+
+        <!-- Heading -->
+
+        <h2>
+
+            <span
+                class="english"
+                id="welcomeText">
+
+                खाता बनाएँ
+
+            </span>
+
+        </h2>
+
+
+
+        <!-- Signup Form -->
+
+        <form id="signupForm">
+
+
+            <!-- Full Name -->
+
+            <div class="input-box">
+
+                <span>
+                    ♙
+                </span>
+
+                <input
+                    type="text"
+                    id="nameInput"
+                    placeholder="पूरा नाम"
+                    required>
+
+            </div>
+
+
+
+            <!-- Phone Number -->
+
+            <div class="input-box">
+
+                <span>
+                    ☎
+                </span>
+
+                <input
+                    type="tel"
+                    id="phoneInput"
+                    placeholder="फ़ोन नंबर"
+                    required>
+
+            </div>
+
+
+
+            <!-- Email -->
+
+            <div class="input-box">
+
+                <span>
+                    ✉
+                </span>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="ईमेल (वैकल्पिक)">
+
+            </div>
+
+
+
+            <!-- Password -->
+
+            <div class="input-box">
+
+                <span>
+                    🔒
+                </span>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="पासवर्ड"
+                    required>
+
+                <i
+                    class="fa-solid fa-eye eye"
+                    id="eyePassword"
+                    style="cursor: pointer; color: #637080;">
+
+                </i>
+
+            </div>
+
+
+
+            <!-- Confirm Password -->
+
+            <div class="input-box">
+
+                <span>
+                    🔒
+                </span>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="पासवर्ड की पुष्टि करें"
+                    required>
+
+                <i
+                    class="fa-solid fa-eye eye"
+                    id="eyeConfirmPassword"
+                    style="cursor: pointer; color: #637080;">
+
+                </i>
+
+            </div>
+
+
+
+            <!-- Terms -->
+
+            <div class="terms">
+
+                <label>
+
+                    <input
+                        type="checkbox"
+                        required>
+
+                    <span>
+
+                        मैं
+                        <a href="#">
+                            नियम एवं शर्तों
+                        </a>
+
+                        और
+
+                        <a href="#">
+                            गोपनीयता नीति
+                        </a>
+
+                        से सहमत हूँ।
+
+                    </span>
+
+                </label>
+
+            </div>
+
+
+
+            <!-- Signup Button -->
+
+            <button type="submit">
+
+                साइन अप करें
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- OR -->
+
+        <div class="or">
+
+            <span></span>
+
+            <p>
+                या
+            </p>
+
+            <span></span>
+
+        </div>
+
+
+
+        <!-- Google -->
+
+        <button class="google">
+
+            <b>
+                G
+            </b>
+
+            Google के साथ जारी रखें
+
+        </button>
+
+
+
+        <!-- Login -->
+
+        <p class="signup">
+
+            क्या आपके पास पहले से खाता है?
+
+            <a href="../auth/login-hindi.html">
+                लॉग इन करें
+            </a>
+
+        </p>
+
+
+    </div>
+
+
+
+    <!-- Signup JavaScript -->
+
+    <script src="signup.js"></script>
+
+
+</body>
+
+</html>

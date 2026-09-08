@@ -1,8 +1,11 @@
 package com.sih.stressmonitoring.controller;
 
+import com.sih.stressmonitoring.audit.AuditLoggingService;
 import com.sih.stressmonitoring.entity.Alert;
+import com.sih.stressmonitoring.entity.User;
 import com.sih.stressmonitoring.entity.enums.AlertStatus;
 import com.sih.stressmonitoring.repository.AlertRepository;
+import com.sih.stressmonitoring.repository.UserRepository;
 import com.sih.stressmonitoring.security.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,6 +20,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
@@ -27,6 +31,8 @@ import java.util.UUID;
 public class AlertController {
 
     private final AlertRepository alertRepository;
+    private final UserRepository userRepository;
+    private final AuditLoggingService auditLoggingService;
 
     @GetMapping
     @PreAuthorize("hasRole('COUNSELLOR')")
@@ -51,7 +57,7 @@ public class AlertController {
         Alert alert = alertRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Alert not found"));
 
-        if (!alert.getAssignedTo().getId().equals(currentUser.getId())) {
+        if (alert.getAssignedTo() != null && !alert.getAssignedTo().getId().equals(currentUser.getId())) {
             throw new AccessDeniedException("You are not assigned to this alert");
         }
 
@@ -66,7 +72,15 @@ public class AlertController {
 
         Alert savedAlert = alertRepository.save(alert);
 
-        // A realistic implementation would log an AuditLog "ALERT_ACK" here
+        // Audit Trail for DPDP compliance
+        User actor = userRepository.findById(currentUser.getId()).orElse(null);
+        auditLoggingService.logAccess(
+                actor,
+                "ALERT_ACK",
+                "alerts",
+                savedAlert.getId(),
+                Map.of("status", request.getStatus().name(), "notes", request.getOutcomeNotes() != null ? request.getOutcomeNotes() : "")
+        );
 
         return ResponseEntity.ok(savedAlert);
     }

@@ -68,9 +68,12 @@ public class SmsWebhookController {
         } else {
             // Handle unsolicited STOP or HELP if victim exists
             if (text.equals("STOP")) {
-                 victimRepository.findByCaseId(phone).ifPresent(v -> { // Very coarse check, reality demands proper query
-                     // This is simplified. In real life we'd query by contactNumber
-                 });
+                 List<Victim> victims = victimRepository.findByContactNumber(phone);
+                 for (Victim v : victims) {
+                     v.setMonitoringActive(false);
+                     victimRepository.save(v);
+                     log.info("Victim {} opted out via unsolicited SMS STOP", v.getId());
+                 }
             }
         }
 
