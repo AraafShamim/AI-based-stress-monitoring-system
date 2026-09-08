@@ -290,19 +290,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function showCheckInModal() {
 
-        const modal =
-            document.getElementById("checkInModal");
+        const responseText = prompt("How are you feeling today? Your response will help us understand your wellbeing.");
 
-        if (!modal) {
-            alert(
-                "How are you feeling today? Your response will help us understand your wellbeing."
-            );
+        if (responseText) {
+            alert("Submitting your check-in securely...");
 
-            return;
+            // Hardcode VICTIM 1 ID for demo purposes, as victims don't login via JWT in this prototype
+            const victimId = "22222222-2222-2222-2222-222222222201";
+
+            fetch("http://localhost:8080/api/v1/checkins", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    victimId: victimId,
+                    channel: "CHATBOT",
+                    rawText: responseText,
+                    responseLatencySec: 3.5,
+                    metadata: { mood: "Neutral" }
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Check-in submitted! Our system will process your response.");
+                // For demo, we just update local dummy score
+                updateDistressScore(30);
+                updateAIInsight(30);
+            })
+            .catch(err => {
+                console.error("Check-in submission failed", err);
+                alert("Failed to reach server. Your data is queued for sync when online.");
+            });
         }
-
-        modal.classList.add("active");
-
     }
 
 
