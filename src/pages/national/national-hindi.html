@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>MannSetu - राष्ट्रीय डैशबोर्ड</title>
+    <link rel="stylesheet" href="./national.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- साइडबार -->
+     <aside class="sidebar" id="sidebar">
+
+        <!-- लोगो -->
+        <div class="logo">
+            <span class="mann" style="font-family: 'Arya', sans-serif;">मन</span><span class="setu">Setu</span>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="section-title">मुख्य मेनू</p>
+
+            <button class="nav-item active">
+                <span>▦</span>
+                राष्ट्रीय अवलोकन
+            </button>
+
+            <button class="nav-item">
+                <span>◫</span>
+                राज्य विश्लेषण
+            </button>
+
+            <button class="nav-item">
+                <span>◉</span>
+                जिला स्थिति
+            </button>
+
+            <button class="nav-item">
+                <span>⚠</span>
+                प्राथमिकता अलर्ट
+            </button>
+        </div>
+
+        <div class="sidebar-section">
+            <p class="section-title">प्रबंधन</p>
+
+            <button class="nav-item">
+                <span>♧</span>
+                रिपोर्ट
+            </button>
+
+            <button class="nav-item">
+                <span>⚙</span>
+                सेटिंग्स
+            </button>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div class="admin-card">
+                <div class="admin-avatar">A</div>
+                <div>
+                    <strong>राष्ट्रीय प्रशासनिक</strong>
+                    <small>सरकारी पोर्टल</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- मुख्य भाग -->
+    <main class="main">
+
+        <!-- शीर्ष पट्टी -->
+        <header class="topbar">
+
+            <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+            <div class="topbar-title">
+                राष्ट्रीय मानसिक कल्याण डैशबोर्ड
+            </div>
+
+            <div class="topbar-actions">
+                <button class="icon-btn">⌕</button>
+                <button class="icon-btn">🔔</button>
+                <div class="profile">NA</div>
+            </div>
+
+        </header>
+
+
+        <!-- सामग्री -->
+        <div class="content">
+
+            <!-- शीर्षक -->
+            <section class="dashboard-header">
+
+                <div>
+                    <p class="breadcrumb">MannSetu / राष्ट्रीय डैशबोर्ड</p>
+
+                    <h1>
+                        राष्ट्रीय अवलोकन
+                    </h1>
+
+                    <p class="subtitle">
+                        पूरे भारत में मानसिक कल्याण संकेतकों की निगरानी करें
+                    </p>
+                </div>
+
+                <div class="header-actions">
+                    <select id="yearFilter">
+                        <option>2026</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                    </select>
+
+                    <button class="primary-btn" onclick="showToast('रिपोर्ट सफलतापूर्वक जनरेट हुई')">
+                        ↓ रिपोर्ट निर्यात करें
+                    </button>
+                </div>
+
+            </section>
+
+
+            <!-- सांख्यिकी कार्ड -->
+            <section class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>कुल कवर की गई आबादी</span>
+                        <div class="stat-icon blue">◎</div>
+                    </div>
+
+                    <h2>142.8 Cr</h2>
+
+                    <p class="positive">
+                        ↑ 4.8%
+                        <span>पिछले वर्ष से</span>
+                    </p>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>आंकलन किए गए लोग</span>
+                        <div class="stat-icon green">♙</div>
+                    </div>
+
+                    <h2>8.42 Cr</h2>
+
+                    <p class="positive">
+                        ↑ 12.6%
+                        <span>पिछले वर्ष से</span>
+                    </p>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>कल्याण सूचकांक</span>
+                        <div class="stat-icon purple">♡</div>
+                    </div>
+
+                    <h2>72.4</h2>
+
+                    <p class="positive">
+                        ↑ 3.2%
+                        <span>राष्ट्रीय औसत</span>
+                    </p>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <span>प्राथमिकता मामले</span>
+                        <div class="stat-icon orange">⚠</div>
+                    </div>
+
+                    <h2>18,462</h2>
+
+                    <p class="negative">
+                        ↓ 8.4%
+                        <span>पिछले महीने से</span>
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- विश्लेषण -->
+            <section class="analytics-grid">
+
+                <div class="panel chart-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>राष्ट्रीय कल्याण रुझान</h3>
+                            <p>पूरे भारत में मासिक कल्याण सूचकांक</p>
+                        </div>
+
+                        <select id="trendFilter" onchange="updateChart()">
+                            <option>2026</option>
+                            <option>2025</option>
+                        </select>
+                    </div>
+
+                    <div class="chart-wrapper">
+                        <div class="y-axis">
+                            <span>80</span>
+                            <span>75</span>
+                            <span>70</span>
+                            <span>65</span>
+                            <span>60</span>
+                        </div>
+
+                        <div class="chart-area">
+                            <div class="grid-line line1"></div>
+                            <div class="grid-line line2"></div>
+                            <div class="grid-line line3"></div>
+                            <div class="grid-line line4"></div>
+                            <div class="grid-line line5"></div>
+
+                            <svg viewBox="0 0 700 250" preserveAspectRatio="none">
+
+                                <defs>
+                                    <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-opacity=".25"/>
+                                        <stop offset="100%" stop-opacity="0"/>
+                                    </linearGradient>
+                                </defs>
+
+                                <path
+                                    id="chartArea"
+                                    d=""
+                                    fill="url(#areaGradient)">
+                                </path>
+
+                                <polyline
+                                    id="chartLine"
+                                    points=""
+                                    fill="none"
+                                    stroke-width="4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                </polyline>
+
+                                <g id="chartDots"></g>
+
+                            </svg>
+
+                            <div class="months">
+                                <span>जनवरी</span>
+                                <span>फरवरी</span>
+                                <span>मार्च</span>
+                                <span>अप्रैल</span>
+                                <span>मई</span>
+                                <span>जून</span>
+                                <span>जुलाई</span>
+                                <span>अगस्त</span>
+                                <span>सितंबर</span>
+                                <span>अक्टूबर</span>
+                                <span>नवंबर</span>
+                                <span>दिसंबर</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- राष्ट्रीय स्थिति -->
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>राष्ट्रीय स्थिति</h3>
+                            <p>कल्याण श्रेणी के अनुसार राज्य</p>
+                        </div>
+                    </div>
+
+                    <div class="status-list">
+
+                        <div class="status-row">
+                            <div class="status-label">
+                                <span class="dot green-dot"></span>
+                                स्वस्थ
+                            </div>
+                            <strong>18 राज्य</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-green" style="width:72%"></div>
+                        </div>
+
+
+                        <div class="status-row">
+                            <div class="status-label">
+                                <span class="dot yellow-dot"></span>
+                                नजर रखें
+                            </div>
+                            <strong>10 राज्य</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-yellow" style="width:40%"></div>
+                        </div>
+
+
+                        <div class="status-row">
+                            <div class="status-label">
+                                <span class="dot red-dot"></span>
+                                प्राथमिकता
+                            </div>
+                            <strong>8 राज्य</strong>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-red" style="width:32%"></div>
+                        </div>
+
+                    </div>
+
+                    <button class="view-btn" onclick="showToast('राज्य विश्लेषण खोला जा रहा है')">
+                        राज्य विश्लेषण देखें →
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- राज्य -->
+            <section class="panel states-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <h3>राज्य-वार प्रदर्शन</h3>
+                        <p>राज्य के अनुसार कल्याण सूचकांक और जनसंख्या कवरेज</p>
+                    </div>
+
+                    <div class="table-actions">
+                        <input
+                            type="text"
+                            id="searchState"
+                            placeholder="राज्य खोजें..."
+                            onkeyup="filterStates()"
+                        >
+
+                        <select id="statusFilter" onchange="filterStates()">
+                            <option value="all">सभी स्थिति</option>
+                            <option value="healthy">स्वस्थ</option>
+                            <option value="watch">नजर रखें</option>
+                            <option value="priority">प्राथमिकता</option>
+                        </select>
+                    </div>
+
+                </div>
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>राज्य</th>
+                                <th>जनसंख्या</th>
+                                <th>आंकलन किए गए</th>
+                                <th>कल्याण सूचकांक</th>
+                                <th>बदलाव</th>
+                                <th>स्थिति</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="stateTable">
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- अलर्ट्स -->
+            <section class="bottom-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>प्राथमिकता अलर्ट</h3>
+                            <p>तत्काल ध्यान देने की आवश्यकता वाले राज्य</p>
+                        </div>
+
+                        <span class="alert-count">8 सक्रिय</span>
+                    </div>
+
+                    <div class="alerts">
+
+                        <div class="alert">
+                            <div class="alert-icon red">!</div>
+                            <div>
+                                <strong>उत्तर प्रदेश</strong>
+                                <p>कल्याण सूचकांक में 6.2% की गिरावट</p>
+                            </div>
+                            <span>उच्च</span>
+                        </div>
+
+                        <div class="alert">
+                            <div class="alert-icon orange">!</div>
+                            <div>
+                                <strong>महाराष्ट्र</strong>
+                                <p>उच्च प्राथमिकता वाले मामले बढ़े</p>
+                            </div>
+                            <span>मध्यम</span>
+                        </div>
+
+                        <div class="alert">
+                            <div class="alert-icon orange">!</div>
+                            <div>
+                                <strong>पश्चिम बंगाल</strong>
+                                <p>आंकलन कवरेज लक्ष्य से कम</p>
+                            </div>
+                            <span>मध्यम</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="panel quick-panel">
+
+                    <h3>राष्ट्रीय मुख्य विशेषताएं</h3>
+
+                    <div class="highlight">
+                        <span>🏆</span>
+                        <div>
+                            <strong>केरल</strong>
+                            <p>सर्वोच्च कल्याण सूचकांक — 81.6</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight">
+                        <span>📈</span>
+                        <div>
+                            <strong>राजस्थान</strong>
+                            <p>सबसे अधिक सुधार — +11.4%</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight">
+                        <span>👥</span>
+                        <div>
+                            <strong>उत्तर प्रदेश</strong>
+                            <p>সর্বोच्च जनसंख्या कवरेज</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div id="toast" class="toast">
+    कार्य सफलतापूर्वक पूरा हुआ
+</div>
+
+<script src="./national.js"></script>
+
+</body>
+</html>

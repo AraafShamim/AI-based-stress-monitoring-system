@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>मनSetu | राज्य डैशबोर्ड</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./state.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= साइडबार ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <div>
+
+            <div class="brand">
+
+                <div class="brand-heart"></div>
+
+                <div class="logo">
+                    <span class="mann">मन</span><span class="setu">Setu</span>
+                </div>
+
+                <button class="close-sidebar" id="closeSidebar">×</button>
+
+            </div>
+
+
+            <div class="admin-card">
+
+                <div class="avatar">SA</div>
+
+                <div class="admin-info">
+                    <strong>राज्य प्रशासक</strong>
+                    <small>सरकारी डैशबोर्ड</small>
+                </div>
+
+                <span class="down">⌄</span>
+
+            </div>
+
+
+            <div class="label">
+                कार्यพื้นที่ (WORKSPACE)
+            </div>
+
+
+            <nav class="nav">
+
+                <button class="nav-item active" data-page="Overview">
+                    <span>▣</span>
+                    डैशबोर्ड
+                </button>
+
+                <button class="nav-item" data-page="State Overview">
+                    <span>◈</span>
+                    राज्य सिंहावलोकन
+                </button>
+
+                <button class="nav-item" data-page="Districts">
+                    <span>▦</span>
+                    जिले
+                    <b>75</b>
+                </button>
+
+                <button class="nav-item" data-page="Mental Health Trends">
+                    <span>⌁</span>
+                    मानसिक स्वास्थ्य रुझान
+                </button>
+
+                <button class="nav-item" data-page="High-Risk Alerts">
+                    <span>▲</span>
+                    उच्च-जोखिम चेतावनी
+                    <b class="red-badge">4</b>
+                </button>
+
+                <button class="nav-item" data-page="Counsellor Network">
+                    <span>♣</span>
+                    परामर्शदाता नेटवर्क
+                </button>
+
+                <button class="nav-item" data-page="Appointments">
+                    <span>□</span>
+                    अपॉइंटमेंट
+                </button>
+
+                <button class="nav-item" data-page="Reports">
+                    <span>▤</span>
+                    रिपोर्ट और एनालिटिक्स
+                </button>
+
+            </nav>
+
+        </div>
+
+
+        <div>
+
+            <button class="nav-item">
+                <span>⚙</span>
+                सेटिंग्स
+            </button>
+
+            <button class="nav-item">
+                <span>?</span>
+                सहायता और समर्थन
+            </button>
+
+            <button class="nav-item" id="logout">
+                <span>↪</span>
+                लॉग आउट
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <div class="overlay" id="overlay"></div>
+
+
+    <!-- ================= मुख्य भाग ================= -->
+
+    <main class="main">
+
+        <!-- टॉप बार -->
+
+        <header class="topbar">
+
+            <button class="menu-button" id="openSidebar">
+                ☰
+            </button>
+
+
+            <div class="breadcrumb">
+
+                <span>कार्यक्षेत्र</span>
+
+                <i>›</i>
+
+                <strong id="pageTitle">
+                    अवलोकन
+                </strong>
+
+            </div>
+
+
+            <div class="top-right">
+
+                <div class="global-search">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="globalSearch"
+                        type="search"
+                        placeholder="जिले, चेतावनियाँ खोजें..."
+                    >
+
+                </div>
+
+
+                <button class="notification" id="notification">
+                    ♧
+                    <em></em>
+                </button>
+
+
+                <div class="mini-avatar">
+                    SA
+                </div>
+
+
+                <span class="top-name">
+                    राज्य प्रशासक⌄
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= सामग्री ================= -->
+
+        <div class="content">
+
+
+            <!-- स्वागत -->
+
+            <section class="welcome">
+
+                <div>
+
+                    <div class="date" id="date"></div>
+
+                    <h1>
+                        सुप्रभात, राज्य प्रशासक 👋
+                    </h1>
+
+                    <p>
+                        आज पूरे राज्य में यह सब चल रहा है।
+                    </p>
+
+                </div>
+
+
+                <button class="primary-button" id="reportButton">
+                    ▣ रिपोर्ट देखें
+                </button>
+
+            </section>
+
+
+            <!-- फ़िल्टर -->
+
+            <section class="filters">
+
+                <label>
+                    राज्य
+
+                    <select id="stateSelect">
+
+                        <option>महाराष्ट्र</option>
+                        <option>उत्तर प्रदेश</option>
+                        <option>कर्नाटक</option>
+                        <option>गुजरात</option>
+                        <option>राजस्थान</option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+
+                    तारीख की सीमा
+
+                    <select id="rangeSelect">
+
+                        <option>पिछले 30 दिन</option>
+                        <option>पिछले 7 दिन</option>
+                        <option>आज</option>
+                        <option>यह तिमाही</option>
+
+                    </select>
+
+                </label>
+
+            </section>
+
+
+            <!-- ================= सांख्यिकी कार्ड ================= -->
+
+            <section class="stats">
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon green">
+                            ♣
+                        </span>
+
+                        <span class="change positive">
+                            +12%
+                        </span>
+
+                    </div>
+
+                    <p>समर्थित नागरिक</p>
+
+                    <h2>
+                        1,24,680
+                    </h2>
+
+                    <small>
+                        बनाम 1,11,321 पिछले महीने
+                    </small>
+
+                    <div class="spark green-bars">
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon blue">
+                            ▣
+                        </span>
+
+                        <span class="change positive">
+                            +8%
+                        </span>
+
+                    </div>
+
+                    <p>सक्रिय परामर्शदाता</p>
+
+                    <h2>
+                        1,248
+                    </h2>
+
+                    <small>
+                        72 जिलों में
+                    </small>
+
+                    <div class="spark blue-bars">
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon purple">
+                            ⌁
+                        </span>
+
+                        <span class="change positive">
+                            +15%
+                        </span>
+
+                    </div>
+
+                    <p>इस महीने के सत्र</p>
+
+                    <h2>
+                        18,642
+                    </h2>
+
+                    <small>
+                        बनाम 16,210 पिछले महीने
+                    </small>
+
+                    <div class="spark purple-bars">
+                        <i></i><i></i><i></i><i></i>
+                        <i></i><i></i><i></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon amber">
+                            ⌁
+                        </span>
+
+                        <span class="change negative">
+                            −4%
+                        </span>
+
+                    </div>
+
+                    <p>औसत तनाव स्कोर</p>
+
+                    <h2>
+                        38<span>/100</span>
+                    </h2>
+
+                    <small>
+                        इस महीने 12,420 मूल्यांकन
+                    </small>
+
+                    <div class="progress">
+                        <i style="width:38%"></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon red">
+                            ▲
+                        </span>
+
+                        <span class="change red-text">
+                            +6%
+                        </span>
+
+                    </div>
+
+                    <p>उच्च-जोखिम मामले</p>
+
+                    <h2>
+                        426
+                    </h2>
+
+                    <small>
+                        सक्रिय निगरानी की आवश्यकता है
+                    </small>
+
+                    <div class="progress red-progress">
+                        <i style="width:58%"></i>
+                    </div>
+
+                </article>
+
+
+                <article class="stat-card">
+
+                    <div class="stat-head">
+
+                        <span class="icon teal">
+                            ◈
+                        </span>
+
+                        <span class="change positive">
+                            +3
+                        </span>
+
+                    </div>
+
+                    <p>कवर किए गए जिले</p>
+
+                    <h2>
+                        72<span>/75</span>
+                    </h2>
+
+                    <small>
+                        96% राज्य कवरेज
+                    </small>
+
+                    <div class="progress teal-progress">
+                        <i style="width:96%"></i>
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- ================= चार्ट ================= -->
+
+            <section class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            राज्य एनालिटिक्स
+                        </div>
+
+                        <h3>
+                            मानसिक स्वास्थ्य सिंहावलोकन
+                        </h3>
+
+                    </div>
+
+
+                    <div class="chart-tabs">
+
+                        <button
+                            class="chart-tab active"
+                            data-metric="seeking">
+                            सहायता चाहने वाले नागरिक
+                        </button>
+
+                        <button
+                            class="chart-tab"
+                            data-metric="sessions">
+                            सत्र
+                        </button>
+
+                        <button
+                            class="chart-tab"
+                            data-metric="distress">
+                            तनाव स्कोर
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="chart-area">
+
+                    <svg
+                        id="mainChart"
+                        viewBox="0 0 900 290"
+                        preserveAspectRatio="none">
+                    </svg>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= निचला ग्रिड ================= -->
+
+            <div class="lower-grid">
+
+
+                <!-- जिले -->
+
+                <section class="panel district-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                भौगोलिक सिंहावलोकन
+                            </div>
+
+                            <h3>
+                                जिले की स्थिति
+                            </h3>
+
+                        </div>
+
+
+                        <div class="legend">
+
+                            <span>
+                                <i class="dot healthy"></i>
+                                स्वस्थ
+                            </span>
+
+                            <span>
+                                <i class="dot attention"></i>
+                                ध्यान दें
+                            </span>
+
+                            <span>
+                                <i class="dot critical"></i>
+                                गंभीर
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="district-grid"
+                        id="districtGrid">
+                    </div>
+
+
+                    <div
+                        class="district-detail"
+                        id="districtDetail">
+
+                        विवरण देखने के लिए किसी जिले पर क्लिक करें।
+
+                    </div>
+
+                </section>
+
+
+                <!-- चेतावनियाँ -->
+
+                <section class="panel alerts-panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <div class="eyebrow">
+                                कार्रवाई आवश्यक
+                            </div>
+
+                            <h3>
+                                प्राथमिकता चेतावनियाँ
+                            </h3>
+
+                        </div>
+
+
+                        <button
+                            class="link-button"
+                            id="viewAlerts">
+
+                            सभी देखें →
+
+                        </button>
+
+                    </div>
+
+
+                    <div id="alerts"></div>
+
+                </section>
+
+            </div>
+
+
+            <!-- ================= तालिका ================= -->
+
+            <section class="panel table-panel">
+
+                <div class="panel-header table-header">
+
+                    <div>
+
+                        <div class="eyebrow">
+                            जिला-वार डेटा
+                        </div>
+
+                        <h3>
+                            जिला प्रदर्शन
+                        </h3>
+
+                    </div>
+
+
+                    <div class="table-tools">
+
+                        <input
+                            id="districtSearch"
+                            type="search"
+                            placeholder="⌕ जिला फ़िल्टर करें"
+                        >
+
+
+                        <div class="pills">
+
+                            <button
+                                class="pill active"
+                                data-filter="all">
+                                सभी
+                            </button>
+
+                            <button
+                                class="pill"
+                                data-filter="healthy">
+                                स्वस्थ
+                            </button>
+
+                            <button
+                                class="pill"
+                                data-filter="attention">
+                                ध्यान दें
+                            </button>
+
+                            <button
+                                class="pill"
+                                data-filter="critical">
+                                गंभीर
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="table-scroll">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>जिला</th>
+                                <th>नागरिक</th>
+                                <th>परामर्शदाता</th>
+                                <th>सत्र</th>
+                                <th>औसत तनाव</th>
+                                <th>उच्च-जोखिम</th>
+                                <th>स्थिति</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="districtRows"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- फुटर -->
+
+            <footer>
+
+                <span class="mann">मन</span>
+                <span class="setu">Setu</span>
+
+                · राज्य प्रशासन ·
+                एग्रीगेटेड और अनामित डेटा ·
+                गोपनीयता सुरक्षित
+
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- टिफ़िन / टोस्ट -->
+
+<div
+    class="toast"
+    id="toast">
+</div>
+
+
+<!-- जावास्क्रिप्ट -->
+
+<script src="./state.js"></script>
+
+</body>
+</html>
