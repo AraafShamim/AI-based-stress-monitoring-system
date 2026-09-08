@@ -103,4 +103,6 @@ loginForm.addEventListener("submit", (e) => {
     localStorage.setItem("loggedInUser", userNameInput);
 
     window.location.href = targetDashboard;
+
+    window.location.href = "../pages/victim-dashboard/dashboard.html";
 });
