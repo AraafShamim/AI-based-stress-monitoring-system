@@ -17,7 +17,10 @@ const passwordInput = document.getElementById('password');
 const eyeIcon = document.getElementById('eye');
 
 // Default target dashboard
-let targetDashboard = '../pages/counsellor-dashboard/counsellor.html';
+const isHindiPage = window.location.pathname.includes('login-hindi');
+let targetDashboard = isHindiPage
+    ? '../pages/victim-dashboard/dashboard-hindi.html'
+    : '../pages/victim-dashboard/dashboard.html';
 
 // ==================== DROPDOWN LOGIC ====================
 
