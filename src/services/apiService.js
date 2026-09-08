@@ -154,6 +154,29 @@ const apiService = {
         clearToken();
     },
 
+    /**
+     * Register a new user
+     */
+    async register(userData) {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: userData.name,
+                email: userData.email,
+                phone: userData.phone,
+                password: userData.password,
+                role: userData.role,
+                jurisdiction: userData.jurisdiction
+            })
+        });
+
+        const data = await handleResponse(response);
+        return data;
+    },
+
     // ==================== DASHBOARD ====================
 
     /**

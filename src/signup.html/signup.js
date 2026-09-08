@@ -132,22 +132,17 @@ async function handleSignup(e) {
     submitBtn.disabled = true;
 
     try {
-        // Note: Backend may not have a registration endpoint
-        // This is a placeholder for future implementation
-        alert('Account creation is currently disabled. Please contact support.');
+        const response = await apiService.register({
+            name: fullName,
+            email: email,
+            phone: phone,
+            password: password
+        });
 
-        // When backend registration is ready:
-        // const response = await apiService.register({
-        //     name: fullName,
-        //     email: email,
-        //     phone: phone,
-        //     password: password
-        // });
-        //
-        // if (response) {
-        //     alert('Account created successfully! Please login.');
-        //     window.location.href = '../auth/login.html';
-        // }
+        if (response) {
+            alert('Account created successfully! Please login.');
+            window.location.href = '../auth/login.html';
+        }
     } catch (error) {
         console.error('Signup error:', error);
         alert(error.message || 'Account creation failed. Please try again.');
