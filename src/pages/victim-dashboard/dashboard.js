@@ -206,17 +206,14 @@ async function showCheckInModal() {
             if (response) {
                 alert('Check-in submitted! Our system will process your response.');
 
-                // Try to score the check-in
+                // Async processing - update UI optimistically or fetch later
                 try {
-                    const score = await apiService.scoreCheckIn(responseText, 'en');
-                    if (score) {
-                        updateDistressScore(score.dds_score || 30);
-                        updateAIInsight(score.dds_score || 30);
-                    }
-                } catch (err) {
-                    console.error('Scoring error:', err);
+                    // We can't fetch AI score directly (backend decouples via queue)
+                    // We'll optimistically show a baseline or fetch actual trend API here
                     updateDistressScore(30);
                     updateAIInsight(30);
+                } catch (err) {
+                    console.error('Update UI error:', err);
                 }
             }
         } catch (error) {

@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,21 +40,43 @@ public class ScoringWorker {
     private final AlertRepository alertRepository;
     private final AiScoringService aiScoringService;
     private final SmsService smsService;
+    private final org.springframework.data.redis.core.RedisTemplate<String, Object> redisTemplate;
+    private final SimpMessagingTemplate messagingTemplate;
 
-    @Scheduled(fixedDelayString = "3000") // Run every 3s
+    @Scheduled(fixedDelay = 1000) // Run every 1s for fast processing
+    public void processQueue() {
+        // 1. Process from Redis queue
+        try {
+            Object checkInIdObj = redisTemplate.opsForList().leftPop("checkin_scoring_queue");
+            if (checkInIdObj != null) {
+                java.util.UUID checkInId = java.util.UUID.fromString(checkInIdObj.toString());
+                checkInRepository.findById(checkInId).ifPresent(this::processSingleCheckInSafe);
+                return;
+            }
+        } catch (Exception e) {
+            // Redis error, fallback will take care
+        }
+
+        // 2. Fallback to DB polling for any missed or failed items
+        processPendingCheckIns();
+    }
+
     public void processPendingCheckIns() {
         // Fetch up to 10 pending check-ins at a time
         List<CheckIn> pendingCheckIns = checkInRepository.findByProcessingStatus("PENDING", PageRequest.of(0, 10));
 
         for (CheckIn checkIn : pendingCheckIns) {
-            try {
-                processSingleCheckIn(checkIn);
-            } catch (Exception e) {
-                logger.error("Failed to process check-in {}: {}", checkIn.getId(), e.getMessage());
-                checkIn.setProcessingStatus("PENDING"); // Retains item in queue per PRD retry requirements
-                checkInRepository.save(checkIn);
-                // Real system would implement retry thresholds
-            }
+            processSingleCheckInSafe(checkIn);
+        }
+    }
+
+    private void processSingleCheckInSafe(CheckIn checkIn) {
+        try {
+            processSingleCheckIn(checkIn);
+        } catch (Exception e) {
+            logger.error("Failed to process check-in {}: {}", checkIn.getId(), e.getMessage());
+            checkIn.setProcessingStatus("PENDING"); // Retains item in queue per PRD retry requirements
+            checkInRepository.save(checkIn);
         }
     }
 
@@ -123,8 +146,21 @@ public class ScoringWorker {
                         .assignedTo(victim.getAssignedCounsellor())
                         .build();
 
-                alertRepository.save(alert);
+                alert = alertRepository.save(alert);
                 logger.info("Created {} alert for victim {}", tier, victim.getId());
+
+                try {
+                    // Send an alert via websocket to topic containing counselor id
+                    if (victim.getAssignedCounsellor() != null) {
+                        messagingTemplate.convertAndSend("/topic/alerts/" + victim.getAssignedCounsellor().getId(), alert);
+                    }
+                    // For Critical alerts, notify District too if applicable
+                    if (tier == RiskTier.CRITICAL && victim.getDistrict() != null) {
+                        messagingTemplate.convertAndSend("/topic/alerts/district/" + victim.getDistrict().replaceAll(" ", "_"), alert);
+                    }
+                } catch (Exception e) {
+                    logger.error("Failed to push websocket alert: {}", e.getMessage());
+                }
             }
         }
     }

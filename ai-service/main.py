@@ -177,7 +177,7 @@ def score_checkin(req: ScoreRequest):
             "escalation_flag": escalation_flag
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"reply": "[System: AI response currently unavailable. Please focus on basic grounding techniques until connection is restored.]", "language_used": "en"}
 
 
 # --- 4. Whisper Multilingual Speech-to-Text Endpoint ---
@@ -185,7 +185,11 @@ def score_checkin(req: ScoreRequest):
 async def transcribe_audio(file: UploadFile = File(...)):
     try:
         if not groq_client:
-            raise HTTPException(status_code=500, detail="Groq API Key is missing or client failed to initialize.")
+            return {
+                "transcript_text": "[Low-confidence Fallback] Audio transcription could not be completed securely at this time.",
+                "language_detected": "auto",
+                "confidence": 0.30
+            }
 
         with tempfile.NamedTemporaryFile(delete=False, suffix=".wav") as temp_audio:
             temp_audio.write(await file.read())
@@ -197,16 +201,20 @@ async def transcribe_audio(file: UploadFile = File(...)):
                 model="whisper-large-v3",
                 response_format="json"
             )
-            
+
         os.remove(temp_path)
 
         return {
             "transcript_text": transcription.text,
-            "language_detected": "auto", 
+            "language_detected": "auto",
             "confidence": 0.95
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {
+            "transcript_text": "[Error Fallback] Audio transcription failed.",
+            "language_detected": "auto",
+            "confidence": 0.10
+        }
 
 
 # --- 5. Trauma-Informed Counselor Chatbot ---
@@ -215,7 +223,7 @@ def chat_counselor(req: ChatRequest):
     try:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-            raise HTTPException(status_code=500, detail="Gemini API Key is missing on the server.")
+            return {"reply": "I am here for you. How can I help you grounded today? (Fallback: API Key Missing)", "language_used": req.language}
         
         client = genai.Client(api_key=api_key)
         
@@ -227,7 +235,7 @@ def chat_counselor(req: ChatRequest):
         )
         
         response = client.models.generate_content(
-            model='gemini-3.6-flash',
+            model='gemini-1.5-flash',
             contents=req.message,
             config=genai.types.GenerateContentConfig(
                 system_instruction=system_instruction,
@@ -239,7 +247,7 @@ def chat_counselor(req: ChatRequest):
             "language_used": req.language
         }
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"reply": "[System: AI response currently unavailable. Please focus on basic grounding techniques until connection is restored.]", "language_used": "en"}
 
 
 # --- 6. Counselor AI Insights Endpoint ---
@@ -248,7 +256,7 @@ def generate_counselor_insight(req: CounselorInsightRequest):
     try:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-            raise HTTPException(status_code=500, detail="Gemini API Key missing on the server.")
+            return {"counselor_ai_summary": f"Summary fallback for {req.client_name}: Check triggers and risk level {req.risk_tier}."}
         
         client = genai.Client(api_key=api_key)
         prompt = (
@@ -260,34 +268,34 @@ def generate_counselor_insight(req: CounselorInsightRequest):
         )
         
         response = client.models.generate_content(
-            model='gemini-3.6-flash',
+            model='gemini-1.5-flash',
             contents=prompt,
         )
         return {"counselor_ai_summary": response.text}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"reply": "[System: AI response currently unavailable. Please focus on basic grounding techniques until connection is restored.]", "language_used": "en"}
 
 @app.post("/ai/v1/victim-insight")
 def generate_victim_insight(req: VictimInsightRequest):
     try:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-            raise HTTPException(status_code=500, detail="Gemini API Key missing.")
-        
+            return {"victim_ai_summary": "You are not alone. Support is available for you today."}
+
         client = genai.Client(api_key=api_key)
         prompt = (
             f"You are an empathetic AI. The user has a distress score of {req.current_dds}/100. "
             f"Write a single, encouraging, grounding sentence for their dashboard. "
             f"Do not give medical advice. Respond in language: {req.language}."
         )
-        
+
         response = client.models.generate_content(
-            model='gemini-3.6-flash',
+            model='gemini-1.5-flash',
             contents=prompt,
         )
         return {"victim_ai_summary": response.text}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))    
+        return {"victim_ai_summary": "You are not alone. Support is available for you today."}
 
 # --- 7. Regional AI Insights (State/National Dashboards) ---
 @app.post("/ai/v1/regional-insight")
@@ -295,10 +303,10 @@ def generate_regional_insight(req: RegionalInsightRequest):
     try:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
-            raise HTTPException(status_code=500, detail="Gemini API Key missing.")
-        
+            return {"region": req.region_name, "policy_briefing": f"Data indicates {req.critical_cases_count} critical cases in {req.region_name}. Maintain operational readiness."}
+
         client = genai.Client(api_key=api_key)
-        
+
         if req.region_level.lower() == "district":
             focus = "Recommend tactical, micro-level operational actions (e.g., local counselor dispatch, community shelter coordination)."
         else:
@@ -311,15 +319,15 @@ def generate_regional_insight(req: RegionalInsightRequest):
             f"Top Triggers: {', '.join(req.top_triggers)}. Most affected demographic: {req.primary_demographic}. "
             f"Identify the core problem. {focus} Do not discuss individual users."
         )
-        
+
         response = client.models.generate_content(
-            model='gemini-3.6-flash',
+            model='gemini-1.5-flash',
             contents=prompt,
         )
         return {"region": req.region_name, "policy_briefing": response.text}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"region": req.region_name, "policy_briefing": f"Data indicates {req.critical_cases_count} critical cases in {req.region_name}. Maintain operational readiness."}
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))

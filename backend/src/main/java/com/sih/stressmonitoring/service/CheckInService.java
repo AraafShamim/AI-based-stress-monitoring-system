@@ -10,6 +10,9 @@ import com.sih.stressmonitoring.repository.CheckInRepository;
 import com.sih.stressmonitoring.repository.ConsentRepository;
 import com.sih.stressmonitoring.repository.VictimRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +22,13 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class CheckInService {
 
+    private static final Logger log = LoggerFactory.getLogger(CheckInService.class);
+    public static final String SCORING_QUEUE = "checkin_scoring_queue";
+
     private final CheckInRepository checkInRepository;
     private final VictimRepository victimRepository;
     private final ConsentRepository consentRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     @Transactional
     public CheckInResponse ingestCheckIn(CheckInRequest request) {
@@ -50,6 +57,14 @@ public class CheckInService {
                 .build();
 
         checkIn = checkInRepository.save(checkIn);
+
+        // Try pushing to Redis Queue for async decoupled processing
+        try {
+            redisTemplate.opsForList().rightPush(SCORING_QUEUE, checkIn.getId().toString());
+            log.info("Pushed check-in {} to Redis queue {}", checkIn.getId(), SCORING_QUEUE);
+        } catch (Exception e) {
+            log.warn("Failed to push to Redis queue (will be picked up by DB polling fallback): {}", e.getMessage());
+        }
 
         // Return immediately without waiting for AI
         return CheckInResponse.builder()

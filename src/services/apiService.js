@@ -4,8 +4,19 @@
  */
 
 // API Configuration - Update these URLs when deploying to production
-const API_BASE_URL = process.env.VITE_API_URL || 'http://localhost:8080/api/v1';
-const AI_SERVICE_BASE_URL = process.env.VITE_AI_SERVICE_URL || 'http://localhost:8000/ai/v1';
+// Safely determine API URLs in browser environment
+const getEnv = (key, fallback) => {
+    if (typeof process !== 'undefined' && process.env && process.env[key]) {
+        return process.env[key];
+    }
+    if (typeof window !== 'undefined' && window.ENV && window.ENV[key]) {
+        return window.ENV[key];
+    }
+    return fallback;
+};
+
+const API_BASE_URL = getEnv('VITE_API_URL', 'http://localhost:8080/api/v1');
+const AI_SERVICE_BASE_URL = getEnv('VITE_AI_SERVICE_URL', 'http://localhost:8000/ai/v1');
 
 // Store auth token
 let authToken = null;
@@ -241,29 +252,10 @@ const apiService = {
     // ==================== AI SERVICE ====================
 
     /**
-     * Score check-in text
-     */
-    async scoreCheckIn(text, language = 'en', history = [], previousScores = []) {
-        const response = await fetch(`${AI_SERVICE_BASE_URL}/score`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                text,
-                language,
-                recent_history: history,
-                previous_dds_scores: previousScores
-            })
-        });
-        return handleResponse(response);
-    },
-
-    /**
      * Chat with AI counselor
      */
     async chatWithAI(message, language = 'en') {
-        const response = await fetch(`${AI_SERVICE_BASE_URL}/chat`, {
+        const response = await fetch(`${API_BASE_URL}/ai/chat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -283,7 +275,7 @@ const apiService = {
         const formData = new FormData();
         formData.append('file', audioFile);
 
-        const response = await fetch(`${AI_SERVICE_BASE_URL}/transcribe`, {
+        const response = await fetch(`${API_BASE_URL}/ai/transcribe`, {
             method: 'POST',
             body: formData
         });
