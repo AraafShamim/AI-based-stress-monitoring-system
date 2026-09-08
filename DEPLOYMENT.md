@@ -1,214 +1,258 @@
-# SIH26094 - Deployment Guide
+# Deployment Guide - MannSetu Stress Monitoring System
 
-## Quick Start with Docker Compose
+## Overview
+This guide walks you through deploying the MannSetu application with:
+- **Frontend:** Vercel (static hosting)
+- **Backend:** Render.com (Spring Boot API)
+- **Database:** Render PostgreSQL (or any managed PostgreSQL)
+- **AI Service:** (Optional) Deploy separately or use local for development
 
-### Prerequisites
-- Docker and Docker Compose installed
-- Groq API Key (for STT service)
-- Google Gemini API Key (for LLM chatbot)
+---
 
-### Setup Steps
+## Prerequisites
+- GitHub account
+- Vercel account (free tier is fine)
+- Render.com account (free tier is fine)
+- Your code pushed to a GitHub repository
 
-1. **Clone the repository**
+---
+
+## Part 1: Deploy Backend to Render.com
+
+### Step 1: Create PostgreSQL Database
+1. Go to https://dashboard.render.com
+2. Click **New** → **PostgreSQL**
+3. Configure:
+   - **Name:** `mannsetu-db`
+   - **Database:** `sih26094_db`
+   - **User:** (auto-generated)
+   - **Region:** Choose closest to your users
+   - **Plan:** Free
+4. Click **Create Database**
+5. **Save the connection details** (Internal Database URL)
+
+### Step 2: Run Database Schema
+1. Connect to your database using the provided connection string
+2. Run the SQL schema file from your repo to create all tables
+
+### Step 3: Deploy Backend Service
+1. Go to https://dashboard.render.com
+2. Click **New** → **Web Service**
+3. Connect your GitHub repository
+4. Configure:
+   - **Name:** `mannsetu-backend`
+   - **Root Directory:** `backend`
+   - **Environment:** `Java`
+   - **Build Command:** `mvn clean package -DskipTests`
+   - **Start Command:** `java -jar target/stress-monitoring-0.0.1-SNAPSHOT.jar`
+   - **Plan:** Free
+
+5. **Add Environment Variables:**
+   ```
+   DB_URL=<Your PostgreSQL Internal URL from Step 1>
+   DB_USERNAME=<Your PostgreSQL username>
+   DB_PASSWORD=<Your PostgreSQL password>
+   JWT_SECRET=sih26094supersecretjwtkeythisshouldbelongandrandomforthehackathon
+   JWT_EXPIRATION_MS=86400000
+   FRONTEND_URL=https://<your-vercel-app>.vercel.app
+   AI_SERVICE_URL=http://localhost:8000
+   ```
+
+6. Click **Create Web Service**
+7. Wait for deployment to complete (5-10 minutes)
+8. **Save your backend URL:** `https://mannsetu-backend.onrender.com`
+
+### Step 4: Test Backend
+Visit: `https://mannsetu-backend.onrender.com/actuator/health`
+
+You should see:
+```json
+{"status":"UP"}
+```
+
+---
+
+## Part 2: Deploy Frontend to Vercel
+
+### Step 1: Push Code to GitHub
 ```bash
-git clone https://github.com/AraafShamim/AI-based-stress-monitoring-system.git
-cd AI-based-stress-monitoring-system
+git push origin main
 ```
 
-2. **Create .env file**
-```bash
-cp .env.example .env
-```
+### Step 2: Deploy to Vercel
+1. Go to https://vercel.com
+2. Click **Add New** → **Project**
+3. Import your GitHub repository
+4. Configure:
+   - **Framework Preset:** Other (static)
+   - **Root Directory:** `./` (leave as root)
+   - **Build Command:** (leave empty for static files)
+   - **Output Directory:** (leave empty)
 
-3. **Update .env with your API keys**
-```bash
-# Edit .env and add your keys
-GROQ_API_KEY=your_key_here
-GEMINI_API_KEY=your_key_here
-```
+5. **Add Environment Variables:**
+   ```
+   VITE_API_URL=https://mannsetu-backend.onrender.com/api/v1
+   VITE_AI_SERVICE_URL=http://localhost:8000/ai/v1
+   ```
 
-4. **Start all services**
-```bash
-docker-compose up -d
-```
+6. Click **Deploy**
 
-This will start:
-- PostgreSQL database (port 5432)
-- AI Service (FastAPI on port 8000)
-- Backend (Spring Boot on port 8080)
+### Step 3: Update Backend CORS
+Once your Vercel URL is ready (e.g., `https://mannsetu-app.vercel.app`):
 
-### Verify Services
+1. Go back to Render dashboard
+2. Open your backend service
+3. Update environment variable:
+   ```
+   FRONTEND_URL=https://mannsetu-app.vercel.app
+   ```
+4. The service will automatically redeploy
 
-```bash
-# Check all containers are running
-docker-compose ps
+---
 
-# Check logs
-docker-compose logs -f backend
-docker-compose logs -f ai-service
-docker-compose logs -f postgres
-```
+## Part 3: Verify Deployment
 
-### Access Endpoints
+### Test the Complete Flow:
+1. Visit your Vercel URL: `https://your-app.vercel.app`
+2. Try to sign up for a new account
+3. Try to log in
+4. Check browser console for any errors
 
-- **Backend API**: http://localhost:8080
-- **Swagger API Docs**: http://localhost:8080/swagger-ui.html
-- **AI Service Health**: http://localhost:8000/health
-- **Database**: postgres://localhost:5432/sih26094_db
+### Common Issues:
 
-### Stop Services
+**Issue: "Unable to fetch" error**
+- **Cause:** Backend is not running or CORS misconfigured
+- **Fix:** 
+  - Verify backend health endpoint works
+  - Check FRONTEND_URL in backend matches your Vercel URL exactly
+  - Check browser console for CORS errors
 
-```bash
-docker-compose down
-```
+**Issue: Backend is slow on first request**
+- **Cause:** Render free tier spins down after 15 minutes of inactivity
+- **Solution:** First request will take 30-60 seconds to wake up the service
 
-## Manual Deployment (Without Docker)
+**Issue: Database connection errors**
+- **Cause:** Wrong DB credentials
+- **Fix:** Double-check DB_URL, DB_USERNAME, and DB_PASSWORD in Render
 
-### Prerequisites
-- Java 21+
-- Python 3.14+
-- PostgreSQL 16+
-- Maven 3.9+
+---
 
-### Backend Setup
+## Part 4: Update vercel.json (Alternative Approach)
 
-```bash
-cd backend
-export DB_URL=jdbc:postgresql://localhost:5432/sih26094_db
-export DB_USERNAME=postgres
-export DB_PASSWORD=postgres
-export AI_SERVICE_URL=http://localhost:8000
+If you want to use Vercel as a proxy (not recommended for free tier), update `vercel.json`:
 
-mvn spring-boot:run
-```
-
-### AI Service Setup
-
-```bash
-cd ai-service
-pip install -r requirements.txt
-python main.py
-```
-
-### Database Setup
-
-```bash
-psql -U postgres -d postgres
-CREATE DATABASE sih26094_db;
-
-psql -U postgres -d sih26094_db -f database/schema.sql
-psql -U postgres -d sih26094_db -f database/views.sql
-psql -U postgres -d sih26094_db -f database/seed.sql
-```
-
-## Architecture
-
-The system consists of three main components:
-
-### 1. Backend (Spring Boot)
-- REST APIs for check-in ingestion, alerts, dashboards
-- JWT authentication with RBAC
-- Async scoring worker
-- DPDP Act 2023 audit logging
-- Database ORM with JPA/Hibernate
-
-### 2. AI Service (FastAPI)
-- NLP sentiment analysis
-- Dynamic Distress Score (DDS) computation
-- Escalation prediction
-- Speech-to-text transcription
-- Explainable AI (trigger words extraction)
-
-### 3. Database (PostgreSQL)
-- Relational schema with JSONB for AI signals
-- Immutable audit_log table
-- Views for dashboard aggregations
-- Triggers for automatic risk_tier sync
-
-## API Contract
-
-### Check-in Ingestion
-```
-POST /api/v1/checkins
-Content-Type: application/json
-
+```json
 {
-  "victimId": "uuid",
-  "channel": "chat|ivrs|sms|web",
-  "rawText": "I am not sleeping well",
-  "metadata": {},
-  "responseLatencySec": 30
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/v1/:path*",
+      "destination": "https://mannsetu-backend.onrender.com/api/v1/:path*"
+    }
+  ]
 }
 ```
 
-### Alert Worklist
+Then set environment variable:
 ```
-GET /api/v1/alerts?status=OPEN
-Authorization: Bearer <jwt_token>
-```
-
-### Victim Trend History
-```
-GET /api/v1/victims/{victimId}/trend
-Authorization: Bearer <jwt_token>
+VITE_API_URL=/api/v1
 ```
 
-### Audit Logs
-All victim data access is immutably logged in the `audit_log` table with:
-- Actor (user who accessed)
-- Action (READ, WRITE, ALERT_ACK, CONSENT_CHANGE)
-- Entity type and ID
-- Timestamp
-- Context details
+---
 
-## Testing
+## Part 5: Continuous Deployment
 
-### Run Backend Tests
-```bash
-cd backend
-mvn test
+### Automatic Deployments:
+- **Vercel:** Automatically redeploys on every push to `main`
+- **Render:** Automatically redeploys on every push to `main`
+
+### Manual Deployment:
+- **Vercel:** Click "Redeploy" in Vercel dashboard
+- **Render:** Click "Manual Deploy" in Render dashboard
+
+---
+
+## Environment Variables Summary
+
+### Backend (Render):
+```env
+DB_URL=<PostgreSQL connection string>
+DB_USERNAME=<DB user>
+DB_PASSWORD=<DB password>
+JWT_SECRET=<your-secret-key>
+JWT_EXPIRATION_MS=86400000
+FRONTEND_URL=https://your-app.vercel.app
+AI_SERVICE_URL=http://localhost:8000
 ```
 
-### Smoke Test the API
-```bash
-# Check health
-curl http://localhost:8080/actuator/health
-
-# Check AI service
-curl http://localhost:8000/health
-
-# List alerts (requires JWT token)
-curl -H "Authorization: Bearer <your_token>" http://localhost:8080/api/v1/alerts
+### Frontend (Vercel):
+```env
+VITE_API_URL=https://mannsetu-backend.onrender.com/api/v1
+VITE_AI_SERVICE_URL=http://localhost:8000/ai/v1
 ```
+
+---
+
+## Alternative Hosting Options
+
+### Backend Alternatives:
+- **Railway.app** - Similar to Render, easy setup
+- **Heroku** - Classic PaaS, requires credit card even for free tier
+- **AWS Elastic Beanstalk** - More complex, production-ready
+- **DigitalOcean App Platform** - Good balance of simplicity and features
+
+### Frontend Alternatives:
+- **Netlify** - Similar to Vercel
+- **Cloudflare Pages** - Very fast CDN
+- **GitHub Pages** - Free but limited features
+- **Firebase Hosting** - Good for apps with Firebase backend
+
+---
 
 ## Troubleshooting
 
-### Database Connection Issues
-- Verify PostgreSQL is running: `psql -U postgres -c "SELECT 1"`
-- Check DB credentials in .env
-- Check network connectivity: `docker network ls`
+### Check Backend Logs:
+1. Go to Render dashboard
+2. Open your backend service
+3. Click **Logs** tab
+4. Look for errors
 
-### AI Service Not Responding
-- Check API keys are set: `echo $GROQ_API_KEY`
-- View logs: `docker logs sih26094_ai_service`
-- Test health: `curl http://localhost:8000/health`
+### Check Frontend Logs:
+1. Open browser developer tools (F12)
+2. Go to **Console** tab
+3. Look for network errors
+4. Check **Network** tab for failed requests
 
-### Backend Won't Start
-- Check Java version: `java -version`
-- Verify DB is ready: `docker logs sih26094_postgres`
-- View spring logs: `docker logs sih26094_backend`
+### Database Issues:
+1. Verify database is running in Render
+2. Test connection using a PostgreSQL client
+3. Check if schema was applied correctly
 
-## DPDP Act 2023 Compliance
+---
 
-All data access is logged in the immutable `audit_log` table:
-- Every READ of a victim's case
-- Every WRITE to scores or alerts  
-- Every CONSENT_CHANGE event
-- Every ALERT_ACK acknowledgement
+## Production Checklist
 
-Access logs can be queried:
-```sql
-SELECT * FROM audit_log WHERE entity_type = 'victims' AND entity_id = '<victim_uuid>';
-```
+Before going live:
+- [ ] Change JWT_SECRET to a strong random value
+- [ ] Update all default passwords
+- [ ] Enable HTTPS (automatic on Vercel and Render)
+- [ ] Set up monitoring (Render provides basic monitoring)
+- [ ] Configure custom domain (optional)
+- [ ] Set up error tracking (Sentry, LogRocket, etc.)
+- [ ] Test all user flows (signup, login, check-ins, alerts)
+- [ ] Load test the backend
+- [ ] Set up backups for PostgreSQL database
 
-This ensures regulatory compliance and supports the mandatory audit trail requirement.
+---
+
+## Support
+
+If you encounter issues:
+1. Check the logs in Render dashboard
+2. Check browser console for frontend errors
+3. Verify all environment variables are set correctly
+4. Test backend endpoints directly using Postman or curl
+
+---
+
+**Last Updated:** 2026-09-08
