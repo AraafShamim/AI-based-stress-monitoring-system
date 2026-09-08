@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MannSetu | Counsellor Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="counsellor.css">
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+<div class="dashboard-shell">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-top">
+
+      <div class="brand">
+        <span class="brand-hindi">मन</span><span class="brand-setu">Setu</span>
+      </div>
+
+      <button class="sidebar-close" id="sidebarClose">
+        <i data-lucide="x"></i>
+      </button>
+
+      <div class="counsellor-profile">
+        <div class="profile-avatar avatar-blue">DR</div>
+
+        <div>
+          <strong>Dr. Anjali Singh</strong>
+          <span>Counsellor</span>
+        </div>
+
+        <i data-lucide="more-horizontal" class="muted-icon"></i>
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <button class="nav-item active" data-nav="Dashboard">
+          <i data-lucide="layout-dashboard"></i>
+          <span>Dashboard</span>
+        </button>
+
+        <button class="nav-item" data-nav="My Clients">
+          <i data-lucide="users"></i>
+          <span>My Clients</span>
+        </button>
+
+        <button class="nav-item" data-nav="Appointments">
+          <i data-lucide="calendar-days"></i>
+          <span>Appointments</span>
+        </button>
+
+        <button class="nav-item" data-nav="Mood Trends">
+          <i data-lucide="trending-down"></i>
+          <span>Mood Trends</span>
+        </button>
+
+        <button class="nav-item" data-nav="AI Insights">
+          <i data-lucide="sparkles"></i>
+          <span>AI Insights</span>
+        </button>
+
+        <button class="nav-item" data-nav="Messages">
+          <i data-lucide="message-circle"></i>
+          <span>Messages</span>
+          <span class="nav-count">4</span>
+        </button>
+
+        <button class="nav-item" data-nav="Reports">
+          <i data-lucide="file-bar-chart"></i>
+          <span>Reports</span>
+        </button>
+
+        <button class="nav-item" data-nav="Emergency Alerts">
+          <i data-lucide="alert-triangle"></i>
+          <span>Emergency Alerts</span>
+          <span class="nav-alert-dot"></span>
+        </button>
+
+      </nav>
+
+    </div>
+
+    <div class="sidebar-bottom">
+
+      <button class="nav-item" id="settingsBtn">
+        <i data-lucide="settings"></i>
+        <span>Settings</span>
+      </button>
+
+      <button class="logout-button" id="logoutBtn">
+        <i data-lucide="log-out"></i>
+        <span>Log out</span>
+      </button>
+
+      <div class="privacy-note">
+        <i data-lucide="heart-pulse"></i>
+        <span>Client wellbeing, handled with care.</span>
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+
+      <button class="menu-button" id="menuButton">
+        <i data-lucide="menu"></i>
+      </button>
+
+      <div class="page-heading">
+        <p class="eyebrow">Monday, September 4, 2026</p>
+        <h1>Counsellor Dashboard</h1>
+        <p>Monitor client wellbeing and provide timely support.</p>
+      </div>
+
+      <div class="topbar-actions">
+
+        <label class="search-field">
+          <i data-lucide="search"></i>
+          <input
+            id="clientSearch"
+            type="text"
+            placeholder="Search clients"
+          >
+        </label>
+
+        <div class="notification-wrap">
+
+          <button class="icon-button" id="notificationBtn">
+            <i data-lucide="bell"></i>
+            <span class="notification-dot"></span>
+          </button>
+
+          <div class="notification-popover" id="notificationPopover" hidden>
+            <strong>Notifications</strong>
+            <p>3 client updates need your review.</p>
+            <button id="markRead">Mark as read</button>
+          </div>
+
+        </div>
+
+        <div class="top-profile">
+          <div class="profile-avatar avatar-blue small">DR</div>
+          <i data-lucide="chevron-down"></i>
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+    <div class="dashboard-content">
+
+      <!-- WELCOME -->
+      <section class="welcome-row">
+
+        <div>
+          <p class="welcome-kicker">Your practice at a glance</p>
+
+          <h2>
+            Good morning, Dr. Singh
+            <span>✦</span>
+          </h2>
+
+          <p>
+            Here's an overview of your clients and today's activities.
+          </p>
+        </div>
+
+        <div class="date-chip">
+          <i data-lucide="calendar-days"></i>
+          <span>Sep 4, 2026</span>
+        </div>
+
+      </section>
+
+
+      <!-- DIRECT CALL -->
+      <section class="direct-call-card">
+
+        <div class="direct-call-copy">
+
+          <span class="direct-call-icon">
+            <i data-lucide="phone"></i>
+          </span>
+
+          <div>
+
+            <p class="direct-call-label">
+              Immediate support
+            </p>
+
+            <h2>Need to reach a client?</h2>
+
+            <p>
+              Start a secure call with a client who may need urgent support.
+            </p>
+
+          </div>
+
+        </div>
+
+        <a
+          class="direct-call-button"
+          href="tel:+919876543210"
+          id="callClient"
+        >
+          <i data-lucide="phone"></i>
+          Call Client C
+          <i data-lucide="arrow-up-right"></i>
+        </a>
+
+      </section>
+
+
+      <!-- STATS -->
+      <section class="stats-grid">
+
+        <div class="stat-card">
+
+          <div class="stat-card-top">
+
+            <span class="stat-icon">
+              <i data-lucide="users"></i>
+            </span>
+
+            <span class="trend-badge">
+              <i data-lucide="trending-down"></i>
+              +6.7%
+            </span>
+
+          </div>
+
+          <p>Total Clients</p>
+          <strong>128</strong>
+          <small>+8 this month</small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-card-top">
+            <span class="stat-icon">
+              <i data-lucide="activity"></i>
+            </span>
+          </div>
+
+          <p>Active Clients</p>
+          <strong>96</strong>
+          <small>Currently engaging</small>
+
+        </div>
+
+
+        <div class="stat-card warning">
+
+          <div class="stat-card-top">
+            <span class="stat-icon">
+              <i data-lucide="alert-triangle"></i>
+            </span>
+          </div>
+
+          <p>High Risk</p>
+          <strong>12</strong>
+          <small>Requires attention</small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+          <div class="stat-card-top">
+            <span class="stat-icon">
+              <i data-lucide="calendar-days"></i>
+            </span>
+          </div>
+
+          <p>Sessions Today</p>
+          <strong>6</strong>
+          <small>2 remaining</small>
+
+        </div>
+
+      </section>
+
+
+      <!-- CLIENTS + ALERTS -->
+      <div class="content-grid primary-grid">
+
+        <section class="panel clients-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>Client Overview</h3>
+            </div>
+
+            <button class="panel-action notify-action">
+              View all clients
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+
+          <div class="table-wrap">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>Client</th>
+                  <th>Age</th>
+                  <th>Last check-in</th>
+                  <th>Distress level</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+
+              </thead>
+
+              <tbody id="clientTable">
+
+                <tr data-client="Client A">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar low">AR</div>
+                      <strong>Client A</strong>
+                    </div>
+                  </td>
+
+                  <td>21</td>
+                  <td>Today, 9:12 AM</td>
+
+                  <td>
+                    <span class="level-pill low">
+                      <span></span>Low
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill low">Stable</span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      View
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+
+                <tr data-client="Client B">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar moderate">KM</div>
+                      <strong>Client B</strong>
+                    </div>
+                  </td>
+
+                  <td>19</td>
+                  <td>Yesterday</td>
+
+                  <td>
+                    <span class="level-pill moderate">
+                      <span></span>Moderate
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill moderate">
+                      Monitoring
+                    </span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      View
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+
+                <tr data-client="Client C">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar high">NS</div>
+                      <strong>Client C</strong>
+                    </div>
+                  </td>
+
+                  <td>23</td>
+                  <td>Today, 8:45 AM</td>
+
+                  <td>
+                    <span class="level-pill high">
+                      <span></span>High
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill high">
+                      Attention Required
+                    </span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      View
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+
+                <tr data-client="Client D">
+
+                  <td>
+                    <div class="client-cell">
+                      <div class="client-avatar low">RD</div>
+                      <strong>Client D</strong>
+                    </div>
+                  </td>
+
+                  <td>28</td>
+                  <td>Mon, 4:20 PM</td>
+
+                  <td>
+                    <span class="level-pill low">
+                      <span></span>Low
+                    </span>
+                  </td>
+
+                  <td>
+                    <span class="status-pill low">Stable</span>
+                  </td>
+
+                  <td>
+                    <button class="text-action client-view">
+                      View
+                      <i data-lucide="arrow-up-right"></i>
+                    </button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+          <div class="empty-search" id="emptySearch" hidden></div>
+
+        </section>
+
+
+        <!-- ALERTS -->
+        <section class="panel alerts-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>Priority Alerts</h3>
+            </div>
+
+            <button class="panel-action notify-action">
+              See all
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+
+          <div class="alert-list">
+
+            <div class="alert-item">
+
+              <div class="alert-icon">
+                <i data-lucide="alert-triangle"></i>
+              </div>
+
+              <div class="alert-copy">
+
+                <strong>High distress score detected</strong>
+
+                <span>
+                  Client C · Risk score 82/100
+                </span>
+
+                <small>12 min ago</small>
+
+              </div>
+
+              <button class="review-button">
+                Review
+              </button>
+
+            </div>
+
+
+            <div class="alert-item">
+
+              <div class="alert-icon">
+                <i data-lucide="alert-triangle"></i>
+              </div>
+
+              <div class="alert-copy">
+
+                <strong>Repeated negative mood pattern</strong>
+
+                <span>
+                  Client B · 4 days in a row
+                </span>
+
+                <small>2 hrs ago</small>
+
+              </div>
+
+              <button class="review-button">
+                Review
+              </button>
+
+            </div>
+
+
+            <div class="alert-item">
+
+              <div class="alert-icon">
+                <i data-lucide="alert-triangle"></i>
+              </div>
+
+              <div class="alert-copy">
+
+                <strong>No check-in for 7 days</strong>
+
+                <span>
+                  Client A · Last seen Aug 28
+                </span>
+
+                <small>Yesterday</small>
+
+              </div>
+
+              <button class="review-button">
+                Review
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- ANALYTICS -->
+      <div class="content-grid analytics-grid">
+
+        <section class="panel trend-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>Client Distress Trend</h3>
+              <p>Across all active clients</p>
+            </div>
+
+          </div>
+
+
+          <div class="chart-toolbar">
+
+            <div class="legend">
+
+              <span>
+                <i class="legend-dot blue"></i>
+                Low
+              </span>
+
+              <span>
+                <i class="legend-dot green"></i>
+                Moderate
+              </span>
+
+              <span>
+                <i class="legend-dot orange"></i>
+                High
+              </span>
+
+            </div>
+
+
+            <div class="period-tabs">
+
+              <button class="selected" data-period="7 Days">
+                7 Days
+              </button>
+
+              <button data-period="30 Days">
+                30 Days
+              </button>
+
+              <button data-period="3 Months">
+                3 Months
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div
+            class="trend-chart"
+            id="trendChart"
+          >
+
+            <div class="chart-y-labels">
+
+              <span>High</span>
+              <span>Moderate</span>
+              <span>Low</span>
+
+            </div>
+
+
+            <div class="chart-area">
+
+              <div class="chart-grid-lines">
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+                <i></i>
+              </div>
+
+
+              <svg
+                viewBox="0 0 600 160"
+                preserveAspectRatio="none"
+              >
+
+                <polyline
+                  class="chart-line blue-line"
+                  points="0,115 85,105 170,112 255,90 340,95 425,78 510,82 600,65"
+                />
+
+                <polyline
+                  class="chart-line green-line"
+                  points="0,75 85,82 170,70 255,78 340,62 425,68 510,52 600,58"
+                />
+
+                <polyline
+                  class="chart-line orange-line"
+                  points="0,125 85,118 170,128 255,115 340,120 425,105 510,112 600,96"
+                />
+
+              </svg>
+
+
+              <div class="chart-x-labels">
+
+                <span>Mon</span>
+                <span>Tue</span>
+                <span>Wed</span>
+                <span>Thu</span>
+                <span>Fri</span>
+                <span>Sat</span>
+                <span>Sun</span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- RISK DISTRIBUTION -->
+        <section class="panel risk-panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>Client Risk Distribution</h3>
+              <p>Current active clients</p>
+            </div>
+
+          </div>
+
+
+          <div class="donut-wrap">
+
+            <div class="donut">
+
+              <div class="donut-center">
+                <strong>96</strong>
+                <span>Clients</span>
+              </div>
+
+            </div>
+
+
+            <div class="risk-legend">
+
+              <span>
+                <i class="legend-dot blue"></i>
+                Low <b>74%</b>
+              </span>
+
+              <span>
+                <i class="legend-dot green"></i>
+                Moderate <b>17%</b>
+              </span>
+
+              <span>
+                <i class="legend-dot orange"></i>
+                High <b>9%</b>
+              </span>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- SCHEDULE + QUICK ACTIONS -->
+      <div class="content-grid bottom-grid">
+
+        <section class="panel">
+
+          <div class="panel-header">
+
+            <div>
+              <h3>Today's Schedule</h3>
+              <p>Your upcoming counselling sessions</p>
+            </div>
+
+            <button class="panel-action notify-action">
+              View calendar
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+
+          <div class="schedule-list">
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                10:00 AM
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar low">AR</div>
+
+                <div>
+                  <strong>Client A</strong>
+                  <span>Follow-up session</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                Start
+              </button>
+
+            </div>
+
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                11:30 AM
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar moderate">KM</div>
+
+                <div>
+                  <strong>Client B</strong>
+                  <span>Mood assessment</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                Start
+              </button>
+
+            </div>
+
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                2:00 PM
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar high">NS</div>
+
+                <div>
+                  <strong>Client C</strong>
+                  <span>Urgent counselling</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                Start
+              </button>
+
+            </div>
+
+
+            <div class="schedule-item">
+
+              <div class="schedule-time">
+                <i data-lucide="clock"></i>
+                4:30 PM
+              </div>
+
+              <div class="schedule-person">
+
+                <div class="client-avatar low">RD</div>
+
+                <div>
+                  <strong>Client D</strong>
+                  <span>Regular check-in</span>
+                </div>
+
+              </div>
+
+              <button class="start-button schedule-btn">
+                Start
+              </button>
+
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- QUICK ACTIONS -->
+        <section class="panel">
+
+          <div class="panel-header">
+            <div>
+              <h3>Quick Actions</h3>
+              <p>Common counsellor tasks</p>
+            </div>
+          </div>
+
+
+          <div class="quick-actions">
+
+            <button>
+              <span class="action-icon blue-bg">
+                <i data-lucide="user-plus"></i>
+              </span>
+              <span>Add Client</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+
+            <button>
+              <span class="action-icon green-bg">
+                <i data-lucide="calendar-plus"></i>
+              </span>
+              <span>Schedule</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+
+            <button>
+              <span class="action-icon slate-bg">
+                <i data-lucide="file-text"></i>
+              </span>
+              <span>Reports</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+
+            <button>
+              <span class="action-icon blue-bg">
+                <i data-lucide="message-circle"></i>
+              </span>
+              <span>Messages</span>
+              <i data-lucide="arrow-up-right"></i>
+            </button>
+
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- FOOTER -->
+      <footer class="dashboard-footer">
+
+        <span>
+          <i data-lucide="shield-check"></i>
+          MannSetu · Secure counsellor workspace
+        </span>
+
+        <span>
+          Client information is confidential.
+        </span>
+
+      </footer>
+
+    </div>
+
+  </main>
+
+</div>
+
+
+<div class="toast" id="toast" hidden>
+  <i data-lucide="check-circle"></i>
+  <span id="toastText"></span>
+</div>
+
+
+<script src="counsellor.js"></script>
+
+</body>
+</html>

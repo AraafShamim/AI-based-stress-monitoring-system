@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MannSetu | User Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Arya + Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="sidebar" id="sidebar">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <span class="mann">मन</span><span class="setu">Setu</span>
+        </div>
+
+        <!-- PROFILE -->
+        <div class="profile">
+            <div class="profile-avatar">
+                AK
+            </div>
+
+            <div class="profile-info">
+                <h4>Akriti Kumari</h4>
+                <p>User</p>
+            </div>
+
+            <i class="fa-solid fa-ellipsis"></i>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav class="navigation">
+
+            <a href="#" class="nav-item active">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-face-smile"></i>
+                <span>My Mood</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-square-check"></i>
+                <span>Check-ins</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-book-open"></i>
+                <span>Resources</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-message"></i>
+                <span>Messages</span>
+                <span class="badge">2</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-regular fa-user"></i>
+                <span>Profile</span>
+            </a>
+
+            <a href="#" class="nav-item emergency">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                <span>Emergency Alerts</span>
+                <span class="orange-dot"></span>
+            </a>
+
+        </nav>
+
+        <!-- BOTTOM MENU -->
+        <div class="sidebar-bottom">
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+            <a href="#" id="logoutBtn" class="nav-item logout">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= MAIN ================= -->
+
+    <main class="main-content">
+
+        <!-- TOP HEADER -->
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <button class="mobile-menu" id="menuBtn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+
+                <div>
+                    <div class="date-text">
+                        Monday, September 4, 2026
+                    </div>
+
+                    <h1>User Dashboard</h1>
+
+                    <p>
+                        Track your mood, manage your wellbeing,
+                        and get the support you need.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input
+                        type="text"
+                        placeholder="Search anything..."
+                    >
+                </div>
+
+                <div class="notification">
+                    <i class="fa-regular fa-bell"></i>
+                    <span></span>
+                </div>
+
+                <div class="header-avatar">
+                    AK
+                </div>
+
+                <i class="fa-solid fa-chevron-down arrow"></i>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================= CONTENT ================= -->
+
+        <section class="content">
+
+
+            <!-- WELCOME -->
+
+            <div class="welcome-section">
+
+                <div>
+                    <span class="section-label">
+                        YOUR WELLBEING MATTERS
+                    </span>
+
+                    <h2>
+                        Good morning, Akriti!
+                        <span class="sparkle">✦</span>
+                    </h2>
+
+                    <p>
+                        Here's a quick overview of how you're doing today.
+                    </p>
+                </div>
+
+                <button class="date-button">
+                    <i class="fa-regular fa-calendar"></i>
+                    Sep 4, 2026
+                </button>
+
+            </div>
+
+
+            <!-- ================= STAT CARDS ================= -->
+
+            <div class="stats-grid">
+
+
+                <!-- MOOD -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        Current Mood
+                    </p>
+
+                    <h3>
+                        Neutral
+                    </h3>
+
+                    <span class="stat-description">
+                        Feeling okay today
+                    </span>
+
+                </div>
+
+
+                <!-- STRESS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        Stress Level
+                    </p>
+
+                    <h3>
+                        42%
+                    </h3>
+
+                    <span class="stat-description">
+                        Moderate
+                    </span>
+
+                </div>
+
+
+                <!-- CHECK INS -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon pink">
+                        <i class="fa-regular fa-heart"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        Check-ins Today
+                    </p>
+
+                    <h3>
+                        1
+                    </h3>
+
+                    <span class="stat-description">
+                        Keep it up!
+                    </span>
+
+                </div>
+
+
+                <!-- STREAK -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon light-blue">
+                        <i class="fa-regular fa-calendar"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        Streak
+                    </p>
+
+                    <h3>
+                        2 days
+                    </h3>
+
+                    <span class="stat-description">
+                        Great consistency!
+                    </span>
+
+                </div>
+
+
+                <!-- SCORE -->
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+
+                    <p class="stat-title">
+                        Wellbeing Score
+                    </p>
+
+                    <h3>
+                        6.5 / 10
+                    </h3>
+
+                    <span class="stat-description">
+                        There's always room to grow.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= GRAPH + AI ================= -->
+
+            <div class="middle-grid">
+
+
+                <!-- GRAPH -->
+
+                <div class="dashboard-card chart-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <h3>
+                                <i class="fa-solid fa-chart-line"></i>
+                                Mood & Stress Trend
+                            </h3>
+
+                            <p>
+                                Your wellbeing patterns over the past week
+                            </p>
+                        </div>
+
+                        <a href="#">
+                            View details
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+
+                    </div>
+
+
+                    <div class="chart">
+
+                        <div class="y-axis">
+                            <span>100</span>
+                            <span>80</span>
+                            <span>60</span>
+                            <span>40</span>
+                            <span>20</span>
+                            <span>0</span>
+                        </div>
+
+                        <div class="chart-area">
+
+                            <div class="grid-lines"></div>
+
+                            <svg viewBox="0 0 700 220"
+                                 preserveAspectRatio="none">
+
+                                <!-- Stress -->
+                                <polyline
+                                    class="stress-line"
+                                    points="
+                                    20,160
+                                    130,160
+                                    240,125
+                                    350,160
+                                    460,160
+                                    570,125
+                                    680,145
+                                    "
+                                />
+
+                                <!-- Mood -->
+                                <polyline
+                                    class="mood-line"
+                                    points="
+                                    20,190
+                                    130,195
+                                    240,188
+                                    350,198
+                                    460,194
+                                    570,190
+                                    680,188
+                                    "
+                                />
+
+                                <!-- Stress dots -->
+
+                                <circle cx="20" cy="160" r="5"/>
+                                <circle cx="130" cy="160" r="5"/>
+                                <circle cx="240" cy="125" r="5"/>
+                                <circle cx="350" cy="160" r="5"/>
+                                <circle cx="460" cy="160" r="5"/>
+                                <circle cx="570" cy="125" r="5"/>
+                                <circle cx="680" cy="145" r="5"/>
+
+                            </svg>
+
+
+                            <div class="days">
+                                <span>Mon</span>
+                                <span>Tue</span>
+                                <span>Wed</span>
+                                <span>Thu</span>
+                                <span>Fri</span>
+                                <span>Sat</span>
+                                <span>Sun</span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="legend">
+
+                        <span>
+                            <i class="stress-dot"></i>
+                            Stress Level
+                        </span>
+
+                        <span>
+                            <i class="mood-dot"></i>
+                            Mood
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AI INSIGHT -->
+
+                <div class="dashboard-card ai-card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            <i class="fa-regular fa-lightbulb"></i>
+                            AI Insight
+                            <span class="sparkle">✦</span>
+                        </h3>
+
+                    </div>
+
+                    <div class="ai-content">
+
+                        <div class="ai-icon">
+                            <i class="fa-solid fa-lightbulb"></i>
+                        </div>
+
+                        <h2>
+                            You're doing better!
+                        </h2>
+
+                        <p>
+                            Your mood has been stable this week.
+                            Keep practicing self-care and take breaks
+                            when you feel overwhelmed.
+                        </p>
+
+                        <button>
+                            Learn more
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= BOTTOM CARDS ================= -->
+
+            <div class="bottom-grid">
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            <i class="fa-solid fa-bolt"></i>
+                            Quick Actions
+                        </h3>
+
+                        <a href="#">
+                            View all
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <div class="action-item">
+                            <div class="action-icon">
+                                <i class="fa-regular fa-face-smile"></i>
+                            </div>
+
+                            <div>
+                                <b>Log Mood</b>
+                                <span>How are you feeling?</span>
+                            </div>
+                        </div>
+
+
+                        <div class="action-item">
+                            <div class="action-icon green-bg">
+                                <i class="fa-regular fa-calendar-check"></i>
+                            </div>
+
+                            <div>
+                                <b>Take Check-in</b>
+                                <span>Share your thoughts</span>
+                            </div>
+                        </div>
+
+
+                        <div class="action-item">
+                            <div class="action-icon blue-bg">
+                                <i class="fa-regular fa-book-open"></i>
+                            </div>
+
+                            <div>
+                                <b>Browse Resources</b>
+                                <span>Helpful articles & tools</span>
+                            </div>
+                        </div>
+
+
+                        <div class="action-item">
+                            <div class="action-icon teal-bg">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+
+                            <div>
+                                <b>Contact Counsellor</b>
+                                <span>Get professional support</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RECOMMENDATIONS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            <i class="fa-regular fa-star"></i>
+                            Personalized Recommendations
+                        </h3>
+
+                    </div>
+
+
+                    <div class="recommendations">
+
+                        <div class="recommendation">
+                            <div class="rec-icon green-bg">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+
+                            <div>
+                                <b>Try a short breathing exercise</b>
+                                <span>Calm your mind in 2 minutes</span>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+
+
+                        <div class="recommendation">
+                            <div class="rec-icon blue-bg">
+                                <i class="fa-regular fa-book-open"></i>
+                            </div>
+
+                            <div>
+                                <b>Read: Managing Anxiety</b>
+                                <span>Helpful guide for better mental health</span>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+
+
+                        <div class="recommendation">
+                            <div class="rec-icon pink-bg">
+                                <i class="fa-regular fa-heart"></i>
+                            </div>
+
+                            <div>
+                                <b>You seem a bit stressed</b>
+                                <span>Consider a quick check-in</span>
+                            </div>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- UPCOMING CHECKINS -->
+
+                <div class="dashboard-card">
+
+                    <div class="card-header">
+
+                        <h3>
+                            <i class="fa-regular fa-calendar"></i>
+                            Upcoming Check-ins
+                        </h3>
+
+                        <a href="#">
+                            View all
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+
+                    </div>
+
+
+                    <div class="checkin-list">
+
+                        <div class="checkin">
+                            <div class="check-date">
+                                <b>Today</b>
+                                <span>Sep 4</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>Daily Check-in</b>
+                                <span>4:00 PM</span>
+                            </div>
+
+                            <span class="status pending">
+                                Pending
+                            </span>
+                        </div>
+
+
+                        <div class="checkin">
+                            <div class="check-date">
+                                <b>Tomorrow</b>
+                                <span>Sep 5</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>Mood Check-in</b>
+                                <span>10:30 AM</span>
+                            </div>
+
+                            <span class="status scheduled">
+                                Scheduled
+                            </span>
+                        </div>
+
+
+                        <div class="checkin">
+                            <div class="check-date">
+                                <b>Fri</b>
+                                <span>Sep 6</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>Wellbeing Assessment</b>
+                                <span>08:20 PM</span>
+                            </div>
+
+                            <span class="status scheduled">
+                                Scheduled
+                            </span>
+                        </div>
+
+
+                        <div class="checkin">
+                            <div class="check-date">
+                                <b>Sat</b>
+                                <span>Sep 7</span>
+                            </div>
+
+                            <div class="check-info">
+                                <b>Follow-up Check-in</b>
+                                <span>09:15 AM</span>
+                            </div>
+
+                            <span class="status pending">
+                                Pending
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="dashboard.js"></script>
+
+</body>
+</html>
