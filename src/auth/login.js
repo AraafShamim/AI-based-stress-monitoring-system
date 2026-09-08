@@ -1,142 +1,221 @@
-// === DROPDOWN LOGIC ===
-const menuBtn = document.getElementById("menuBtn");
-const menuDropdown = document.getElementById("menuDropdown");
-const languageBtn = document.getElementById("languageBtn");
-const languageDropdown = document.getElementById("languageDropdown");
+/**
+ * Login page JavaScript - MannSetu
+ * Handles authentication and role-based navigation
+ */
 
-// Toggle Menu
-menuBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    menuDropdown.classList.toggle("show");
-    languageDropdown.classList.remove("show");
-});
+import apiService from '../services/apiService.js';
 
-// Toggle Language
-languageBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    languageDropdown.classList.toggle("show");
-    menuDropdown.classList.remove("show");
-});
+// DOM Elements
+const menuBtn = document.getElementById('menuBtn');
+const menuDropdown = document.getElementById('menuDropdown');
+const languageBtn = document.getElementById('languageBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+const loginForm = document.getElementById('loginForm');
+const usernameInput = document.getElementById('usernameInput');
+const emailInput = document.getElementById('email');
+const passwordInput = document.getElementById('password');
+const eyeIcon = document.getElementById('eye');
 
-// Close dropdowns when clicking outside
-document.addEventListener("click", () => {
-    menuDropdown.classList.remove("show");
-    languageDropdown.classList.remove("show");
-});
+// Default target dashboard
+let targetDashboard = '../pages/counsellor-dashboard/counsellor.html';
 
-// Prevent closing when clicking inside dropdowns
-menuDropdown.addEventListener("click", (e) => e.stopPropagation());
-languageDropdown.addEventListener("click", (e) => e.stopPropagation());
+// ==================== DROPDOWN LOGIC ====================
 
-// === LANGUAGE SWITCHER ===
-const langButtons = languageDropdown.querySelectorAll("button");
-langButtons.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        const lang = e.target.innerText.trim();
-        if (lang === "हिन्दी") {
-            window.location.href = "login-hindi.html";
-        } else if (lang === "English") {
-            window.location.href = "login.html";
-        }
+function toggleMenu() {
+    menuDropdown.classList.toggle('show');
+    languageDropdown.classList.remove('show');
+}
+
+function toggleLanguage() {
+    languageDropdown.classList.toggle('show');
+    menuDropdown.classList.remove('show');
+}
+
+function closeAllDropdowns() {
+    menuDropdown.classList.remove('show');
+    languageDropdown.classList.remove('show');
+}
+
+// Event Listeners for Dropdowns
+if (menuBtn && menuDropdown) {
+    menuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMenu();
     });
-});
+}
 
-// === ROLE SELECTION ===
-let targetDashboard = "../pages/counsellor-dashboard/counsellor.html"; // Default
-const roleButtons = document.querySelectorAll(".role-btn");
-const welcomeText = document.getElementById("welcomeText");
-
-roleButtons.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-        e.preventDefault();
-        
-        // Highlight selected role
-        roleButtons.forEach(b => b.style.color = "#173B4D");
-        btn.style.color = "#1688C9";
-
-        // Set the destination URL
-        targetDashboard = btn.getAttribute("data-url");
-
-        // Update the greeting text to show the selected role
-        const roleName = btn.innerText.trim();
-        if (window.location.pathname.includes("hindi")) {
-            welcomeText.innerText = roleName + " के रूप में लॉगिन करें";
-        } else {
-            welcomeText.innerText = "Login as " + roleName;
-        }
-
-        menuDropdown.classList.remove("show");
+if (languageBtn && languageDropdown) {
+    languageBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleLanguage();
     });
+}
+
+document.addEventListener('click', () => {
+    closeAllDropdowns();
 });
 
-// === LOGIN FORM SUBMISSION ===
-const loginForm = document.getElementById("loginForm");
-const password = document.getElementById("password");
-const eye = document.getElementById("eye");
+// Prevent closing when clicking inside
+if (menuDropdown) {
+    menuDropdown.addEventListener('click', (e) => e.stopPropagation());
+}
+if (languageDropdown) {
+    languageDropdown.addEventListener('click', (e) => e.stopPropagation());
+}
 
-// Password show/hide
-eye.addEventListener("click", () => {
-    if (password.type === "password") {
-        password.type = "text";
-        eye.classList.remove("fa-eye");
-        eye.classList.add("fa-eye-slash");
-    } else {
-        password.type = "password";
-        eye.classList.remove("fa-eye-slash");
-        eye.classList.add("fa-eye");
-    }
-});
+// ==================== LANGUAGE SWITCHER ====================
 
-// Form Submit
-loginForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const pass = password.value.trim();
-    const userNameInput = document.getElementById("usernameInput").value.trim();
-
-    if (pass === "") {
-        alert("Please enter your password.");
-        return;
-    }
-
-    try {
-        const response = await fetch("http://localhost:8080/api/v1/auth/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email: userNameInput, password: pass })
+function setupLanguageSwitcher() {
+    const langButtons = languageDropdown.querySelectorAll('button');
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const lang = e.target.innerText.trim();
+            if (lang === 'हिन्दी') {
+                window.location.href = 'login-hindi.html';
+            } else if (lang === 'English') {
+                window.location.href = 'login.html';
+            }
         });
+    });
+}
 
-        if (!response.ok) {
-            throw new Error("Invalid credentials");
-        }
+// ==================== ROLE SELECTION ====================
 
-        const data = await response.json();
+function setupRoleSelection() {
+    const roleButtons = document.querySelectorAll('.role-btn');
+    const welcomeText = document.getElementById('welcomeText');
 
-        // Save auth data
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("loggedInUser", data.name);
-        localStorage.setItem("userRole", data.role);
+    roleButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
 
-        // Redirect based on backend role or selected dashboard
-        const role = (data.role || "").toLowerCase();
-        const hindiMode = window.location.pathname.includes("hindi");
-        if (role === 'counsellor') {
-            window.location.href = hindiMode ? "../pages/counsellor-dashboard/counsellor-hindi.html" : "../pages/counsellor-dashboard/counsellor.html";
-        } else if (role === 'district') {
-            window.location.href = hindiMode ? "../pages/district-dashboard/district-hindi.html" : "../pages/district-dashboard/district.html";
-        } else if (role === 'state') {
-            window.location.href = hindiMode ? "../pages/state/state-hindi.html" : "../pages/state/state.html";
-        } else if (role === 'national' || role === 'admin') {
-            window.location.href = hindiMode ? "../pages/national/national-hindi.html" : "../pages/national/national.html";
-        } else {
-            // Fallback
-            window.location.href = targetDashboard;
-        }
+            // Highlight selected role
+            roleButtons.forEach(b => b.style.color = '#173B4D');
+            btn.style.color = '#1688C9';
 
-    } catch (error) {
-        alert("Login failed. Please check your email and password.");
-        console.error(error);
+            // Set the destination URL
+            targetDashboard = btn.getAttribute('data-url');
+
+            // Update the greeting text
+            const roleName = btn.innerText.trim();
+            const isHindi = window.location.pathname.includes('hindi');
+
+            if (isHindi) {
+                welcomeText.innerText = roleName + ' के रूप में लॉगिन करें';
+            } else {
+                welcomeText.innerText = 'Login as ' + roleName;
+            }
+
+            closeAllDropdowns();
+        });
+    });
+}
+
+// ==================== PASSWORD VISIBILITY ====================
+
+function setupPasswordVisibility() {
+    if (eyeIcon && passwordInput) {
+        eyeIcon.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
     }
-});
+}
+
+// ==================== FORM SUBMISSION ====================
+
+function setupLoginForm() {
+    if (!loginForm) return;
+
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = (emailInput.value.trim() || usernameInput.value.trim()).toLowerCase();
+        const password = passwordInput.value.trim();
+
+        // Validation
+        if (!email || !password) {
+            alert('Please enter both email/phone and password.');
+            return;
+        }
+
+        if (password.length < 6) {
+            alert('Password must be at least 6 characters long.');
+            return;
+        }
+
+        // Show loading state
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerText;
+        submitBtn.innerText = 'Logging in...';
+        submitBtn.disabled = true;
+
+        try {
+            const response = await apiService.login(email, password);
+
+            if (!response) {
+                throw new Error('Invalid response from server');
+            }
+
+            // Get user data
+            const user = apiService.getUser();
+            const role = (user.role || 'user').toLowerCase();
+            const isHindi = window.location.pathname.includes('hindi');
+
+            // Redirect based on role
+            let redirectUrl;
+            switch (role) {
+                case 'counsellor':
+                    redirectUrl = isHindi ? '../pages/counsellor-dashboard/counsellor-hindi.html' : '../pages/counsellor-dashboard/counsellor.html';
+                    break;
+                case 'district':
+                case 'district_admin':
+                    redirectUrl = isHindi ? '../pages/district-dashboard/district-hindi.html' : '../pages/district-dashboard/district.html';
+                    break;
+                case 'state':
+                case 'state_admin':
+                    redirectUrl = isHindi ? '../pages/state/state-hindi.html' : '../pages/state/state.html';
+                    break;
+                case 'national':
+                case 'national_admin':
+                case 'admin':
+                    redirectUrl = isHindi ? '../pages/national/national-hindi.html' : '../pages/national/national.html';
+                    break;
+                default:
+                    redirectUrl = targetDashboard;
+            }
+
+            window.location.href = redirectUrl;
+
+        } catch (error) {
+            console.error('Login error:', error);
+            alert(error.message || 'Login failed. Please check your credentials.');
+        } finally {
+            submitBtn.innerText = originalBtnText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+// ==================== INITIALIZATION ====================
+
+function init() {
+    setupLanguageSwitcher();
+    setupRoleSelection();
+    setupPasswordVisibility();
+    setupLoginForm();
+}
+
+// Run initialization when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
