@@ -15,8 +15,9 @@ const getEnv = (key, fallback) => {
     return fallback;
 };
 
-const API_BASE_URL = getEnv('VITE_API_URL', 'http://localhost:8080/api/v1');
-const AI_SERVICE_BASE_URL = getEnv('VITE_AI_SERVICE_URL', 'http://localhost:8000/ai/v1');
+const BACKEND_URL = 'https://mannsetu-backend.onrender.com';
+const API_BASE_URL = getEnv('VITE_API_URL', `${BACKEND_URL}/api/v1`);
+const AI_SERVICE_BASE_URL = getEnv('VITE_AI_SERVICE_URL', `${BACKEND_URL}/api/v1/ai`);
 
 // Store auth token
 let authToken = null;
